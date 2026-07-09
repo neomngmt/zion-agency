@@ -52,10 +52,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .dropdown:hover .dropdown-trigger svg{ transform:rotate(180deg); }
 .dropdown:hover .dropdown-trigger{ color:var(--text); }
 .dropdown-menu{
-  position:absolute; top:calc(100% + 18px); left:50%; transform:translateX(-50%) translateY(6px);
+  position:absolute; top:100%; left:50%; margin-top:18px; transform:translateX(-50%) translateY(6px);
   min-width:230px; background:var(--panel); border:1px solid var(--border); border-radius:10px;
   padding:8px; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;
   box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+.dropdown-menu::before{
+  content:""; position:absolute; left:0; right:0; top:-18px; height:18px; background:transparent;
 }
 .dropdown:hover .dropdown-menu{ opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
 .dropdown-menu a{ display:flex; flex-direction:column; gap:2px; padding:10px 12px; border-radius:7px; font-size:13px; color:var(--text); text-decoration:none; transition:background-color .15s; }
@@ -83,21 +86,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .mobile-toggle.open .icon-close{ display:block; }
 @media (max-width:860px){ .mobile-toggle{ display:flex; } }
 
-.mobile-menu{
-  display:none; position:fixed; inset:0; z-index:70; background:var(--bg);
-  flex-direction:column; justify-content:center; overflow-y:auto;
-  opacity:0; pointer-events:none; transition:opacity .25s ease;
-  padding:110px 32px 40px;
-}
-@media (max-width:860px){ .mobile-menu{ display:flex; } }
-.mobile-menu.open{ opacity:1; pointer-events:auto; }
-.mobile-menu-inner{ display:flex; flex-direction:column; gap:2px; margin:auto 0; width:100%; }
-.mobile-menu a{ text-decoration:none; color:var(--text); font-size:clamp(24px,7vw,30px); font-weight:800; letter-spacing:-0.01em; padding:15px 0; border-bottom:1px solid var(--border); }
-.mobile-sub{ display:flex; flex-direction:column; padding:2px 0 14px 4px; border-bottom:1px solid var(--border); gap:4px; }
-.mobile-sub-label{ font-size:11px; letter-spacing:2px; color:var(--dim); padding:12px 0 8px; }
-.mobile-sub a{ border-bottom:none; padding:8px 0; font-size:16px; font-weight:600; color:var(--dim); }
-.mobile-sub a strong{ color:var(--text); display:block; font-size:17px; font-weight:700; }
-.mobile-cta{ margin-top:26px; text-align:center; border:none !important; background:linear-gradient(135deg, var(--green-soft), var(--green)); color:#04140c !important; border-radius:999px; padding:17px; font-weight:700; font-size:15px !important; letter-spacing:0; }
+.mobile-menu{ display:none; max-height:0; overflow:hidden; transition:max-height .35s ease; border-top:1px solid transparent; background:var(--bg); }
+@media (max-width:860px){ .mobile-menu{ display:block; } }
+.mobile-menu.open{ max-height:80vh; overflow-y:auto; border-top-color:var(--border); }
+.mobile-menu-inner{ padding:22px 0 30px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.mobile-menu a{ text-decoration:none; color:var(--text); font-size:clamp(20px,6vw,24px); font-weight:800; letter-spacing:-0.01em; padding:13px 0; border-bottom:1px solid var(--border); width:100%; display:block; }
+.mobile-menu a:last-of-type{ border-bottom:none; }
+.mobile-menu a.mobile-cta{ margin-top:22px; text-align:center; border:none !important; background:linear-gradient(135deg, var(--green-soft), var(--green)); color:#04140c !important; border-radius:999px !important; padding:16px 0 !important; font-weight:700; font-size:15px !important; letter-spacing:0; width:100% !important; display:block; border-bottom:none !important; box-shadow:0 0 18px var(--glow); }
 
 /* ================= HERO ================= */
 .hero{ position:relative; padding:88px 0 40px; text-align:center; }
@@ -210,14 +205,14 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .closing p{ color:var(--dim); font-size:16px; max-width:480px; margin:0 auto 34px; }
 
 /* ================= FOOTER ================= */
-.site-footer{ display:flex; align-items:center; justify-content:space-between; padding:30px 0 44px; border-top:1px solid var(--border); flex-wrap:wrap; gap:16px; }
-.footer-brand{ font-size:12px; letter-spacing:1.2px; color:var(--dim); display:flex; align-items:center; gap:9px; }
-.footer-brand .star{ width:13px; height:13px; }
-.footer-links{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; font-size:12px; }
+.site-footer{ display:flex; flex-direction:column; align-items:center; gap:14px; padding:26px 0 34px; border-top:1px solid var(--border); text-align:center; }
+.footer-brand{ font-size:11px; letter-spacing:1.2px; color:var(--dim); display:flex; align-items:center; gap:8px; }
+.footer-brand .star{ width:12px; height:12px; }
+.footer-links{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10.5px; row-gap:6px; }
 .footer-links a{ color:var(--dim); text-decoration:none; transition:color .15s; }
 .footer-links a:hover{ color:var(--green-soft); }
+.footer-links .sep{ color:var(--border); }
 .footer-copy{ color:var(--dim); }
-@media (max-width:700px){ .site-footer{ flex-direction:column-reverse; align-items:center; text-align:center; } .footer-links{ justify-content:center; width:100%; } .footer-brand{ justify-content:center; width:100%; } }
 
 [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 [data-reveal].in-view{ opacity:1; transform:translateY(0); }
@@ -234,8 +229,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   animation:writeOn 1.2s steps(20,end) forwards, neoFlicker 3.5s ease-in-out infinite 1.2s;
   pointer-events:none;
 }
-.footer-brand .by-neo-tag{ left:34px; font-size:10px; }
-@media (max-width:860px){ .by-neo-tag{ font-size:8px; left:50px; } .footer-brand .by-neo-tag{ left:70px; font-size:8px; } }
+.footer-brand .by-neo-tag{ left:0; font-size:10px; }
+@media (max-width:860px){ .by-neo-tag{ font-size:8px; left:50px; } .footer-brand .by-neo-tag{ left:0; font-size:8px; } }
 @keyframes neoFlicker{
   0%,100%{ opacity:0.85; }
   50%{ opacity:1; }
@@ -245,6 +240,80 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 @keyframes writeOn{
   to{ -webkit-clip-path:inset(0 0% 0 0); clip-path:inset(0 0% 0 0); }
 }
+
+
+/* ================= PAGE ANIMATIONS ================= */
+.ambient-glow{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background: radial-gradient(600px circle at 18% 8%, rgba(18,179,76,0.09), transparent 60%),
+              radial-gradient(520px circle at 82% 92%, rgba(18,179,76,0.06), transparent 60%);
+  animation: ambientDrift 16s ease-in-out infinite alternate;
+}
+@keyframes ambientDrift{
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(-3%,2%) scale(1.06); }
+}
+
+.hero-inner > *, .simple-hero > *{
+  opacity:0; transform:translateY(18px);
+  animation:heroIn .8s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.hero-inner > *:nth-child(1), .simple-hero > *:nth-child(1){ animation-delay:.05s; }
+.hero-inner > *:nth-child(2), .simple-hero > *:nth-child(2){ animation-delay:.16s; }
+.hero-inner > *:nth-child(3), .simple-hero > *:nth-child(3){ animation-delay:.27s; }
+.hero-inner > *:nth-child(4), .simple-hero > *:nth-child(4){ animation-delay:.38s; }
+.hero-inner > *:nth-child(5), .simple-hero > *:nth-child(5){ animation-delay:.49s; }
+@keyframes heroIn{ to{ opacity:1; transform:translateY(0); } }
+
+@keyframes spinSlow{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+.orbit-ring{ animation: spinSlow 50s linear infinite; }
+.orbit-ring.r2{ animation: spinSlow 34s linear infinite reverse; }
+
+@keyframes floatNode{
+  0%,100%{ transform:translate(-50%,-50%) translateY(0); }
+  50%{ transform:translate(-50%,-50%) translateY(-6px); }
+}
+.orbit-node{ animation: floatNode 5s ease-in-out infinite; }
+.orbit-node.n1{ animation-delay:0s; }
+.orbit-node.n2{ animation-delay:1.2s; }
+.orbit-node.n3{ animation-delay:2.4s; }
+.orbit-node.n4{ animation-delay:3.6s; }
+
+.orbit-core .star-mark{ animation: coreSpin 12s linear infinite; transform-origin:center; }
+@keyframes coreSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+
+/* Cascading reveal for repeated items inside a data-reveal group */
+[data-reveal] .service-row,
+[data-reveal] .instrument,
+[data-reveal] .tl-item,
+[data-reveal] .faq-item,
+[data-reveal] .icon-feature,
+[data-reveal] .content-block,
+[data-reveal] .door-card{
+  opacity:0; transform:translateY(16px);
+  transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+}
+[data-reveal].in-view .service-row,
+[data-reveal].in-view .instrument,
+[data-reveal].in-view .tl-item,
+[data-reveal].in-view .faq-item,
+[data-reveal].in-view .icon-feature,
+[data-reveal].in-view .content-block,
+[data-reveal].in-view .door-card{ opacity:1; transform:translateY(0); }
+
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(1){ transition-delay:.05s; }
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(2){ transition-delay:.14s; }
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(3){ transition-delay:.23s; }
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(4){ transition-delay:.32s; }
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(5){ transition-delay:.41s; }
+[data-reveal].in-view :is(.service-row,.instrument,.tl-item,.faq-item,.icon-feature,.content-block,.door-card):nth-child(6){ transition-delay:.5s; }
+
+.btn-pill, .btn-outline{ transition: transform .18s ease, box-shadow .18s ease, background-position .4s ease; }
+
+@media (prefers-reduced-motion: reduce){
+  .ambient-glow, .hero-inner > *, .simple-hero > *, .orbit-ring, .orbit-node, .orbit-core .star-mark{ animation:none !important; opacity:1 !important; transform:none !important; }
+}
+
 </style><style>
 /* ================= SUBPAGE EXTRAS ================= */
 .simple-hero{ padding:70px 0 20px; text-align:center; }
@@ -291,6 +360,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 </head>
 <body>
+<div class="ambient-glow"></div>
 <div class="nav-bar">
   <div class="wrap">
     <div class="nav">
@@ -320,24 +390,23 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         </button>
       </div>
     </div>
-  </div>
-</div>
   <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-inner">
       <a href="index.html#home">Home</a>
-      <div class="mobile-sub">
-        <div class="mobile-sub-label mono">OUR SERVICES</div>
-        <a href="marketing.html"><strong>Marketing</strong>Find your audience, get seen</a>
-        <a href="chatting.html"><strong>Chatting</strong>A team that earns you more</a>
-        <a href="photoshooting.html"><strong>Photoshooting</strong>Content, planned and protected</a>
-      </div>
       <a href="contact.html">Contact</a>
-      <a href="referral.html" style="border-bottom:none;">Refferal</a>
+      <a href="referral.html">Refferal</a>
+      <a href="services.html">Our Services</a>
+      <a href="marketing.html">Marketing</a>
+      <a href="chatting.html">Chatting</a>
+      <a href="photoshooting.html">Photoshooting</a>
       <a class="mobile-cta" href="https://tally.so/r/eqB0De">Apply</a>
     </div>
   </div>
-</div>
 
+  </div>
+</div>
+  
+</div>
 
 
 <div class="wrap" id="home">
@@ -412,20 +481,18 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 </div>
 
 <footer class="site-footer mono">
+  <div class="footer-links">
+    <a href="services.html">Services</a><span class="sep">·</span>
+    <a href="index.html#faq">FAQ</a><span class="sep">·</span>
+    <a href="https://www.instagram.com/starzone.eu/">Instagram</a><span class="sep">·</span>
+    <a href="https://t.me/starzoneeu">Telegram</a>
+  </div>
   <div class="footer-brand">
     <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#39e673"/></svg>
     ZION · CREATOR MANAGEMENT AGENCY
     <span class="by-neo-tag">by neomngmt</span>
   </div>
-  <div class="footer-links">
-    <a href="services.html">Services</a>
-    <a href="index.html#faq">FAQ</a>
-    <a href="https://www.instagram.com/starzone.eu/">Instagram</a>
-    <a href="https://t.me/starzoneeu">Telegram</a>
-    <span class="footer-copy">© Zion Agency 2023–2026</span>
-  </div>
 </footer>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
