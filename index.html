@@ -36,7 +36,7 @@ img{ max-width:100%; display:block; }
 a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-offset:3px; }
 @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
 /* ================= NAV ================= */
-.nav-bar{ position:sticky; top:0; z-index:60; transition:background-color .35s ease, backdrop-filter .35s ease, border-color .35s ease; border-bottom:1px solid transparent; }
+.nav-bar{ position:sticky; top:0; z-index:60; background:transparent; border-bottom:1px solid transparent; transition:background-color .35s ease, backdrop-filter .35s ease, border-color .35s ease; }
 .nav-bar.scrolled{ background:rgba(7,9,10,0.75); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom-color:var(--border); }
 .nav{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; gap:20px; }
 .brand{ display:flex; align-items:center; gap:13px; font-size:19px; font-weight:800; letter-spacing:3px; }
@@ -85,7 +85,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .mobile-toggle.open .icon-close{ display:block; }
 @media (max-width:860px){ .mobile-toggle{ display:flex; } }
 .mobile-menu{ display:none; max-height:0; overflow:hidden; transition:max-height .35s ease; background:transparent; }
-@media (max-width:860px){ .mobile-menu{ display:block; } .nav-bar.scrolled{ border-bottom-color:transparent; } }
+@media (max-width:860px){ .mobile-menu{ display:block; } }
 .mobile-menu.open{ max-height:80vh; overflow-y:auto; }
 .mobile-menu-inner{ padding:10px 0 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px; }
 .mobile-menu a{ text-decoration:none; color:var(--text); font-size:clamp(19px,5.6vw,23px); font-weight:800; letter-spacing:-0.01em; padding:12px 0; width:100%; display:block; border-radius:12px; text-shadow:0 2px 10px rgba(0,0,0,0.8); }
@@ -185,9 +185,45 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .tl-dot{ position:absolute; left:0; top:0; width:36px; height:36px; border-radius:50%; background:var(--panel); border:1px solid var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--green-soft); font-family:'JetBrains Mono', monospace; }
 .tl-item h3{ font-size:18px; font-weight:700; margin-bottom:8px; }
 .tl-item p{ color:var(--dim); font-size:14.5px; line-height:1.6; max-width:520px; }
+/* ================= COMPARISON TABLE ================= */
+.compare-wrap{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.compare-col{ padding:32px 28px; }
+.compare-col.them{ background:rgba(255,255,255,0.02); }
+.compare-col.us{ background:linear-gradient(160deg, rgba(18,179,76,0.09), transparent 70%); border-left:1px solid var(--border); }
+.compare-col h4{ font-size:15px; font-weight:800; margin-bottom:18px; }
+.compare-col.us h4{ color:var(--green-soft); }
+.compare-col ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
+.compare-col li{ font-size:13.5px; color:var(--dim); display:flex; align-items:flex-start; gap:10px; line-height:1.5; }
+.compare-col.them li::before{ content:"✕"; color:#e0554f; flex-shrink:0; font-weight:700; }
+.compare-col.us li{ color:var(--text); }
+.compare-col.us li::before{ content:"✓"; color:var(--green-soft); flex-shrink:0; font-weight:700; }
+@media (max-width:860px){ .compare-wrap{ grid-template-columns:1fr; } .compare-col.us{ border-left:none; border-top:1px solid var(--border); } }
+/* ================= VALUE GRID ================= */
+.value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.value-card{ border:1px solid var(--border); border-radius:14px; padding:24px; background:rgba(255,255,255,0.015); transition:border-color .15s; }
+.value-card:hover{ border-color:var(--green-dim); }
+.value-card .num{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green-soft); margin-bottom:12px; }
+.value-card h4{ font-size:15px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+.value-card p{ font-size:13px; color:var(--dim); line-height:1.55; }
+@media (max-width:860px){ .value-grid{ grid-template-columns:1fr; } }
+/* ================= EARNINGS CALCULATOR ================= */
+.calc-box{ border:1px solid var(--border); border-radius:18px; padding:36px; background:linear-gradient(160deg, rgba(18,179,76,0.05), transparent 60%); }
+.calc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:30px; }
+.calc-field label{ display:flex; justify-content:space-between; font-size:12px; color:var(--dim); margin-bottom:10px; }
+.calc-field label b{ color:var(--green-soft); font-family:'JetBrains Mono', monospace; font-weight:600; }
+.calc-field input[type=range]{ width:100%; accent-color:#12b34c; }
+.calc-field select{ width:100%; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:11px 12px; color:var(--text); font-size:13px; font-family:'Inter', sans-serif; }
+.calc-result{ border-top:1px solid var(--border); padding-top:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.calc-result .amount{ font-size:42px; font-weight:900; color:var(--green-soft); line-height:1; }
+.calc-result .amount .calc-total-num{ color:var(--green-soft); }
+.calc-result .amount .calc-total-label{ display:block; font-size:12px; color:var(--dim); font-weight:500; margin-top:8px; letter-spacing:0.5px; }
+.calc-note{ font-size:11px; color:var(--dim); margin-top:18px; line-height:1.5; }
+@media (max-width:860px){ .calc-grid{ grid-template-columns:1fr; } .calc-result{ flex-direction:column; align-items:flex-start; } }
 /* ================= TRUST STRIP (static, no marquee) ================= */
-.trust-strip{ display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; }
-.trust-strip img{ height:30px; filter:grayscale(1) brightness(1.6); opacity:0.65; margin:0 30px; }
+.trust-marquee{ overflow:hidden; position:relative; -webkit-mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
+.trust-track{ display:flex; align-items:center; gap:80px; width:max-content; animation:trustScroll 20s linear infinite; }
+.trust-track img{ height:54px; opacity:0.95; flex-shrink:0; }
+@keyframes trustScroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
 /* ================= FAQ ================= */
 .faq-list{ max-width:720px; margin:0 auto; }
 .faq-item{ border-bottom:1px solid var(--border); padding:20px 2px; cursor:pointer; }
@@ -208,27 +244,37 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .closing h2{ font-size:clamp(28px,4.6vw,46px); font-weight:900; margin-bottom:16px; letter-spacing:-0.01em; }
 .closing p{ color:var(--dim); font-size:16px; max-width:480px; margin:0 auto 34px; }
 /* ================= FOOTER ================= */
-.site-footer{ padding:64px 0 30px; border-top:1px solid var(--border); }
-.footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; margin-bottom:44px; }
-.footer-col h4{ font-size:11px; letter-spacing:2px; color:var(--text); margin-bottom:18px; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
-.footer-col a{ display:block; color:var(--dim); text-decoration:none; font-size:13.5px; margin-bottom:12px; transition:color .15s; }
+.site-footer{ padding:22px 0 22px; border-top:none; }
+.footer-simple{ display:flex; justify-content:space-between; align-items:flex-start; gap:48px; margin-bottom:34px; flex-wrap:wrap; }
+.footer-brand-block{ max-width:340px; }
+.footer-cols{ display:flex; gap:56px; flex-wrap:wrap; }
+.footer-col-title{ font-size:10px; letter-spacing:1.5px; color:var(--dim); margin-bottom:14px; text-transform:uppercase; font-family:'JetBrains Mono', monospace; font-weight:500; }
+.footer-cols a{ display:block; color:var(--dim); text-decoration:none; font-size:12.5px; margin-bottom:10px; transition:color .15s; }
+.footer-cols a:hover{ color:var(--green-soft); }
 .footer-col a:hover{ color:var(--green-soft); }
-.footer-brand-col p{ color:var(--dim); font-size:13px; line-height:1.65; margin:16px 0 20px; max-width:280px; }
-.footer-brand{ display:flex; align-items:center; gap:10px; margin-bottom:0; }
-.footer-brand .star{ width:20px; height:20px; }
-.footer-brand span{ font-size:16px; font-weight:800; letter-spacing:2px; color:var(--text); }
+.footer-brand-col p{ color:var(--dim); font-size:12px; line-height:1.6; margin:12px 0 16px; max-width:260px; }
+.footer-brand{ display:flex; align-items:center; gap:8px; margin-bottom:0; }
+.footer-brand .star{ width:16px; height:16px; }
+.footer-brand span{ font-size:14px; font-weight:700; letter-spacing:2px; color:var(--text); }
 .footer-social{ display:flex; gap:10px; }
-.footer-social a{ width:36px; height:36px; border:1px solid var(--border); border-radius:9px; display:flex; align-items:center; justify-content:center; color:var(--dim); transition:border-color .15s, color .15s; margin-bottom:0; }
+.footer-social a{ width:28px; height:28px; border:1px solid var(--border); border-radius:7px; display:flex; align-items:center; justify-content:center; color:var(--dim); transition:border-color .15s, color .15s; margin-bottom:0; }
 .footer-social a:hover{ border-color:var(--green-dim); color:var(--green-soft); }
-.footer-social svg{ width:15px; height:15px; }
-.footer-bottom{ display:flex; align-items:center; justify-content:space-between; padding-top:26px; border-top:1px solid var(--border); font-size:11px; color:var(--dim); flex-wrap:wrap; gap:14px; font-family:'JetBrains Mono', monospace; }
+.footer-social svg{ width:12px; height:12px; }
+.footer-bottom{ display:flex; align-items:center; justify-content:space-between; padding-top:18px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); flex-wrap:wrap; gap:10px; font-family:'JetBrains Mono', monospace; }
+.footer-policy-links a{ color:var(--dim); text-decoration:none; }
+.footer-policy-links a:hover{ color:var(--green-soft); }
+.footer-policy-links .sep{ color:var(--border); margin:0 6px; }
+.footer-mobile{ display:none; }
+.footer-mobile{ flex-direction:column; align-items:center; gap:14px; padding:26px 0 8px; text-align:center; }
+.footer-mobile .footer-brand-simple{ font-size:11px; letter-spacing:1.2px; color:var(--dim); display:flex; align-items:center; gap:8px; position:relative; }
+.footer-mobile .footer-brand-simple .star{ width:10px; height:10px; }
+.footer-mobile .footer-links{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10.5px; row-gap:6px; }
+.footer-mobile .footer-links a{ color:var(--dim); text-decoration:none; transition:color .15s; }
+.footer-mobile .footer-links a:hover{ color:var(--green-soft); }
+.footer-mobile .footer-links .sep{ color:var(--border); }
+.footer-mobile .by-neo-tag{ position:absolute; right:0; top:100%; }
+@media (max-width:860px){ .footer-desktop{ display:none; } .footer-mobile{ display:flex; } .site-footer{ padding-top:6px; } }
 .footer-bottom .by-neo-tag{ position:static; clip-path:none; -webkit-clip-path:none; animation:none; opacity:1; margin-left:6px; }
-@media (max-width:860px){
-  .footer-grid{ grid-template-columns:1fr; text-align:center; gap:34px; }
-  .footer-brand-col{ display:flex; flex-direction:column; align-items:center; }
-  .footer-social{ justify-content:center; }
-  .footer-bottom{ flex-direction:column; text-align:center; }
-}
 .footer-copy{ color:var(--dim); }
 [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 [data-reveal].in-view{ opacity:1; transform:translateY(0); }
@@ -335,6 +381,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .orbit-node.n3{ animation-delay:2.4s !important; }
 .orbit-node.n4{ animation-delay:3.6s !important; }
 .orbit-core .star-mark{ animation: coreSpin 12s linear infinite !important; transform-origin:center; }
+/* ================= TRUST STRIP (static, no marquee) ================= */
+.trust-strip{ display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; }
+.trust-strip img{ height:30px; filter:grayscale(1) brightness(1.6); opacity:0.65; margin:0 30px; }
 .img-duotone{
   filter: grayscale(1) sepia(1) hue-rotate(68deg) saturate(2.4) brightness(0.82) contrast(1.12);
 }
@@ -375,6 +424,11 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .service-nav-strip a{ border:1px solid var(--border); border-radius:999px; padding:10px 20px; font-size:13px; text-decoration:none; color:var(--dim); transition:border-color .15s, color .15s; }
 .service-nav-strip a:hover{ border-color:var(--green-dim); color:var(--text); }
 .service-nav-strip a.active{ border-color:var(--green-dim); color:var(--green-soft); background:rgba(18,179,76,0.06); }
+.form-success{ display:none; text-align:center; padding:60px 20px; }
+.form-success.show{ display:block; }
+.form-success .star-mark{ width:48px; height:48px; margin:0 auto 22px; }
+.form-success h3{ font-size:24px; font-weight:800; margin-bottom:12px; }
+.form-success p{ color:var(--dim); font-size:14.5px; max-width:400px; margin:0 auto; line-height:1.6; }
 /* ================= SIMPLE HERO ================= */
 .simple-hero{ padding:70px 0 20px; text-align:center; }
 /* ================= FORM ================= */
@@ -391,14 +445,67 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .form-check input{ width:16px; height:16px; margin-top:2px; accent-color:var(--green); flex-shrink:0; }
 .form-submit{ width:100%; text-align:center; border:none; font-size:14px; }
 .form-note b{ color:var(--green-soft); }
-.form-success{ display:none; text-align:center; padding:60px 20px; }
-.form-success.show{ display:block; }
-.form-success .star-mark{ width:48px; height:48px; margin:0 auto 22px; }
-.form-success h3{ font-size:24px; font-weight:800; margin-bottom:12px; }
-.form-success p{ color:var(--dim); font-size:14.5px; max-width:400px; margin:0 auto; line-height:1.6; }
 @media (prefers-reduced-motion: reduce){
   .ambient-glow, .hero-inner > *, .simple-hero > *{ animation:none !important; opacity:1 !important; transform:none !important; }
 }
+/* ================= LEGAL PROSE ================= */
+.prose{ max-width:760px; margin:0 auto; }
+.prose .updated{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); margin-bottom:36px; letter-spacing:0.5px; }
+.prose h2{ font-size:19px; font-weight:800; margin:40px 0 12px; }
+.prose h2:first-of-type{ margin-top:0; }
+.prose p{ font-size:14.5px; color:var(--dim); line-height:1.75; margin-bottom:14px; }
+.prose ul{ margin:0 0 14px; padding-left:20px; }
+.prose li{ font-size:14.5px; color:var(--dim); line-height:1.75; margin-bottom:6px; }
+.prose strong{ color:var(--text); }
+.prose a{ color:var(--green-soft); text-decoration:underline; text-underline-offset:2px; }
+/* ================= ABOUT PAGE ================= */
+.prose{ max-width:720px; margin:0 auto; }
+.prose p{ font-size:15px; color:var(--dim); line-height:1.8; margin-bottom:16px; }
+/* ================= SUCCESS STORIES ================= */
+.case-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.case-card{ border:1px solid var(--border); border-radius:16px; padding:28px; background:linear-gradient(160deg, rgba(18,179,76,0.04), transparent 60%); display:flex; flex-direction:column; gap:16px; min-height:220px; }
+.case-card .case-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
+.case-card h4{ font-size:17px; font-weight:800; }
+.case-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; flex-grow:1; }
+.case-card .case-stub{ border:1px dashed var(--border); border-radius:10px; padding:14px; font-size:12px; color:var(--dim); text-align:center; font-family:'JetBrains Mono', monospace; }
+@media (max-width:860px){ .case-grid{ grid-template-columns:1fr; } }
+/* ================= GROWTH PILLARS ================= */
+.pillar-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+.pillar-card{ text-align:center; border:1px solid var(--border); border-radius:14px; padding:26px 16px; }
+.pillar-card .pillar-icon{ font-size:22px; margin-bottom:10px; }
+.pillar-card h4{ font-size:14px; font-weight:700; margin-bottom:6px; }
+.pillar-card p{ font-size:12px; color:var(--dim); line-height:1.5; }
+@media (max-width:860px){ .pillar-grid{ grid-template-columns:1fr 1fr; } }
+/* ================= BLOG TEASER ================= */
+.blog-teaser-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.blog-teaser-card{ border:1px solid var(--border); border-radius:14px; padding:22px; background:rgba(255,255,255,0.015); }
+.blog-teaser-card .blog-date{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); margin-bottom:10px; }
+.blog-teaser-card h4{ font-size:15px; font-weight:700; margin-bottom:8px; line-height:1.35; }
+.blog-teaser-card p{ font-size:12.5px; color:var(--dim); line-height:1.55; }
+@media (max-width:860px){ .blog-teaser-grid{ grid-template-columns:1fr; } }
+/* ================= ACADEMY ================= */
+.academy-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.academy-card{ border:1px solid var(--border); border-radius:16px; padding:26px; background:rgba(255,255,255,0.015); transition:border-color .15s; display:flex; flex-direction:column; gap:12px; }
+.academy-card:hover{ border-color:var(--green-dim); }
+.academy-card .academy-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
+.academy-card h4{ font-size:16px; font-weight:800; line-height:1.3; }
+.academy-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; }
+@media (max-width:860px){ .academy-grid{ grid-template-columns:1fr; } }
+/* ================= BLOG ================= */
+.blog-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+.blog-card{ display:block; border:1px solid var(--border); border-radius:16px; padding:26px; background:rgba(255,255,255,0.015); transition:border-color .15s, transform .15s; text-decoration:none; }
+.blog-card:hover{ border-color:var(--green-dim); transform:translateY(-2px); }
+.blog-card .blog-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; margin-bottom:12px; }
+.blog-card h4{ font-size:18px; font-weight:800; margin-bottom:10px; line-height:1.3; color:var(--text); }
+.blog-card p{ font-size:13.5px; color:var(--dim); line-height:1.65; margin-bottom:16px; }
+.blog-card .blog-meta{ display:flex; align-items:center; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+.blog-card .blog-meta .read-more{ color:var(--green-soft); }
+@media (max-width:860px){ .blog-grid{ grid-template-columns:1fr; } }
+/* ================= LEGAL PROSE ================= */
+.prose{ max-width:720px; margin:0 auto; }
+.prose h2{ font-size:19px; font-weight:800; margin:36px 0 12px; }
+.blog-back{ display:inline-block; margin-bottom:26px; color:var(--dim); text-decoration:none; font-family:'JetBrains Mono', monospace; font-size:12px; }
+.blog-back:hover{ color:var(--green-soft); }
 .page{ display:none; }
 .page.active{ display:block; }
 </style>
@@ -469,13 +576,15 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <div class="nav-links">
         <a href="#home">Home</a>
         <div class="dropdown">
-          <span class="dropdown-trigger mono">OUR SERVICES <svg viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.4"/></svg></span>
+          <span class="dropdown-trigger mono">ABOUT <svg viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.4"/></svg></span>
           <div class="dropdown-menu">
-            <a href="#marketing"><strong>Marketing</strong><span>Find your audience, get seen</span></a>
-            <a href="#chatting"><strong>Chatting</strong><span>A team that earns you more</span></a>
-            <a href="#photoshooting"><strong>Photoshooting</strong><span>Content, planned and protected</span></a>
+            <a href="#about"><strong>The Agency</strong><span>Our story and how we work</span></a>
+            <a href="#success-stories"><strong>Success Stories</strong><span>Real results from our roster</span></a>
+            <a href="#academy"><strong>Academy</strong><span>Guides on growth and safety</span></a>
+            <a href="#blog"><strong>Blog</strong><span>Longer reads on what works</span></a>
           </div>
         </div>
+        <a href="#services">Our Services</a>
         <a href="#contact">Contact</a>
         <a href="#referral">Refferal</a>
       </div>
@@ -490,12 +599,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-inner">
       <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#success-stories">Success Stories</a>
+      <a href="#academy">Academy</a>
+      <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
       <a href="#referral">Refferal</a>
       <a href="#services">Our Services</a>
-      <a href="#marketing">Marketing</a>
-      <a href="#chatting">Chatting</a>
-      <a href="#photoshooting">Photoshooting</a>
       <a class="mobile-cta" href="#apply">Apply</a>
     </div>
   </div>
@@ -594,6 +704,100 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   </div>
 </div>
 
+<div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">WHY ZION</div>
+      <h2>We're not the average agency.</h2>
+      <p class="section-sub">We treat your page like a real business, not a side hustle to babysit.</p>
+    </div>
+    <div class="compare-wrap" data-reveal>
+      <div class="compare-col them">
+        <h4>Other agencies</h4>
+        <ul>
+          <li>Earnings plateau after the first few months</li>
+          <li>You're left to figure out taxes and invoicing alone</li>
+          <li>Marketing that trails off once you sign</li>
+          <li>Chatters who don't really know your voice</li>
+          <li>Slow, vague answers when something goes wrong</li>
+        </ul>
+      </div>
+      <div class="compare-col us">
+        <h4>Zion</h4>
+        <ul>
+          <li>A growth plan that keeps evolving with you</li>
+          <li>We invoice you directly, taxes stay simple</li>
+          <li>Marketing that never stops running</li>
+          <li>Chatters trained specifically on your persona</li>
+          <li>Weekly reporting, and a team that actually answers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">WHAT YOU GET</div>
+      <h2>Everything that comes with working with us.</h2>
+      <p class="section-sub">Ten reasons creators stay with Zion long after the first month.</p>
+    </div>
+    <div class="value-grid" data-reveal>
+      <div class="value-card">
+        <div class="num">01</div>
+        <h4>Focus on creating</h4>
+        <p>Editing, upselling, replying to DMs, it eats a whole day. We take the business side off your plate so content is the only thing left to think about.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">02</div>
+        <h4>Marketing that compounds</h4>
+        <p>Reddit, Twitter, TikTok, paid traffic, tested playbooks that keep bringing new eyes to your profile every week, not just at launch.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">03</div>
+        <h4>Chatting that converts</h4>
+        <p>The gap between an average DM and a great one is real money. Our chatters know how to keep fans engaged and spending.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">04</div>
+        <h4>Pricing built on data</h4>
+        <p>PPV pricing, bundles and paywalls set using what's actually converting, not a guess.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">05</div>
+        <h4>A full team, not one manager</h4>
+        <p>Marketers, chatters, content strategists and analysts, all working your page at the same time.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">06</div>
+        <h4>Protection built in</h4>
+        <p>Processes to catch leaks, chargebacks and fake accounts before they cost you money.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">07</div>
+        <h4>We stay on top of the platform</h4>
+        <p>Algorithm shifts, new trends, monetization tricks, we track them daily so you don't have to.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">08</div>
+        <h4>Real collaboration opportunities</h4>
+        <p>Shoutouts, duo content and cross-promotion with other creators in the roster.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">09</div>
+        <h4>You get your time back</h4>
+        <p>Every hour we take off your plate is an hour you can put back into content, or just life.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">10</div>
+        <h4>We only grow when you grow</h4>
+        <p>Our earnings are tied to yours. There's no scenario where we do well and you don't.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap" id="access">
   <div class="section">
     <div class="section-head center" data-reveal>
@@ -645,12 +849,55 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 </div>
 
 <div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">SEE THE UPSIDE</div>
+      <h2>Estimate your potential.</h2>
+      <p class="section-sub">A rough idea of what your page could be earning with the right strategy behind it.</p>
+    </div>
+    <div class="calc-box" data-reveal>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Subscribers <b id="calcSubsOut">1,500</b></label>
+          <input type="range" id="calcSubs" min="100" max="10000" step="50" value="1500">
+        </div>
+        <div class="calc-field">
+          <label>Subscription price <b id="calcPriceOut">$12</b></label>
+          <input type="range" id="calcPrice" min="3" max="30" step="1" value="12">
+        </div>
+        <div class="calc-field">
+          <label>Traffic quality</label>
+          <select id="calcGrade">
+            <option value="1.6">Premium (video / streaming led)</option>
+            <option value="1" selected>Standard (social media led)</option>
+            <option value="0.6">Basic (mixed / other platforms)</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Chat activity</label>
+          <select id="calcChat">
+            <option value="0.8">Light</option>
+            <option value="1" selected>Average</option>
+            <option value="1.3">Heavy PPV / tipping</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="amount">$<span class="calc-total-num" id="calcTotal">27,000</span><span class="calc-total-label">ESTIMATED MONTHLY REVENUE</span></div>
+        <a class="btn-pill" href="#apply">Get your real number</a>
+      </div>
+      <div class="calc-note">Rough estimate for illustration only, based on typical patterns we see across the roster. Your actual results depend on your niche, content, and strategy.</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
   <div class="section" style="text-align:center;">
     <div class="section-head center" data-reveal style="margin-bottom:34px;">
       <div class="eyebrow-label mono">FOLLOW ALONG</div>
       <h2>Interested in seeing more of our results?</h2>
     </div>
-    <a class="btn-outline" href="https://www.instagram.com/starzone.eu/">Instagram</a>
+    <a class="btn-outline" href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Instagram</a>
   </div>
 </div>
 
@@ -691,11 +938,17 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <div class="eyebrow-label mono">TRUSTED BY</div>
       <h2 style="font-size:20px;">Our partners</h2>
     </div>
-    <div class="trust-strip" data-reveal>
-      <img src="https://framerusercontent.com/images/wrybvUsZYwihgugHNgLmqMl2rSk.webp?width=1400&height=773" alt="Partner">
-      <img src="https://framerusercontent.com/images/yPyb057716sVwKR9JCZJrwmxubg.png?width=690&height=362" alt="Partner">
-      <img src="https://framerusercontent.com/images/XpOIEBHBi3UzFoNcOvhVPTqwHY.png?width=701&height=356" alt="Partner">
-      <img src="https://framerusercontent.com/images/biPmePlM8PRC7PksBep8w1aAqY.png?width=700&height=243" alt="Partner">
+    <div class="trust-marquee" data-reveal>
+      <div class="trust-track">
+        <img src="https://framerusercontent.com/images/wrybvUsZYwihgugHNgLmqMl2rSk.webp?width=1400&height=773" alt="Partner">
+        <img src="https://framerusercontent.com/images/yPyb057716sVwKR9JCZJrwmxubg.png?width=690&height=362" alt="Partner">
+        <img src="https://framerusercontent.com/images/XpOIEBHBi3UzFoNcOvhVPTqwHY.png?width=701&height=356" alt="Partner">
+        <img src="https://framerusercontent.com/images/biPmePlM8PRC7PksBep8w1aAqY.png?width=700&height=243" alt="Partner">
+        <img src="https://framerusercontent.com/images/wrybvUsZYwihgugHNgLmqMl2rSk.webp?width=1400&height=773" alt="Partner">
+        <img src="https://framerusercontent.com/images/yPyb057716sVwKR9JCZJrwmxubg.png?width=690&height=362" alt="Partner">
+        <img src="https://framerusercontent.com/images/XpOIEBHBi3UzFoNcOvhVPTqwHY.png?width=701&height=356" alt="Partner">
+        <img src="https://framerusercontent.com/images/biPmePlM8PRC7PksBep8w1aAqY.png?width=700&height=243" alt="Partner">
+      </div>
     </div>
   </div>
 </div>
@@ -725,8 +978,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <span class="no">01 · MARKETING</span>
         <h3>Growing on OnlyFans can be tough.</h3>
         <p>Content restrictions, shadowbans, and fierce competition make it hard to get noticed. We'll help you find the perfect niche, reach an audience that loves your style, and get you seen, through success managers, promotion on 15+ platforms, shoutouts from top creators, and a meme network with 10 million followers.</p>
-        <div style="margin-top:22px;"><a class="btn-pill" href="#marketing">Learn more</a></div>
-      </div>
+        </div>
       <img class="img-duotone" src="https://framerusercontent.com/images/WJO84F38PX2AoljO5WvLPyMV7EI.png?width=1024&height=1024" alt="Marketing">
     </div>
 
@@ -735,8 +987,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <span class="no">02 · CHATTING</span>
         <h3>The real money is made through chatting.</h3>
         <p>Entrusting your brand to a team that doesn't speak fluent English or understand your style is risky. Our UK-based team of adult industry professionals speaks perfect English, has emotional intelligence, and understands your audience, meaning higher spend per fan, fewer refunds, and more renewals.</p>
-        <div style="margin-top:22px;"><a class="btn-pill" href="#chatting">Learn more</a></div>
-      </div>
+        </div>
       <img class="img-duotone" src="https://framerusercontent.com/images/zCIRtEzHZ3FhYV4M7hTHExkNk.png?width=1024&height=1024" alt="Chatting">
     </div>
 
@@ -745,8 +996,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <span class="no">03 · PHOTOSHOOTING</span>
         <h3>Creating content alone is exhausting.</h3>
         <p>Ideas, algorithms, leaks, it's a lot to carry solo. We brainstorm with you, help film content that resonates, and partner with top DMCA services to monitor the internet and respond immediately to unauthorized sharing. Your work stays safe, valued, and ready to perform.</p>
-        <div style="margin-top:22px;"><a class="btn-pill" href="#photoshooting">Learn more</a></div>
-      </div>
+        </div>
       <img class="img-duotone" src="https://framerusercontent.com/images/im8VrZHPWClLceLkVf0VZOAgFkE.jpg?width=716&height=716" alt="Photoshooting">
     </div>
   </div>
@@ -1204,7 +1454,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 <div class="wrap">
   <div class="section" style="padding-top:50px;">
-    <form class="form-box" data-reveal id="referForm">
+    <form class="form-box" data-reveal id="referForm" action="https://formspree.io/f/xvzepgwy" method="POST">
       <div class="form-field">
         <label for="r-name">Your name</label>
         <input type="text" id="r-name" name="name" required>
@@ -1230,8 +1480,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         I consent to the processing of my data
       </label>
       <button type="submit" class="btn-pill form-submit">Submit</button>
-      <div class="form-note">This opens your email app with the message pre-filled to send to us directly.</div>
+      <div class="form-note">Your information stays <b>100% confidential</b>. We usually respond within 2 hours.</div>
     </form>
+    <div class="form-success" id="referSuccess" data-reveal>
+      <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#referSuccessGrad)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#referSuccessGrad)"/><defs><linearGradient id="referSuccessGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
+      <h3>Referral received.</h3>
+      <p>Thanks for the recommendation. We'll reach out to her and let you know how it goes.</p>
+    </div>
   </div>
 </div>
 </section>
@@ -1305,49 +1560,620 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   </div>
 </div>
 </section>
+
+<section class="page" id="page-privacy" data-page="privacy">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">LEGAL</div>
+    <h1>Privacy <span class="hl">Policy.</span></h1>
+    <p>How we collect, use, and protect your information when you visit this site or work with us.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:30px;">
+    <div class="prose" data-reveal>
+      <div class="updated">LAST UPDATED: JULY 2026</div>
+
+      <h2>1. Who we are</h2>
+      <p>This Privacy Policy explains how <strong>Zion</strong>, a creator management brand operated by <strong>NeoMngmt</strong> ("Zion", "we", "us", "our"), collects, uses, and protects personal data when you visit this website, contact us, apply to work with us, or use our services.</p>
+
+      <h2>2. Information we collect</h2>
+      <p>Depending on how you interact with us, we may collect:</p>
+      <ul>
+        <li>Contact details you give us directly, such as your name, email address, phone number, and social media handles, when you fill out our Apply, Contact, or Referral forms.</li>
+        <li>Creator onboarding information, such as OnlyFans links, niche, and content plans, if you go through the application process.</li>
+        <li>Basic technical data, such as browser type and general usage patterns, collected automatically to keep the site working properly.</li>
+      </ul>
+
+      <h2>3. How we use your information</h2>
+      <p>We use the information you share with us to:</p>
+      <ul>
+        <li>Respond to your application, message, or referral, and follow up with you directly.</li>
+        <li>Evaluate whether working together is a good fit.</li>
+        <li>Manage our working relationship if you become a Zion creator or partner, including invoicing and reporting.</li>
+        <li>Improve this website and the services we offer.</li>
+      </ul>
+      <p>We do not sell your personal data to third parties, and we do not use it for anything beyond what's described here.</p>
+
+      <h2>4. Confidentiality and discretion</h2>
+      <p>Discretion is a core part of how we operate. Your name, identity, and any personal details you share with us are never disclosed publicly or to third parties, unless you explicitly choose to make them public or we're legally required to share them.</p>
+
+      <h2>5. How we share information</h2>
+      <p>We only share your data with people who need it to do their job, such as our internal team members handling onboarding, chatting, or marketing for your account, and with service providers we rely on to run our business (for example, form and email tools like Formspree). These providers only process data on our behalf and are not permitted to use it for their own purposes.</p>
+
+      <h2>6. Data retention</h2>
+      <p>We keep your information for as long as it's needed for the purpose it was collected, for example, for the duration of our working relationship plus a reasonable period afterward for record-keeping. If you'd like your data deleted sooner, you can ask us directly.</p>
+
+      <h2>7. Your rights</h2>
+      <p>You can ask us at any time to:</p>
+      <ul>
+        <li>Tell you what personal data we hold about you.</li>
+        <li>Correct any information that's inaccurate or out of date.</li>
+        <li>Delete your personal data, where we're not required to keep it for legal or contractual reasons.</li>
+      </ul>
+      <p>To exercise any of these, just reach out to us through the <a href="#contact">contact page</a>.</p>
+
+      <h2>8. Cookies</h2>
+      <p>This site uses minimal, functional cookies and standard analytics to understand how it's being used. We don't use tracking cookies for third-party advertising.</p>
+
+      <h2>9. Age requirement</h2>
+      <p>Our services are intended for adults aged 18 and over. We do not knowingly collect personal data from anyone under 18.</p>
+
+      <h2>10. Changes to this policy</h2>
+      <p>We may update this Privacy Policy from time to time. The latest version will always be posted on this page.</p>
+
+      <h2>11. Contact us</h2>
+      <p>If you have any questions about this policy or how your data is handled, reach out via our <a href="#contact">contact page</a> or through our official channels linked in the footer.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-terms" data-page="terms">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">LEGAL</div>
+    <h1>Terms & <span class="hl">Conditions.</span></h1>
+    <p>The rules for using this website and working with Zion.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:30px;">
+    <div class="prose" data-reveal>
+      <div class="updated">LAST UPDATED: JULY 2026</div>
+
+      <h2>1. Who we are</h2>
+      <p>This website is operated by <strong>Zion</strong>, a creator management brand run by <strong>NeoMngmt</strong> ("Zion", "we", "us", "our"). By accessing or using this website, you agree to these Terms & Conditions.</p>
+
+      <h2>2. Who this site is for</h2>
+      <p>This website and our services are intended for adults aged 18 and over. By using this site or applying to work with us, you confirm that you meet this requirement.</p>
+
+      <h2>3. What this website is</h2>
+      <p>This site describes Zion's creator management services, including marketing, chatting, content strategy, and related support for OnlyFans creators. Content on this site is for general information only and doesn't constitute a formal offer or guarantee of specific results.</p>
+
+      <h2>4. Applying and working with us</h2>
+      <p>Submitting an application through this site (Apply, Contact, or Referral forms) does not automatically create a working relationship. Once we agree to work together, the specific terms of our collaboration, including revenue share, responsibilities, and payment structure, are confirmed directly with you and take precedence over anything written on this site.</p>
+      <p>As stated on our Apply page, our management fee depends on what's agreed with each creator individually, and we never take more than 50% of earnings.</p>
+
+      <h2>5. Referral program</h2>
+      <p>Anyone can refer a creator to Zion through our Referral page. Commission on successful referrals is confirmed directly between you and Zion once a referred creator joins and starts generating revenue. We reserve the right to decline or adjust referral terms at our discretion.</p>
+
+      <h2>6. Acceptable use</h2>
+      <p>You agree not to use this website to:</p>
+      <ul>
+        <li>Submit false, misleading, or fraudulent information through our forms.</li>
+        <li>Attempt to gain unauthorized access to any part of the site or our systems.</li>
+        <li>Use the site in any way that could damage, disable, or impair it.</li>
+      </ul>
+
+      <h2>7. Intellectual property</h2>
+      <p>The content, design, and branding on this website belong to Zion / NeoMngmt. You may view and share pages of this site for personal, non-commercial purposes, but you may not copy, reproduce, or repurpose our content or branding for commercial use without permission.</p>
+
+      <h2>8. Third-party links</h2>
+      <p>This site links to third-party platforms, including Instagram, Telegram, and Formspree. We're not responsible for the content or practices of those platforms, and your use of them is subject to their own terms.</p>
+
+      <h2>9. No guarantee of availability</h2>
+      <p>We do our best to keep this website accessible, but we don't guarantee it will always be available or free of errors, and we may update or take down parts of it at any time.</p>
+
+      <h2>10. Limitation of liability</h2>
+      <p>This website and its content are provided as is. To the extent permitted by law, Zion is not liable for any indirect or consequential loss arising from your use of this site. Nothing here limits any liability that can't legally be limited.</p>
+
+      <h2>11. Changes to these terms</h2>
+      <p>We may update these Terms & Conditions from time to time. The latest version will always be posted on this page.</p>
+
+      <h2>12. Contact us</h2>
+      <p>Questions about these terms can be sent through our <a href="#contact">contact page</a>.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-about" data-page="about">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">ABOUT ZION</div>
+    <h1>The team behind <span class="hl">the growth.</span></h1>
+    <p>A creator-first agency built to handle the business side, so you can stay focused on being the talent.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <p>Zion started in 2023 with a simple idea: creators shouldn't have to choose between growing their income and protecting their privacy. Most agencies treat those as separate problems. We built Zion to solve both at once.</p>
+      <p>We're run by <strong>NeoMngmt</strong>, a small, hands-on team spread across multiple time zones. That spread isn't an accident, it means someone's always awake, watching your numbers, answering your messages, and reacting to what's working before the day is over.</p>
+      <p>What hasn't changed since day one: every creator we work with gets a real team behind them, not a single overworked manager juggling twenty accounts. Marketing, chatting, content strategy, and reporting are handled by people who specialize in exactly that.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">WHAT WE STAND FOR</div>
+      <h2>The principles we don't bend on.</h2>
+    </div>
+    <div class="value-grid" data-reveal>
+      <div class="value-card">
+        <div class="num">01</div>
+        <h4>Discretion first</h4>
+        <p>Your identity is yours. We never disclose it unless you choose to make it public, no exceptions.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">02</div>
+        <h4>Decisions backed by data</h4>
+        <p>Pricing, content, and marketing calls are made from weekly reporting, not gut feeling.</p>
+      </div>
+      <div class="value-card">
+        <div class="num">03</div>
+        <h4>We only win when you do</h4>
+        <p>Our fee is a share of your growth. If your page doesn't grow, neither does our business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0; text-align:center;">
+    <div class="section-head center" data-reveal style="margin-bottom:24px;">
+      <h2>Ready to see what we could build together?</h2>
+    </div>
+    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="#apply">Apply now</a>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-success-stories" data-page="success-stories">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">SUCCESS STORIES</div>
+    <h1>Creator <span class="hl">transformations.</span></h1>
+    <p>Real case studies from the Zion roster, coming soon as our creators hit their next milestones.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="case-grid" data-reveal>
+      <div class="case-card">
+        <div class="case-tag">Case study 01</div>
+        <h4>Coming soon</h4>
+        <p>We're putting together the numbers behind one of our creators' growth over their first few months with Zion.</p>
+        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Case study 02</div>
+        <h4>Coming soon</h4>
+        <p>A closer look at how a creator went from self-managed to a full team behind her page.</p>
+        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Case study 03</div>
+        <h4>Coming soon</h4>
+        <p>The story of a creator who scaled with a marketing-first strategy across multiple platforms.</p>
+        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">WHAT GROWTH LOOKS LIKE</div>
+      <h2>What creators gain by working with us.</h2>
+    </div>
+    <div class="pillar-grid" data-reveal>
+      <div class="pillar-card">
+        <div class="pillar-icon">📈</div>
+        <h4>Steadier income</h4>
+        <p>A growth plan instead of a lucky month here and there.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">⏱️</div>
+        <h4>More free time</h4>
+        <p>The business side handled, so your day goes back to content.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🔁</div>
+        <h4>Higher retention</h4>
+        <p>Fans who stick around, thanks to chatting that actually connects.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🛡️</div>
+        <h4>Real protection</h4>
+        <p>Leaks and chargebacks caught early, not discovered by accident.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">FROM THE BLOG</div>
+      <h2>Guides and insights on growth.</h2>
+    </div>
+    <div class="blog-teaser-grid" data-reveal>
+      <div class="blog-teaser-card">
+        <div class="blog-date">GROWTH</div>
+        <h4>What actually moves the needle in month one</h4>
+        <p>The handful of decisions that shape how fast a new page finds its footing.</p>
+      </div>
+      <div class="blog-teaser-card">
+        <div class="blog-date">CHATTING</div>
+        <h4>Why generic replies cost you renewals</h4>
+        <p>The difference between a chatter who replies and one who builds a relationship.</p>
+      </div>
+      <div class="blog-teaser-card">
+        <div class="blog-date">MARKETING</div>
+        <h4>Picking the right platform mix for your niche</h4>
+        <p>Not every platform deserves equal attention, here's how we decide where to focus.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;" data-reveal>
+      <a class="btn-outline" href="#blog">Read the blog</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0; text-align:center;">
+    <div class="section-head center" data-reveal style="margin-bottom:24px;">
+      <h2>Want to be our next success story?</h2>
+    </div>
+    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="#apply">Apply now</a>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-academy" data-page="academy">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">ZION ACADEMY</div>
+    <h1>Grow smarter, <span class="hl">not just harder.</span></h1>
+    <p>Guides and resources on growth, safety, and monetization, pulled from what actually works across our roster.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="academy-grid" data-reveal>
+      <div class="academy-card">
+        <div class="academy-tag">Marketing</div>
+        <h4>Instagram growth basics</h4>
+        <p>Consistent posting, strong hooks, and Reels that actually get pushed, the fundamentals that move the needle before you spend a dollar on ads.</p>
+      </div>
+      <div class="academy-card">
+        <div class="academy-tag">Marketing</div>
+        <h4>Getting started with Reddit</h4>
+        <p>How niche subreddits, timing, and karma-building turn into steady, low-cost traffic for your page.</p>
+      </div>
+      <div class="academy-card">
+        <div class="academy-tag">Safety</div>
+        <h4>Protecting your content</h4>
+        <p>Watermarking, DMCA basics, and what to actually do the day you find your content leaked somewhere else.</p>
+      </div>
+      <div class="academy-card">
+        <div class="academy-tag">Monetization</div>
+        <h4>Pricing your PPVs</h4>
+        <p>Why flat $5 pricing leaves money on the table, and how bundling and tiered pricing change that.</p>
+      </div>
+      <div class="academy-card">
+        <div class="academy-tag">Chatting</div>
+        <h4>What makes fans stay</h4>
+        <p>The difference between a chatter who replies and one who actually builds a relationship that keeps paying off.</p>
+      </div>
+      <div class="academy-card">
+        <div class="academy-tag">Getting started</div>
+        <h4>Starting anonymously</h4>
+        <p>How creators build a page and an audience without ever showing their face or real name.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0; text-align:center;">
+    <div class="section-head center" data-reveal style="margin-bottom:24px;">
+      <h2>Want this handled for you instead of DIY?</h2>
+    </div>
+    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="#apply">Apply now</a>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog" data-page="blog">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">THE ZION BLOG</div>
+    <h1>Notes on growth, <span class="hl">from the roster.</span></h1>
+    <p>Longer reads on what's actually working across marketing, chatting, and content.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="blog-grid" data-reveal>
+      <a class="blog-card" href="#blog-month-one">
+        <div class="blog-tag">Growth</div>
+        <h4>What actually moves the needle in month one</h4>
+        <p>Most new pages waste their first month chasing everything at once. Here's the short list of decisions that actually shape how fast a page finds traction, and the ones that can wait.</p>
+        <div class="blog-meta"><span>July 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+      <a class="blog-card" href="#blog-chatting-replies">
+        <div class="blog-tag">Chatting</div>
+        <h4>Why generic replies cost you renewals</h4>
+        <p>There's a real gap between a chatter who answers messages and one who builds something a fan wants to keep paying for. We break down what separates the two.</p>
+        <div class="blog-meta"><span>July 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+      <a class="blog-card" href="#blog-platform-mix">
+        <div class="blog-tag">Marketing</div>
+        <h4>Picking the right platform mix for your niche</h4>
+        <p>Reddit, TikTok, Twitter, paid ads, not every platform deserves equal attention. Here's how we decide where a creator's traffic effort actually pays off.</p>
+        <div class="blog-meta"><span>June 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+      <a class="blog-card" href="#blog-pricing">
+        <div class="blog-tag">Monetization</div>
+        <h4>The pricing mistake that quietly caps your income</h4>
+        <p>Flat pricing feels simple, but it usually leaves money on the table. A look at how bundling and tiered pricing change the math.</p>
+        <div class="blog-meta"><span>June 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+      <a class="blog-card" href="#blog-leaks">
+        <div class="blog-tag">Safety</div>
+        <h4>What to do the day your content gets leaked</h4>
+        <p>It happens to almost every creator eventually. The steps that actually help, in the order that matters most.</p>
+        <div class="blog-meta"><span>May 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+      <a class="blog-card" href="#blog-anonymous">
+        <div class="blog-tag">Getting started</div>
+        <h4>Starting anonymously, without losing momentum</h4>
+        <p>You don't need to show your face to build a page that grows. Here's how creators do it well from day one.</p>
+        <div class="blog-meta"><span>May 2026</span><span class="read-more">Read more →</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0; text-align:center;">
+    <div class="section-head center" data-reveal style="margin-bottom:24px;">
+      <h2>Want this handled for you instead of DIY?</h2>
+    </div>
+    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="#apply">Apply now</a>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-month-one" data-page="blog-month-one">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">GROWTH</div>
+    <h1>What actually moves the needle <span class="hl">in month one.</span></h1>
+    <p>Most new pages waste their first month chasing everything at once. Here's what actually matters early on.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>The first month on a new page is loud. There's pressure to post constantly, to be everywhere at once, to look busy. Most of that noise doesn't move the number that actually matters: revenue that keeps showing up in month two and three, not just month one.</p>
+<h2>Nail the profile before you chase traffic</h2>
+<p>Sending traffic to a page that isn't ready is the fastest way to burn an audience once. Your bio, your pinned content, your pricing, all of it needs to make a clear promise before a single dollar gets spent driving people to see it. Fix this first, or you're just wasting the attention you worked to get.</p>
+<h2>Pick two channels, not six</h2>
+<p>New creators often spread themselves across every platform at once, posting a little bit everywhere and mastering nothing. Two channels done consistently and well will outperform six done halfheartedly, every time. Depth beats breadth in month one.</p>
+<h2>Set up the reporting loop early</h2>
+<p>You can't improve what you're not tracking. Even a simple weekly look at what converted and what didn't gives you a compounding advantage over creators who are just guessing. This is one of the first things we build with every new creator, before the marketing push even starts.</p>
+<h2>Protect your time for content</h2>
+<p>It's tempting to spend month one buried in DMs and admin. The creators who scale fastest protect their filming and content time above almost everything else, and let the team around them handle the rest.</p>
+<p>None of this is complicated. It's just easy to skip when everything feels urgent. Get these right first, and the traffic you send in month two lands on something built to actually convert it.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-chatting-replies" data-page="blog-chatting-replies">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">CHATTING</div>
+    <h1>Why generic replies <span class="hl">cost you renewals.</span></h1>
+    <p>There's a real gap between a chatter who answers messages and one who builds something worth paying for.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>Every fan who messages you gets a reply eventually. That's not the bar. The bar is whether that reply made them feel like they were talking to someone who actually knows them, or like they hit a script.</p>
+<h2>Renewals are won in the small details</h2>
+<p>A fan doesn't renew a subscription because a PPV was well-priced. They renew because the relationship feels worth continuing. That comes from remembering what they said last week, referencing it naturally, and making the conversation feel specific to them instead of copy-pasted.</p>
+<h2>Speed matters, but not more than substance</h2>
+<p>Fast replies help, but a fast generic reply loses to a slightly slower, specific one almost every time. The goal isn't just response time, it's response quality. Good chatting teams optimize for both, in that order.</p>
+<h2>Segment instead of broadcasting</h2>
+<p>Treating every fan the same, big spenders and window shoppers alike, leaves money on the table. The fans who've spent the most deserve a different cadence and tone than someone who joined yesterday. Segmentation is what turns a single chat team into a real revenue engine instead of a support desk.</p>
+<h2>What we do differently</h2>
+<p>Our chatters are trained specifically on each creator's voice and audience, not handed a generic script. That's the difference between DMs that feel like an inbox and DMs that feel like a relationship, and it's usually the single biggest lever on renewal rate.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-platform-mix" data-page="blog-platform-mix">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">MARKETING</div>
+    <h1>Picking the right platform mix <span class="hl">for your niche.</span></h1>
+    <p>Not every platform deserves equal attention. Here's how we decide where to focus.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>Reddit, TikTok, Twitter, Instagram, paid traffic, the list of places you could be marketing is long. Trying to be great at all of them at once is how most creators end up mediocre everywhere instead of strong somewhere.</p>
+<h2>Start with where your audience already is</h2>
+<p>Different niches cluster on different platforms. Some audiences live on Reddit and respond to niche communities. Others are far more visual and respond better to short-form video. The starting question isn't "what platform is trending," it's "where does my specific audience already spend time."</p>
+<h2>Match the platform to the content you actually enjoy making</h2>
+<p>A platform that requires content you dread making will burn you out before it produces results. Sustainable growth comes from picking channels that fit both your audience and your actual working style.</p>
+<h2>Give a channel real time before judging it</h2>
+<p>Most platforms need weeks of consistent activity before their algorithm understands what to do with your content. Bouncing between platforms every few days because nothing "worked yet" is the most common reason creators plateau early.</p>
+<h2>Layer in paid traffic once organic has proof</h2>
+<p>Paid traffic amplifies what's already converting, it rarely fixes a page that isn't. We wait until we can see organic signal before adding paid spend on top, so every dollar spent has a proven direction to point toward.</p>
+<p>The right mix is usually two, maybe three channels done consistently, not everything at once.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-pricing" data-page="blog-pricing">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">MONETIZATION</div>
+    <h1>The pricing mistake that quietly <span class="hl">caps your income.</span></h1>
+    <p>Flat pricing feels simple, but it usually leaves money on the table.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>A lot of creators price every PPV the same, $10, $15, whatever number felt safe when they started. It's simple, and it's also quietly limiting how much you can make from the exact same content.</p>
+<h2>Not every fan values the same content equally</h2>
+<p>Flat pricing assumes every fan is willing to pay the same amount for the same thing. In reality, some fans would happily pay more for content they're specifically excited about, and flat pricing leaves that extra value uncollected.</p>
+<h2>Bundling changes the math</h2>
+<p>Instead of selling single pieces of content at a flat rate, bundling multiple pieces together at a slightly discounted combined price increases average spend per purchase, even though each individual item feels like a better deal to the fan. Both sides win.</p>
+<h2>Tiered pricing rewards your biggest fans appropriately</h2>
+<p>Your highest spenders are often willing to pay meaningfully more for exclusivity or first access. Tiered pricing structures let you capture that willingness to pay without alienating fans who spend less.</p>
+<h2>Pricing is a lever, not a set-and-forget decision</h2>
+<p>The creators who earn the most treat pricing as something to test and adjust based on what's actually converting, not a number picked once and left alone. This is one of the areas where a small structural change can meaningfully move monthly revenue without changing the content itself at all.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-leaks" data-page="blog-leaks">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">SAFETY</div>
+    <h1>What to do the day your content <span class="hl">gets leaked.</span></h1>
+    <p>It happens to almost every creator eventually. Here's what actually helps.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>Content leaks happen to almost every creator at some point. It's unsettling, but panicking rarely helps, and there's a clear, practical order of steps that actually reduces the damage.</p>
+<h2>Document before you react</h2>
+<p>Before anything else, save evidence, screenshots, links, and timestamps of where the content is being shared. This documentation is what makes a takedown request or DMCA claim actually enforceable later.</p>
+<h2>File takedown requests immediately</h2>
+<p>Most platforms and hosting providers have a process for removing infringing content once you can prove ownership. The faster this happens, the less time the content has to spread further.</p>
+<h2>Don't engage publicly</h2>
+<p>Responding to leaks publicly, or acknowledging them directly to your audience, often draws more attention to the leak than it would have gotten otherwise. Handle it through proper channels quietly and let the takedown process work.</p>
+<h2>Watermarking makes the next leak easier to trace</h2>
+<p>Subtle watermarking on paid content doesn't prevent leaks entirely, but it makes it far easier to trace where a leak originated, which matters both for takedowns and for deciding whether a subscriber needs to be removed.</p>
+<h2>Have a process before you need one</h2>
+<p>The creators who handle leaks best aren't the ones who never experience them, they're the ones with a process already in place before it happens. That's a big part of what a management team is actually for, moving fast the moment something needs attention instead of scrambling to figure out what to do first.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="page" id="page-blog-anonymous" data-page="blog-anonymous">
+<div class="wrap" >
+  <div class="simple-hero" data-reveal>
+    <div class="eyebrow-label mono">GETTING STARTED</div>
+    <h1>Starting anonymously, <span class="hl">without losing momentum.</span></h1>
+    <p>You don't need to show your face to build a page that grows.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="padding-top:20px;">
+    <div class="prose" data-reveal>
+      <a class="blog-back" href="#blog">← Back to the blog</a>
+      <p>Plenty of creators assume anonymity means slower growth. In practice, some of the most consistent pages we've worked with never show a face at all. The key is building a strategy that treats discretion as a feature, not a limitation.</p>
+<h2>Lean into what makes anonymity intriguing</h2>
+<p>Mystery isn't a weakness, it's a hook. Well-framed content, suggestive crops, silhouettes, and story-driven captions can build genuine curiosity that keeps fans engaged without ever revealing an identity.</p>
+<h2>Build a consistent persona instead of a personal brand</h2>
+<p>Anonymous pages that succeed usually have a strong, consistent persona, a voice, an aesthetic, a set of themes, even without a face attached. Fans connect with consistency and personality just as much as with a face.</p>
+<h2>Pick marketing channels that don't require identity</h2>
+<p>Some platforms lean heavily on face-forward content, others don't. Reddit, in particular, has entire communities built around anonymous and faceless content, and it can be one of the most effective channels for creators who want to stay private.</p>
+<h2>Discretion doesn't mean disorganized</h2>
+<p>Staying anonymous still requires the same structure as any other page, consistent posting, real engagement, and a clear monetization plan. The identity stays private, but the operation behind it still needs to run like a real business.</p>
+<p>Anonymity is a starting constraint, not a ceiling. With the right approach it can shape a page's identity in a way that actually works in its favor.</p>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">
+        <a class="btn-pill" href="#apply">Apply now</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
 </main>
 
 <footer class="site-footer mono">
   <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col footer-brand-col">
-        <div class="footer-brand">
-          <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#logoGradFoot2)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#logoGradFoot2)"/><defs><linearGradient id="logoGradFoot2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
-          <span>ZION</span>
-        </div>
-        <p>Full-service management for OnlyFans creators in the US and Czech Republic. Marketing, chatting, and content, so you can focus on creating.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/starzone.eu/" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-          </a>
-          <a href="https://t.me/starzoneeu" aria-label="Telegram" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 4L2.5 11.5l6 2.2M21 4l-3.2 16-8.3-6.1M21 4L9.4 13.6M9.4 13.6l-.9 6 3-3.5"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Navigate</h4>
-        <a href="#home">Home</a>
-        <a href="#services">Our Services</a>
-        <a href="#contact">Contact</a>
-        <a href="#referral">Referral</a>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="#marketing">Marketing</a>
-        <a href="#chatting">Chatting</a>
-        <a href="#photoshooting">Photoshooting</a>
-      </div>
-      <div class="footer-col">
-        <h4>Get started</h4>
-        <a href="#apply">Apply now</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Get in touch</a>
-      </div>
-    </div>
+    <div class="footer-desktop">
     <div class="footer-bottom">
       <div>ZION · CREATOR MANAGEMENT AGENCY<span class="by-neo-tag">by neomngmt</span></div>
+      <div class="footer-policy-links"><a href="#privacy">Privacy Policy</a><span class="sep">·</span><a href="#terms">Terms &amp; Conditions</a></div>
       <div>© 2023–2026 Zion. All rights reserved.</div>
+    </div>
+    </div>
+    <div class="footer-mobile">
+      <div class="footer-links">
+        <a href="#services">Services</a><span class="sep">·</span>
+        <a href="#faq">FAQ</a><span class="sep">·</span>
+        <a href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Instagram</a><span class="sep">·</span>
+        <a href="https://t.me/starzoneeu">Telegram</a>
+      </div>
+      <div class="footer-brand-simple">
+        <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#logoGradFootM)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#logoGradFootM)"/><defs><linearGradient id="logoGradFootM" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
+        ZION · CREATOR MANAGEMENT AGENCY
+        <span class="by-neo-tag">by neomngmt</span>
+      </div>
     </div>
   </div>
 </footer>
@@ -1380,10 +2206,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     onNavScroll();
     window.addEventListener('scroll', onNavScroll, { passive: true });
 
+    if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted || (performance.getEntriesByType('navigation')[0] || {}).type === 'back_forward') {
-        window.scrollTo(0,0);
-      }
+      if (e.persisted) { window.scrollTo(0,0); }
       onNavScroll();
     });
 
@@ -1414,15 +2239,32 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   });
 </script>
 <script>
-  document.getElementById('referForm').addEventListener('submit', function(e){
+  const referForm = document.getElementById('referForm');
+  referForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    const name = document.getElementById('r-name').value;
-    const herIg = document.getElementById('r-her-ig').value;
-    const ig = document.getElementById('r-ig').value;
-    const email = document.getElementById('r-email').value;
-    const msg = document.getElementById('r-msg').value;
-    const body = `Referrer: ${name}%0AReferrer Instagram: ${ig}%0AReferrer Email: ${email}%0AHer Instagram: ${herIg}%0A%0A${msg}`;
-    window.location.href = `mailto:hello@starzone.eu?subject=New%20referral%20from%20Zion%20site&body=${body}`;
+    const submitBtn = referForm.querySelector('.form-submit');
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch(referForm.action, {
+        method: 'POST',
+        body: new FormData(referForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        referForm.style.display = 'none';
+        const success = document.getElementById('referSuccess');
+        success.classList.add('show', 'in-view');
+      } else {
+        submitBtn.textContent = 'Submit';
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please try again or email us directly.');
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Submit';
+      submitBtn.disabled = false;
+      alert('Something went wrong. Please try again or email us directly.');
+    }
   });
 </script>
 <script>
@@ -1456,7 +2298,34 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 </script>
 <script>
   (function(){
-    const PAGES = ["home","services","marketing","chatting","photoshooting","contact","referral","refer-a-creator","apply"];
+    const subsEl = document.getElementById('calcSubs');
+    if (!subsEl) return;
+    const priceEl = document.getElementById('calcPrice');
+    const gradeEl = document.getElementById('calcGrade');
+    const chatEl = document.getElementById('calcChat');
+    const subsOut = document.getElementById('calcSubsOut');
+    const priceOut = document.getElementById('calcPriceOut');
+    const totalOut = document.getElementById('calcTotal');
+
+    function updateCalc(){
+      const subs = parseInt(subsEl.value, 10);
+      const price = parseInt(priceEl.value, 10);
+      const grade = parseFloat(gradeEl.value);
+      const chat = parseFloat(chatEl.value);
+      subsOut.textContent = subs.toLocaleString();
+      priceOut.textContent = '$' + price;
+      const base = subs * price;
+      const ppv = subs * price * 0.9 * grade * chat;
+      const total = Math.round(base + ppv);
+      totalOut.textContent = total.toLocaleString();
+    }
+    [subsEl, priceEl, gradeEl, chatEl].forEach(el => el.addEventListener('input', updateCalc));
+    updateCalc();
+  })();
+</script>
+<script>
+  (function(){
+    const PAGES = ["home","services","marketing","chatting","photoshooting","contact","referral","refer-a-creator","apply","privacy","terms","about","success-stories","academy","blog","blog-month-one","blog-chatting-replies","blog-platform-mix","blog-pricing","blog-leaks","blog-anonymous"];
     function showPage(key){
       document.querySelectorAll(".page").forEach(sec => sec.classList.remove("active"));
       const target = document.getElementById("page-" + key);
