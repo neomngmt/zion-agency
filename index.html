@@ -39,8 +39,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .nav-bar{ position:sticky; top:0; z-index:60; transition:background-color .35s ease, backdrop-filter .35s ease, border-color .35s ease; border-bottom:1px solid transparent; }
 .nav-bar.scrolled{ background:rgba(7,9,10,0.75); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom-color:var(--border); }
 .nav{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; gap:20px; }
-.brand{ display:flex; align-items:center; gap:10px; font-size:15px; font-weight:800; letter-spacing:3px; }
-.brand .star{ width:16px; height:16px; }
+.brand{ display:flex; align-items:center; gap:13px; font-size:19px; font-weight:800; letter-spacing:3px; }
+.brand .star{ width:24px; height:24px; }
 .nav-links{ display:flex; gap:34px; font-size:14px; color:var(--dim); align-items:center; text-transform:uppercase; letter-spacing:1.5px; font-family:'JetBrains Mono', monospace; }
 .nav-links a{ text-decoration:none; transition:color .15s; }
 .nav-links a:hover{ color:var(--text); }
@@ -222,16 +222,17 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .brand{ position:relative; }
 .footer-brand{ position:relative; }
 .by-neo-tag{
-  position:absolute; right:0; top:100%; margin-top:1px;
+  position:absolute; right:0; top:100%; margin-top:2px;
   display:inline-block; line-height:1; text-align:right;
-  font-family:'Dancing Script', cursive; font-weight:700; font-size:8px; white-space:nowrap;
+  font-family:'Dancing Script', cursive; font-weight:700; font-size:11px; white-space:nowrap;
   color:var(--green-soft); text-shadow:0 0 2px var(--green-soft);
   -webkit-clip-path:inset(0 100% 0 0); clip-path:inset(0 100% 0 0);
   animation:writeOn 1.2s steps(20,end) forwards, neoFlicker 3.5s ease-in-out infinite 1.2s;
   pointer-events:none;
 }
 .footer-brand .by-neo-tag{ right:0; font-size:7px; }
-@media (max-width:860px){ .by-neo-tag{ font-size:6px; right:0; } .footer-brand .by-neo-tag{ right:0; font-size:6px; } }
+@media (max-width:860px){ .by-neo-tag{ font-size:9px; right:0; } .footer-brand .by-neo-tag{ right:0; font-size:6px; } }
+@media (min-width:861px){ .by-neo-tag{ left:58px; right:auto; text-align:left; } }
 @keyframes neoFlicker{
   0%,100%{ opacity:0.85; }
   50%{ opacity:1; }
