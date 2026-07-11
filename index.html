@@ -208,13 +208,27 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .closing h2{ font-size:clamp(28px,4.6vw,46px); font-weight:900; margin-bottom:16px; letter-spacing:-0.01em; }
 .closing p{ color:var(--dim); font-size:16px; max-width:480px; margin:0 auto 34px; }
 /* ================= FOOTER ================= */
-.site-footer{ display:flex; flex-direction:column; align-items:center; gap:14px; padding:26px 0 34px; border-top:1px solid var(--border); text-align:center; }
-.footer-brand{ font-size:11px; letter-spacing:1.2px; color:var(--dim); display:flex; align-items:center; gap:8px; }
-.footer-brand .star{ width:10px; height:10px; }
-.footer-links{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10.5px; row-gap:6px; }
-.footer-links a{ color:var(--dim); text-decoration:none; transition:color .15s; }
-.footer-links a:hover{ color:var(--green-soft); }
-.footer-links .sep{ color:var(--border); }
+.site-footer{ padding:64px 0 30px; border-top:1px solid var(--border); }
+.footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; margin-bottom:44px; }
+.footer-col h4{ font-size:11px; letter-spacing:2px; color:var(--text); margin-bottom:18px; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
+.footer-col a{ display:block; color:var(--dim); text-decoration:none; font-size:13.5px; margin-bottom:12px; transition:color .15s; }
+.footer-col a:hover{ color:var(--green-soft); }
+.footer-brand-col p{ color:var(--dim); font-size:13px; line-height:1.65; margin:16px 0 20px; max-width:280px; }
+.footer-brand{ display:flex; align-items:center; gap:10px; margin-bottom:0; }
+.footer-brand .star{ width:20px; height:20px; }
+.footer-brand span{ font-size:16px; font-weight:800; letter-spacing:2px; color:var(--text); }
+.footer-social{ display:flex; gap:10px; }
+.footer-social a{ width:36px; height:36px; border:1px solid var(--border); border-radius:9px; display:flex; align-items:center; justify-content:center; color:var(--dim); transition:border-color .15s, color .15s; margin-bottom:0; }
+.footer-social a:hover{ border-color:var(--green-dim); color:var(--green-soft); }
+.footer-social svg{ width:15px; height:15px; }
+.footer-bottom{ display:flex; align-items:center; justify-content:space-between; padding-top:26px; border-top:1px solid var(--border); font-size:11px; color:var(--dim); flex-wrap:wrap; gap:14px; font-family:'JetBrains Mono', monospace; }
+.footer-bottom .by-neo-tag{ position:static; clip-path:none; -webkit-clip-path:none; animation:none; opacity:1; margin-left:6px; }
+@media (max-width:860px){
+  .footer-grid{ grid-template-columns:1fr; text-align:center; gap:34px; }
+  .footer-brand-col{ display:flex; flex-direction:column; align-items:center; }
+  .footer-social{ justify-content:center; }
+  .footer-bottom{ flex-direction:column; text-align:center; }
+}
 .footer-copy{ color:var(--dim); }
 [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 [data-reveal].in-view{ opacity:1; transform:translateY(0); }
@@ -1284,7 +1298,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <div class="form-note">Your information stays <b>100% confidential</b>. We usually respond within 2 hours.</div>
     </form>
     <div class="form-success" id="applySuccess" data-reveal>
-      <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#39e673"/></svg>
+      <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#successGrad)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#successGrad)"/><defs><linearGradient id="successGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
       <h3>Application received.</h3>
       <p>Thanks for reaching out. We'll review your application and get back to you within 2 hours.</p>
     </div>
@@ -1294,16 +1308,47 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 </main>
 
 <footer class="site-footer mono">
-  <div class="footer-links">
-    <a href="#services">Services</a><span class="sep">·</span>
-    <a href="#faq">FAQ</a><span class="sep">·</span>
-    <a href="https://www.instagram.com/starzone.eu/">Instagram</a><span class="sep">·</span>
-    <a href="https://t.me/starzoneeu">Telegram</a>
-  </div>
-  <div class="footer-brand">
-    <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#logoGradFoot2)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#logoGradFoot2)"/><defs><linearGradient id="logoGradFoot2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
-    ZION · CREATOR MANAGEMENT AGENCY
-    <span class="by-neo-tag">by neomngmt</span>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand-col">
+        <div class="footer-brand">
+          <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#logoGradFoot2)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#logoGradFoot2)"/><defs><linearGradient id="logoGradFoot2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
+          <span>ZION</span>
+        </div>
+        <p>Full-service management for OnlyFans creators in the US and Czech Republic. Marketing, chatting, and content, so you can focus on creating.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/starzone.eu/" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          </a>
+          <a href="https://t.me/starzoneeu" aria-label="Telegram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 4L2.5 11.5l6 2.2M21 4l-3.2 16-8.3-6.1M21 4L9.4 13.6M9.4 13.6l-.9 6 3-3.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#home">Home</a>
+        <a href="#services">Our Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#referral">Referral</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#marketing">Marketing</a>
+        <a href="#chatting">Chatting</a>
+        <a href="#photoshooting">Photoshooting</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get started</h4>
+        <a href="#apply">Apply now</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>ZION · CREATOR MANAGEMENT AGENCY<span class="by-neo-tag">by neomngmt</span></div>
+      <div>© 2023–2026 Zion. All rights reserved.</div>
+    </div>
   </div>
 </footer>
 
@@ -1334,6 +1379,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     const onNavScroll = () => navBar && navBar.classList.toggle('scrolled', window.scrollY > 8);
     onNavScroll();
     window.addEventListener('scroll', onNavScroll, { passive: true });
+
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted || (performance.getEntriesByType('navigation')[0] || {}).type === 'back_forward') {
+        window.scrollTo(0,0);
+      }
+      onNavScroll();
+    });
 
     const pageGlow = document.getElementById('pageGlow');
     if (pageGlow) {
