@@ -22,12 +22,14 @@
   --border: rgba(18,179,76,0.16);
 }
 *{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; overflow-x:hidden; width:100%; }
 body{
   background: var(--bg);
   color: var(--text);
   font-family:'Inter', sans-serif;
   overflow-x:hidden;
+  width:100%;
+  position:relative;
 }
 .mono{ font-family:'JetBrains Mono', monospace; }
 .wrap{ max-width:1160px; margin:0 auto; padding:0 28px; }
