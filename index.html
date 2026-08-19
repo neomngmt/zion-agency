@@ -187,6 +187,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 /* ================= MEDIA SPLIT ================= */
 .split{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:center; }
 .split img{ border-radius:16px; border:1px solid var(--border); }
+/* ================= ABOUT VIDEO ================= */
+.about-video-wrap{ max-width:760px; margin:0 auto; }
+.about-video{ width:100%; display:block; border-radius:16px; border:1px solid var(--border); background:#000; box-shadow:0 24px 60px rgba(0,0,0,0.45); }
 .badge-pill{ font-size:11px; letter-spacing:1.5px; color:var(--green-soft); border:1px solid var(--border); padding:6px 14px; border-radius:999px; display:inline-block; margin-bottom:18px; }
 .split h3{ font-size:clamp(22px,3vw,30px); font-weight:800; margin-bottom:16px; line-height:1.2; }
 .split p{ color:var(--dim); font-size:15px; line-height:1.65; margin-bottom:26px; }
@@ -1953,6 +1956,22 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <p>Zion started in 2023 with a simple idea: creators shouldn't have to choose between growing their income and protecting their privacy. Most agencies treat those as separate problems. We built Zion to solve both at once.</p>
       <p>We're run by <strong>NeoMngmt</strong>, a small, hands-on team spread across multiple time zones. That spread isn't an accident, it means someone's always awake, watching your numbers, answering your messages, and reacting to what's working before the day is over.</p>
       <p>What hasn't changed since day one: every creator we work with gets a real team behind them, not a single overworked manager juggling twenty accounts. Marketing, chatting, content strategy, and reporting are handled by people who specialize in exactly that.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0;">
+    <div class="section-head center" data-reveal>
+      <div class="eyebrow-label mono">HEAR IT FROM US</div>
+      <h2>A quick word from the team.</h2>
+      <p class="section-sub">Recorded in 2024. The agency has grown since, but this is still who we are.</p>
+    </div>
+    <div class="about-video-wrap" data-reveal>
+      <video class="about-video" controls preload="none" playsinline>
+        <source src="assets/about-intro.mp4" type="video/mp4">
+        Your browser doesn't support embedded video. <a href="assets/about-intro.mp4">Download the video</a> instead.
+      </video>
     </div>
   </div>
 </div>
