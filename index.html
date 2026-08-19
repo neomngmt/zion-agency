@@ -561,12 +561,15 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .case-card{ border:1px solid var(--border); border-radius:16px; padding:22px; background:linear-gradient(160deg, rgba(18,179,76,0.06), transparent 60%); display:flex; flex-direction:column; gap:14px; transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
 .case-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
 .case-card .case-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
-.case-card h4{ font-size:17px; font-weight:800; }
-.case-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; }
+.case-card .case-stat{ font-size:22px; font-weight:800; color:var(--green-soft); }
+.case-card .case-stat .dim{ color:var(--dim); font-weight:500; font-size:15px; }
+.case-card h4{ font-size:15px; font-weight:700; color:var(--text); }
+.case-card p{ font-size:13px; color:var(--dim); line-height:1.6; }
 .case-card .case-stub{ border:1px dashed var(--border); border-radius:10px; padding:14px; font-size:12px; color:var(--dim); text-align:center; font-family:'JetBrains Mono', monospace; }
-.case-shot{ border-radius:12px; overflow:hidden; background:#000; box-shadow:0 10px 24px rgba(0,0,0,0.4); margin-top:auto; }
-.case-shot img{ width:100%; display:block; }
-.case-shot-stack{ display:flex; flex-direction:column; background:#fff; }
+.case-shot{ border-radius:12px; overflow:hidden; background:#000; box-shadow:0 8px 18px rgba(0,0,0,0.4); margin-top:auto; max-width:220px; aspect-ratio:16/9; }
+.case-shot img{ width:100%; height:100%; object-fit:cover; display:block; }
+.case-shot-stack{ display:flex; flex-direction:column; background:#fff; height:auto; aspect-ratio:auto; }
+.case-shot-stack img{ height:auto; object-fit:contain; }
 .case-card-wide{ grid-column:1 / -1; }
 .case-shot-video{ display:flex; justify-content:center; background:#000; }
 .case-shot-video video{ width:auto; max-width:100%; max-height:480px; display:block; }
@@ -2078,24 +2081,28 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="case-grid" data-reveal>
       <div class="case-card">
         <div class="case-tag">Marketing takeover</div>
+        <div class="case-stat mono">10-week <span class="dim">traffic climb</span></div>
         <h4>Page traffic jumped the week we took over.</h4>
         <p>Real analytics from a creator's page, before and after her marketing shifted to our team.</p>
         <div class="case-shot"><img src="assets/case-traffic.jpg" alt="Traffic chart showing a jump after Zion took over a creator's page marketing" loading="lazy"></div>
       </div>
       <div class="case-card">
         <div class="case-tag">Chatting result</div>
+        <div class="case-stat mono">30 months <span class="dim">→</span> 3 hours</div>
         <h4>One session, months of typical revenue.</h4>
         <p>A single high-performing chat session from our team outpaced what the page had been earning per month.</p>
         <div class="case-shot"><img src="assets/case-chat-session.jpg" alt="Earnings spike chart after Zion's chat team took over a creator's page" loading="lazy"></div>
       </div>
       <div class="case-card">
         <div class="case-tag">Subscriber growth</div>
+        <div class="case-stat mono">30-day <span class="dim">subscriber climb</span></div>
         <h4>New subscribers climbed within 30 days.</h4>
         <p>Subscriber growth accelerated shortly after onboarding, tracked directly from the platform's own analytics.</p>
         <div class="case-shot case-shot-stack"><img src="assets/case-subs-header.png" alt="Analytics header showing a 30-day subscriber growth view" loading="lazy"><img src="assets/case-subs-chart.png" alt="Chart showing new subscribers climbing over 30 days" loading="lazy"></div>
       </div>
       <div class="case-card">
         <div class="case-tag">Revenue trend</div>
+        <div class="case-stat mono">$500 <span class="dim">→</span> $1,500+/day</div>
         <h4>Daily earnings trending up over four months.</h4>
         <p>Consistent upward momentum in daily earnings, tracked from May through August.</p>
         <div class="case-shot"><img src="assets/case-earnings-trend.png" alt="Daily earnings chart trending upward from May to August" loading="lazy"></div>
