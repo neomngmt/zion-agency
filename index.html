@@ -1585,7 +1585,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div class="wizard-progress"><div class="wizard-progress-bar" id="referWizardProgressBar"></div></div>
-      <div class="wizard-step-count mono" id="referWizardStepCount">Step 1 of 5</div>
+      <div class="wizard-step-count mono" id="referWizardStepCount">Step 1 of 7</div>
 
       <div class="wizard-step active" data-step="1">
         <div class="form-field">
@@ -1594,29 +1594,47 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         </div>
       </div>
 
-      <div class="wizard-step" data-step="2">
+      <div class="wizard-step wizard-choice-step" data-step="2">
+        <div class="form-field">
+          <label for="r-her-country-search">What country is she based in?</label>
+          <input type="text" id="r-her-country-search" placeholder="Start typing her country..." autocomplete="off">
+          <div class="wizard-country-list" id="referCountryList"></div>
+        </div>
+        <input type="hidden" id="r-her-country" name="her_country" required>
+      </div>
+
+      <div class="wizard-step" data-step="3">
+        <div class="form-field">
+          <label for="r-her-age">How old is she?</label>
+          <input type="number" id="r-her-age" name="her_age" min="18" required>
+          <div class="hint">She must be 18 or older.</div>
+        </div>
+      </div>
+
+      <div class="wizard-step" data-step="4">
+        <div class="form-field">
+          <label for="r-her-email">What's her email?</label>
+          <input type="email" id="r-her-email" name="her_email" placeholder="Leave blank if you don't have it" autocomplete="off">
+          <div class="hint">Optional, if you have it.</div>
+        </div>
+      </div>
+
+      <div class="wizard-step" data-step="5">
         <div class="form-field">
           <label for="r-name">What's your name?</label>
           <input type="text" id="r-name" name="name" required autocomplete="name">
         </div>
       </div>
 
-      <div class="wizard-step" data-step="3">
-        <div class="form-field">
-          <label for="r-ig">What's your Instagram handle?</label>
-          <input type="text" id="r-ig" name="instagram" placeholder="@yourhandle" autocomplete="off">
-          <div class="hint">Optional, in case we need to reach you there too.</div>
-        </div>
-      </div>
-
-      <div class="wizard-step" data-step="4">
+      <div class="wizard-step" data-step="6">
         <div class="form-field">
           <label for="r-email">What's your email?</label>
           <input type="email" id="r-email" name="email" required autocomplete="email">
+          <div class="hint">So we can pay out your referral commission.</div>
         </div>
       </div>
 
-      <div class="wizard-step" data-step="5">
+      <div class="wizard-step" data-step="7">
         <div class="form-field">
           <label for="r-msg">Anything else you'd like us to know?</label>
           <textarea id="r-msg" name="message"></textarea>
@@ -2493,6 +2511,73 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   });
 </script>
 <script>
+  window.WIZARD_COUNTRIES = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Republic of the Congo","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+  window.WIZARD_COUNTRY_ALIASES = {
+    "us": "United States", "usa": "United States", "america": "United States", "united states of america": "United States",
+    "uk": "United Kingdom", "britain": "United Kingdom", "great britain": "United Kingdom", "england": "United Kingdom",
+    "uae": "United Arab Emirates", "emirates": "United Arab Emirates",
+    "cz": "Czech Republic", "czechia": "Czech Republic",
+    "drc": "Democratic Republic of the Congo",
+    "skorea": "South Korea", "south korea": "South Korea", "korea": "South Korea",
+    "nkorea": "North Korea",
+    "uk.": "United Kingdom"
+  };
+  window.setupCountryPicker = function(searchEl, listEl, hiddenEl, onSelect){
+    function selectCountry(name){
+      hiddenEl.value = name;
+      searchEl.value = name;
+      listEl.innerHTML = '';
+      if (onSelect) { setTimeout(onSelect, 200); }
+    }
+    function render(query){
+      listEl.innerHTML = '';
+      if (!query){ return; }
+      const q = query.trim().toLowerCase();
+      if (!q){ return; }
+      const alias = window.WIZARD_COUNTRY_ALIASES[q];
+      const starts = [];
+      const contains = [];
+      window.WIZARD_COUNTRIES.forEach(c => {
+        if (c === alias) return;
+        const lc = c.toLowerCase();
+        if (lc.startsWith(q)) { starts.push(c); }
+        else if (lc.includes(q)) { contains.push(c); }
+      });
+      starts.sort();
+      contains.sort();
+      let matches = alias ? [alias, ...starts, ...contains] : [...starts, ...contains];
+      matches = matches.slice(0, 8);
+      if (!matches.length){
+        const empty = document.createElement('div');
+        empty.className = 'wizard-country-empty';
+        empty.textContent = 'No matching country found.';
+        listEl.appendChild(empty);
+        return;
+      }
+      matches.forEach(name => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'wizard-country-item';
+        btn.textContent = name;
+        btn.addEventListener('click', () => selectCountry(name));
+        listEl.appendChild(btn);
+      });
+    }
+    if (searchEl){
+      searchEl.addEventListener('input', () => {
+        hiddenEl.value = '';
+        render(searchEl.value);
+      });
+    }
+    return {
+      selectTopMatch: function(){
+        const first = listEl.querySelector('.wizard-country-item');
+        if (first){ first.click(); }
+      }
+    };
+  };
+</script>
+<script>
   const referForm = document.getElementById('referForm');
   referForm.addEventListener('submit', async function(e){
     e.preventDefault();
@@ -2545,9 +2630,10 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       stepCount.textContent = 'Step ' + current + ' of ' + total;
       backBtn.classList.toggle('hidden', current === 1);
       const isLast = current === total;
-      nextBtn.style.display = isLast ? 'none' : '';
-      submitBtn.style.display = isLast ? '' : 'none';
       const stepEl = getStepEl(current);
+      const isChoiceStep = stepEl.classList.contains('wizard-choice-step');
+      nextBtn.style.display = (isLast || isChoiceStep) ? 'none' : '';
+      submitBtn.style.display = isLast ? '' : 'none';
       const firstInput = stepEl.querySelector('input:not([type=hidden]):not([type=checkbox]), textarea');
       if (firstInput) { setTimeout(() => firstInput.focus(), 60); }
     }
@@ -2575,10 +2661,21 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     nextBtn.addEventListener('click', goNext);
     backBtn.addEventListener('click', goBack);
 
+    const herCountryPicker = window.setupCountryPicker(
+      document.getElementById('r-her-country-search'),
+      document.getElementById('referCountryList'),
+      document.getElementById('r-her-country'),
+      goNext
+    );
+
     form.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
       if (e.target.tagName !== 'INPUT') return;
       e.preventDefault();
+      if (e.target.id === 'r-her-country-search'){
+        herCountryPicker.selectTopMatch();
+        return;
+      }
       if (current === total){ submitBtn.click(); } else { goNext(); }
     });
 
@@ -2685,78 +2782,19 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     nextBtn.addEventListener('click', goNext);
     backBtn.addEventListener('click', goBack);
 
-    const COUNTRIES = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Republic of the Congo","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
-    const countrySearch = document.getElementById('a-country-search');
-    const countryList = document.getElementById('countryList');
-    const countryHidden = document.getElementById('a-country');
-
-    function selectCountry(name){
-      countryHidden.value = name;
-      countrySearch.value = name;
-      countryList.innerHTML = '';
-      setTimeout(goNext, 200);
-    }
-
-    const COUNTRY_ALIASES = {
-      "us": "United States", "usa": "United States", "america": "United States", "united states of america": "United States",
-      "uk": "United Kingdom", "britain": "United Kingdom", "great britain": "United Kingdom", "england": "United Kingdom",
-      "uae": "United Arab Emirates", "emirates": "United Arab Emirates",
-      "cz": "Czech Republic", "czechia": "Czech Republic",
-      "drc": "Democratic Republic of the Congo",
-      "skorea": "South Korea", "south korea": "South Korea", "korea": "South Korea",
-      "nkorea": "North Korea",
-      "uk.": "United Kingdom"
-    };
-
-    function renderCountryList(query){
-      countryList.innerHTML = '';
-      if (!query){ return; }
-      const q = query.trim().toLowerCase();
-      if (!q){ return; }
-      const alias = COUNTRY_ALIASES[q];
-      const starts = [];
-      const contains = [];
-      COUNTRIES.forEach(c => {
-        if (c === alias) return;
-        const lc = c.toLowerCase();
-        if (lc.startsWith(q)) { starts.push(c); }
-        else if (lc.includes(q)) { contains.push(c); }
-      });
-      starts.sort();
-      contains.sort();
-      let matches = alias ? [alias, ...starts, ...contains] : [...starts, ...contains];
-      matches = matches.slice(0, 8);
-      if (!matches.length){
-        const empty = document.createElement('div');
-        empty.className = 'wizard-country-empty';
-        empty.textContent = 'No matching country found.';
-        countryList.appendChild(empty);
-        return;
-      }
-      matches.forEach(name => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'wizard-country-item';
-        btn.textContent = name;
-        btn.addEventListener('click', () => selectCountry(name));
-        countryList.appendChild(btn);
-      });
-    }
-
-    if (countrySearch){
-      countrySearch.addEventListener('input', () => {
-        countryHidden.value = '';
-        renderCountryList(countrySearch.value);
-      });
-    }
+    const countryPicker = window.setupCountryPicker(
+      document.getElementById('a-country-search'),
+      document.getElementById('countryList'),
+      document.getElementById('a-country'),
+      goNext
+    );
 
     form.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
       if (e.target.tagName !== 'INPUT') return;
       e.preventDefault();
       if (e.target.id === 'a-country-search'){
-        const first = countryList.querySelector('.wizard-country-item');
-        if (first){ first.click(); }
+        countryPicker.selectTopMatch();
         return;
       }
       if (current === total){ submitBtn.click(); } else { goNext(); }
