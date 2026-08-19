@@ -198,7 +198,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .quote-box .attr{ font-size:11px; letter-spacing:1.5px; color:var(--dim); }
 /* ================= TIMELINE (steps) ================= */
 .timeline{ position:relative; max-width:720px; margin:0 auto; }
-.timeline::before{ content:""; position:absolute; left:17px; top:10px; bottom:10px; width:1px; background:var(--border); }
+.timeline::before{ content:""; position:absolute; left:17px; top:10px; bottom:10px; width:1px; background:var(--border); transform:scaleY(0); transform-origin:top; transition:transform 1.1s cubic-bezier(.2,.7,.3,1) .15s; }
+.timeline.in-view::before{ transform:scaleY(1); }
 .tl-item{ position:relative; padding:0 0 44px 60px; }
 .tl-item:last-child{ padding-bottom:0; }
 .tl-dot{ position:absolute; left:0; top:0; width:36px; height:36px; border-radius:50%; background:var(--panel); border:1px solid var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--green-soft); font-family:'JetBrains Mono', monospace; }
@@ -219,8 +220,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 @media (max-width:860px){ .compare-wrap{ grid-template-columns:1fr; } .compare-col.us{ border-left:none; border-top:1px solid var(--border); } }
 /* ================= VALUE GRID ================= */
 .value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.value-card{ border:1px solid var(--border); border-radius:14px; padding:24px; background:rgba(255,255,255,0.015); transition:border-color .15s; }
-.value-card:hover{ border-color:var(--green-dim); }
+.value-card{ border:1px solid var(--border); border-radius:14px; padding:24px; background:rgba(255,255,255,0.015); transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
+.value-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
 .value-card .num{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green-soft); margin-bottom:12px; }
 .value-card h4{ font-size:15px; font-weight:700; margin-bottom:8px; line-height:1.3; }
 .value-card p{ font-size:13px; color:var(--dim); line-height:1.55; }
@@ -258,7 +259,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .faq-item summary::-webkit-details-marker{ display:none; }
 .faq-item summary::after{ content:"+"; color:var(--green-soft); font-size:19px; transition:transform .2s; flex-shrink:0; }
 .faq-item[open] summary::after{ transform:rotate(45deg); }
-.faq-item p{ color:var(--dim); font-size:13.5px; margin-top:13px; line-height:1.6; }
+.faq-item::details-content{ block-size:auto; overflow:visible; content-visibility:visible; }
+.faq-item .faq-body{ display:block; height:0; overflow:hidden; transition:height .35s cubic-bezier(.2,.7,.3,1); }
+.faq-item .faq-body p{ color:var(--dim); font-size:13.5px; margin-top:13px; padding-bottom:2px; line-height:1.6; }
 /* ================= REFERRAL ================= */
 .referral-box{ border:1px solid var(--border); border-radius:18px; padding:36px 32px; background:linear-gradient(160deg, rgba(18,179,76,0.06), transparent 60%); }
 .referral-box .big-num{ font-size:44px; font-weight:900; color:var(--green-soft); line-height:1; }
@@ -458,8 +461,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .form-success p{ color:var(--dim); font-size:14.5px; max-width:400px; margin:0 auto; line-height:1.6; }
 /* ================= SERVICE ICON GRID ================= */
 .service-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.service-icon-card{ border:1px solid var(--border); border-radius:16px; padding:28px; background:rgba(255,255,255,0.015); transition:border-color .15s; }
-.service-icon-card:hover{ border-color:var(--green-dim); }
+.service-icon-card{ border:1px solid var(--border); border-radius:16px; padding:28px; background:rgba(255,255,255,0.015); transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
+.service-icon-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
 .service-icon-card .icon-badge{ width:44px; height:44px; border-radius:11px; background:rgba(18,179,76,0.09); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
 .service-icon-card .icon-badge svg{ width:21px; height:21px; }
 .service-icon-card h4{ font-size:16px; font-weight:800; margin-bottom:10px; }
@@ -554,7 +557,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .testi-tabs button{ flex:1; min-width:100px; padding:12px 16px; border:1px solid var(--border); border-radius:999px; background:transparent; color:var(--dim); font-size:13px; font-weight:600; cursor:pointer; transition:background .15s, color .15s, border-color .15s; font-family:'Inter', sans-serif; }
 .testi-tabs button.active{ background:linear-gradient(135deg, var(--green-soft), var(--green)); color:#04140c; border-color:transparent; }
 .testi-panel{ display:none; }
-.testi-panel.active{ display:block; }
+.testi-panel.active{ display:block; animation:testiFadeIn .4s cubic-bezier(.2,.7,.3,1); }
+@keyframes testiFadeIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
 .testi-panel .testi-quote{ font-size:15.5px; color:var(--text); line-height:1.75; margin-bottom:18px; }
 .testi-panel .testi-quote::before{ content:"“"; color:var(--green-soft); }
 .testi-panel .testi-quote::after{ content:"”"; color:var(--green-soft); }
@@ -569,8 +573,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 @media (max-width:860px){ .blog-teaser-grid{ grid-template-columns:1fr; } }
 /* ================= ACADEMY ================= */
 .academy-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
-.academy-card{ border:1px solid var(--border); border-radius:16px; padding:26px; background:rgba(255,255,255,0.015); transition:border-color .15s; display:flex; flex-direction:column; gap:12px; }
-.academy-card:hover{ border-color:var(--green-dim); }
+.academy-card{ border:1px solid var(--border); border-radius:16px; padding:26px; background:rgba(255,255,255,0.015); transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; display:flex; flex-direction:column; gap:12px; }
+.academy-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
 .academy-card .academy-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
 .academy-card h4{ font-size:16px; font-weight:800; line-height:1.3; }
 .academy-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; }
@@ -591,7 +595,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .blog-back{ display:inline-block; margin-bottom:26px; color:var(--dim); text-decoration:none; font-family:'JetBrains Mono', monospace; font-size:12px; }
 .blog-back:hover{ color:var(--green-soft); }
 .page{ display:none; }
-.page.active{ display:block; }
+.page.active{ display:block; animation:pageFadeIn .45s cubic-bezier(.2,.7,.3,1); }
+@keyframes pageFadeIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
 /* ================= REVENUE COUNTER + MARQUEE ================= */
 .counter-strip{ border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:40px 0; text-align:center; }
 .counter-strip .counter-num{ font-family:'JetBrains Mono', monospace; font-size:clamp(32px,6vw,56px); font-weight:700; color:var(--green-soft); text-shadow:0 0 30px var(--glow); letter-spacing:-0.01em; }
@@ -1031,23 +1036,23 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="faq-list" data-reveal>
       <details class="faq-item">
         <summary>What do OnlyFans agencies do?</summary>
-        <p>We handle full management, content strategy, messaging, and growth, so creators can focus on creating while we grow their income.</p>
+        <div class="faq-body"><p>We handle full management, content strategy, messaging, and growth, so creators can focus on creating while we grow their income.</p></div>
       </details>
       <details class="faq-item">
         <summary>Are OnlyFans agencies legal?</summary>
-        <p>Yes. Working with a management agency is a standard business arrangement between a creator and a team handling marketing, analytics, and account operations.</p>
+        <div class="faq-body"><p>Yes. Working with a management agency is a standard business arrangement between a creator and a team handling marketing, analytics, and account operations.</p></div>
       </details>
       <details class="faq-item">
         <summary>Can I really get rich through OnlyFans?</summary>
-        <p>Results vary by creator, but with consistent strategy, content, and analytics-driven adjustments, the platform has produced strong outcomes for many of our clients.</p>
+        <div class="faq-body"><p>Results vary by creator, but with consistent strategy, content, and analytics-driven adjustments, the platform has produced strong outcomes for many of our clients.</p></div>
       </details>
       <details class="faq-item">
         <summary>Can I start without showing my face?</summary>
-        <p>Yes, discretion is guaranteed. We work with creators who prefer to stay anonymous, and your name and personal data are never disclosed unless you choose to make them public.</p>
+        <div class="faq-body"><p>Yes, discretion is guaranteed. We work with creators who prefer to stay anonymous, and your name and personal data are never disclosed unless you choose to make them public.</p></div>
       </details>
       <details class="faq-item">
         <summary>What are the benefits of OnlyFans agencies?</summary>
-        <p>Professional management, weekly performance reporting, content and messaging support, and a team focused on scaling your income while you focus on creating.</p>
+        <div class="faq-body"><p>Professional management, weekly performance reporting, content and messaging support, and a team focused on scaling your income while you focus on creating.</p></div>
       </details>
     </div>
   </div>
@@ -1178,19 +1183,19 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="faq-list" data-reveal>
       <details class="faq-item">
         <summary>How to do OnlyFans marketing?</summary>
-        <p>We combine niche positioning, cross-platform promotion, and creator collaborations to get your profile in front of the right audience consistently.</p>
+        <div class="faq-body"><p>We combine niche positioning, cross-platform promotion, and creator collaborations to get your profile in front of the right audience consistently.</p></div>
       </details>
       <details class="faq-item">
         <summary>What kind of content does she sell on OnlyFans?</summary>
-        <p>It depends entirely on the creator's niche and comfort level. We build a content plan around what feels authentic to you.</p>
+        <div class="faq-body"><p>It depends entirely on the creator's niche and comfort level. We build a content plan around what feels authentic to you.</p></div>
       </details>
       <details class="faq-item">
         <summary>What is the best platform for promoting OnlyFans?</summary>
-        <p>There's no single answer, we run promotion across 15+ platforms and focus effort on whichever ones perform best for your specific audience.</p>
+        <div class="faq-body"><p>There's no single answer, we run promotion across 15+ platforms and focus effort on whichever ones perform best for your specific audience.</p></div>
       </details>
       <details class="faq-item">
         <summary>How do creators promote their OnlyFans accounts?</summary>
-        <p>Through consistent social content, shoutouts, collaborations, and paid promotion, all coordinated by our marketing team so you don't have to manage it yourself.</p>
+        <div class="faq-body"><p>Through consistent social content, shoutouts, collaborations, and paid promotion, all coordinated by our marketing team so you don't have to manage it yourself.</p></div>
       </details>
     </div>
   </div>
@@ -1271,19 +1276,19 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="faq-list" data-reveal>
       <details class="faq-item">
         <summary>Why is chatting important for success on OnlyFans?</summary>
-        <p>Fans stay subscribed and spend more when they feel a genuine connection. Chatting is where that connection is built and maintained.</p>
+        <div class="faq-body"><p>Fans stay subscribed and spend more when they feel a genuine connection. Chatting is where that connection is built and maintained.</p></div>
       </details>
       <details class="faq-item">
         <summary>How does a chat service increase profits?</summary>
-        <p>A skilled, emotionally intelligent chatter increases spend per subscriber, reduces refunds, and improves renewal rates compared to inconsistent or absent engagement.</p>
+        <div class="faq-body"><p>A skilled, emotionally intelligent chatter increases spend per subscriber, reduces refunds, and improves renewal rates compared to inconsistent or absent engagement.</p></div>
       </details>
       <details class="faq-item">
         <summary>What type of OnlyFans account can I chat on?</summary>
-        <p>We work with accounts across niches and content styles, the approach is tailored to your brand and audience.</p>
+        <div class="faq-body"><p>We work with accounts across niches and content styles, the approach is tailored to your brand and audience.</p></div>
       </details>
       <details class="faq-item">
         <summary>How much chatter can you add to my account?</summary>
-        <p>We scale the team to your account's volume, from a single dedicated chatter to a full rotating shift team as you grow.</p>
+        <div class="faq-body"><p>We scale the team to your account's volume, from a single dedicated chatter to a full rotating shift team as you grow.</p></div>
       </details>
     </div>
   </div>
@@ -1360,19 +1365,19 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="faq-list" data-reveal>
       <details class="faq-item">
         <summary>How do I find OnlyFans photographer partners?</summary>
-        <p>We connect you with vetted photographers and content partners suited to your niche, style, and location, so you don't have to search on your own.</p>
+        <div class="faq-body"><p>We connect you with vetted photographers and content partners suited to your niche, style, and location, so you don't have to search on your own.</p></div>
       </details>
       <details class="faq-item">
         <summary>How can I find people to create content with me on OnlyFans?</summary>
-        <p>Through our collaboration network of creators and partners, we set up content trips and shoots that fit your brand.</p>
+        <div class="faq-body"><p>Through our collaboration network of creators and partners, we set up content trips and shoots that fit your brand.</p></div>
       </details>
       <details class="faq-item">
         <summary>What kind of content makes money on OnlyFans?</summary>
-        <p>Consistent, authentic content tailored to your niche performs best, we help you plan a mix that keeps fans engaged and subscribed.</p>
+        <div class="faq-body"><p>Consistent, authentic content tailored to your niche performs best, we help you plan a mix that keeps fans engaged and subscribed.</p></div>
       </details>
       <details class="faq-item">
         <summary>Can I make money on OnlyFans just by posting photos?</summary>
-        <p>Yes, many creators build strong income with photo-only content when it's planned, consistent, and promoted well.</p>
+        <div class="faq-body"><p>Yes, many creators build strong income with photo-only content when it's planned, consistent, and promoted well.</p></div>
       </details>
     </div>
   </div>
@@ -1512,35 +1517,35 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="faq-list" data-reveal>
       <details class="faq-item">
         <summary>How many points can I earn through referrals?</summary>
-        <p>There's no cap, you earn a recurring commission on the growth of every creator you refer, for as long as they stay with Zion.</p>
+        <div class="faq-body"><p>There's no cap, you earn a recurring commission on the growth of every creator you refer, for as long as they stay with Zion.</p></div>
       </details>
       <details class="faq-item">
         <summary>Do I have to be a creator to recommend someone?</summary>
-        <p>No. Anyone can refer a creator, you don't need to be on OnlyFans yourself.</p>
+        <div class="faq-body"><p>No. Anyone can refer a creator, you don't need to be on OnlyFans yourself.</p></div>
       </details>
       <details class="faq-item">
         <summary>What kind of creators are we really looking for?</summary>
-        <p>Anyone motivated to grow, at any stage, from just starting out to already established with an audience elsewhere.</p>
+        <div class="faq-body"><p>Anyone motivated to grow, at any stage, from just starting out to already established with an audience elsewhere.</p></div>
       </details>
       <details class="faq-item">
         <summary>How much percentage do you take?</summary>
-        <p>It depends on what's agreed with each creator, but we never take more than 50%, and you'll always know the exact split before you sign anything.</p>
+        <div class="faq-body"><p>It depends on what's agreed with each creator, but we never take more than 50%, and you'll always know the exact split before you sign anything.</p></div>
       </details>
       <details class="faq-item">
         <summary>Do I need to already have an OnlyFans account?</summary>
-        <p>No. We work with creators at every stage, including those starting completely from scratch.</p>
+        <div class="faq-body"><p>No. We work with creators at every stage, including those starting completely from scratch.</p></div>
       </details>
       <details class="faq-item">
         <summary>How and when do I get paid?</summary>
-        <p>All your earnings go straight to your own OnlyFans account on their standard payout schedule, nothing is held back or redirected. We then invoice you separately for our agreed share, so you always see the full amount first.</p>
+        <div class="faq-body"><p>All your earnings go straight to your own OnlyFans account on their standard payout schedule, nothing is held back or redirected. We then invoice you separately for our agreed share, so you always see the full amount first.</p></div>
       </details>
       <details class="faq-item">
         <summary>Can I stay anonymous?</summary>
-        <p>Yes, completely. Your identity is never revealed unless you choose to show your face, that decision is always yours.</p>
+        <div class="faq-body"><p>Yes, completely. Your identity is never revealed unless you choose to show your face, that decision is always yours.</p></div>
       </details>
       <details class="faq-item">
         <summary>How long is the contract, can I leave anytime?</summary>
-        <p>We keep terms flexible and talk it through directly, our goal is a partnership that works for you, not one that traps you.</p>
+        <div class="faq-body"><p>We keep terms flexible and talk it through directly, our goal is a partnership that works for you, not one that traps you.</p></div>
       </details>
     </div>
   </div>
@@ -2871,6 +2876,35 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     setupToggle('calcLocationToggle', locationEl, 'calcLocationIcons');
     setupToggle('calcGradeToggle', gradeEl, 'calcGradeIcons');
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let calcDisplayedTotal = 0;
+    let calcAnimFrame = null;
+
+    function animateCalcTotal(target){
+      if (reduceMotion){
+        totalOut.textContent = target.toLocaleString();
+        calcDisplayedTotal = target;
+        return;
+      }
+      if (calcAnimFrame) { cancelAnimationFrame(calcAnimFrame); }
+      const start = calcDisplayedTotal;
+      const startTime = performance.now();
+      const duration = 400;
+      function tick(now){
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const val = Math.round(start + (target - start) * eased);
+        totalOut.textContent = val.toLocaleString();
+        if (progress < 1){
+          calcAnimFrame = requestAnimationFrame(tick);
+        } else {
+          calcDisplayedTotal = target;
+          calcAnimFrame = null;
+        }
+      }
+      calcAnimFrame = requestAnimationFrame(tick);
+    }
+
     function updateCalc(){
       const subs = parseInt(subsEl.value, 10);
       const price = parseInt(priceEl.value, 10);
@@ -2882,10 +2916,53 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       const base = subs * price * location;
       const ppv = subs * price * 0.9 * grade * chat * location;
       const total = Math.round(base + ppv);
-      totalOut.textContent = total.toLocaleString();
+      animateCalcTotal(total);
     }
     [subsEl, priceEl].forEach(el => el.addEventListener('input', updateCalc));
     updateCalc();
+  })();
+</script>
+<script>
+  (function(){
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const summary = item.querySelector('summary');
+      const body = item.querySelector('.faq-body');
+      if (!summary || !body) return;
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isOpen = item.hasAttribute('open');
+        if (reduceMotion){
+          item.toggleAttribute('open');
+          body.style.height = item.hasAttribute('open') ? 'auto' : '0px';
+          return;
+        }
+        if (isOpen){
+          const startHeight = body.scrollHeight;
+          body.style.height = startHeight + 'px';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => { body.style.height = '0px'; });
+          });
+          body.addEventListener('transitionend', function onEnd(ev){
+            if (ev.propertyName !== 'height') return;
+            item.removeAttribute('open');
+            body.removeEventListener('transitionend', onEnd);
+          });
+        } else {
+          item.setAttribute('open', '');
+          const target = body.scrollHeight;
+          body.style.height = '0px';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => { body.style.height = target + 'px'; });
+          });
+          body.addEventListener('transitionend', function onEnd(ev){
+            if (ev.propertyName !== 'height') return;
+            body.style.height = 'auto';
+            body.removeEventListener('transitionend', onEnd);
+          });
+        }
+      });
+    });
   })();
 </script>
 <script>
