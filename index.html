@@ -570,15 +570,12 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .case-shot img{ width:100%; height:100%; object-fit:cover; display:block; }
 .case-shot-stack{ display:flex; flex-direction:column; background:#fff; height:auto; aspect-ratio:auto; }
 .case-shot-stack img{ height:auto; object-fit:contain; }
-.case-card-wide{ grid-column:1 / -1; }
-.case-shot-video{ display:flex; justify-content:center; background:#000; }
-.case-shot-video video{ width:auto; max-width:100%; max-height:480px; display:block; }
 .ig-clip-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
 .ig-clip-card{ border:1px solid var(--border); border-radius:16px; padding:14px; background:linear-gradient(160deg, rgba(18,179,76,0.06), transparent 60%); display:flex; flex-direction:column; gap:10px; transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
 .ig-clip-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
-.ig-clip-tag{ font-size:10px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
 .ig-clip-shot{ border-radius:12px; overflow:hidden; background:#000; aspect-ratio:1206/2622; box-shadow:0 10px 22px rgba(0,0,0,0.4); }
 .ig-clip-shot video{ width:100%; height:100%; object-fit:cover; display:block; }
+.ig-clip-shot-live{ aspect-ratio:1206/1928; }
 .ig-clip-card p{ font-size:12.5px; color:var(--dim); line-height:1.5; }
 @media (max-width:860px){ .ig-clip-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:520px){ .ig-clip-grid{ grid-template-columns:1fr; } }
@@ -2116,17 +2113,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <p>Consistent upward momentum in daily earnings, tracked from May through August.</p>
         <div class="case-shot"><img src="assets/case-earnings-trend.png" alt="Daily earnings chart trending upward from May to August" loading="lazy"></div>
       </div>
-      <div class="case-card case-card-wide">
-        <div class="case-tag">Live update</div>
-        <h4>Watching the numbers move in real time.</h4>
-        <p>A short clip from one of our team's live check-ins, walking through a page's numbers as they climb.</p>
-        <div class="case-shot case-shot-video">
-          <video controls preload="none" playsinline poster="assets/case-live-update-poster.png">
-            <source src="assets/case-live-update.mp4" type="video/mp4">
-            Your browser doesn't support embedded video. <a href="assets/case-live-update.mp4">Download the clip</a> instead.
-          </video>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -2136,11 +2122,10 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="section-head center" data-reveal style="margin-bottom:30px;">
       <div class="eyebrow-label mono">MORE FROM OUR CREATORS</div>
       <h2>Straight from Instagram, unedited.</h2>
-      <p class="section-sub">Real IG Story clips from two creators on our roster, anonymized.</p>
+      <p class="section-sub">Real clips from creators on our roster, anonymized.</p>
     </div>
     <div class="ig-clip-grid" data-reveal>
       <div class="ig-clip-card">
-        <div class="ig-clip-tag mono">CREATOR #1</div>
         <div class="ig-clip-shot">
           <video controls preload="none" playsinline poster="assets/case-ig-creator1-reach-poster.png">
             <source src="assets/case-ig-creator1-reach.mp4" type="video/mp4">
@@ -2149,7 +2134,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <p>16,119 profile visitors in a single day, up 204.3%.</p>
       </div>
       <div class="ig-clip-card">
-        <div class="ig-clip-tag mono">CREATOR #2</div>
         <div class="ig-clip-shot">
           <video controls preload="none" playsinline poster="assets/case-ig-creator2-reach-poster.png">
             <source src="assets/case-ig-creator2-reach.mp4" type="video/mp4">
@@ -2158,7 +2142,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <p>5,273 profile visitors in 7 days, up 69.6%.</p>
       </div>
       <div class="ig-clip-card">
-        <div class="ig-clip-tag mono">CREATOR #2</div>
         <div class="ig-clip-shot">
           <video controls preload="none" playsinline poster="assets/case-ig-creator2-subs-list-poster.png">
             <source src="assets/case-ig-creator2-subs-list.mp4" type="video/mp4">
@@ -2167,13 +2150,21 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <p>New subscribers rolling in, in real time.</p>
       </div>
       <div class="ig-clip-card">
-        <div class="ig-clip-tag mono">CREATOR #2</div>
         <div class="ig-clip-shot">
           <video controls preload="none" playsinline poster="assets/case-ig-creator2-subs-chart-poster.png">
             <source src="assets/case-ig-creator2-subs-chart.mp4" type="video/mp4">
           </video>
         </div>
         <p>280 new subscribers in a single week.</p>
+      </div>
+      <div class="ig-clip-card">
+        <div class="ig-clip-shot ig-clip-shot-live">
+          <video controls preload="none" playsinline poster="assets/case-live-update-poster.png">
+            <source src="assets/case-live-update.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="assets/case-live-update.mp4">Download the clip</a> instead.
+          </video>
+        </div>
+        <p>Watching a page's numbers climb, live.</p>
       </div>
     </div>
   </div>
