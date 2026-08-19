@@ -543,6 +543,15 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .blog-back:hover{ color:var(--green-soft); }
 .page{ display:none; }
 .page.active{ display:block; }
+/* ================= REVENUE COUNTER + MARQUEE ================= */
+.counter-strip{ border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:40px 0; text-align:center; }
+.counter-strip .counter-num{ font-family:'JetBrains Mono', monospace; font-size:clamp(32px,6vw,56px); font-weight:700; color:var(--green-soft); text-shadow:0 0 30px var(--glow); letter-spacing:-0.01em; }
+.counter-strip .counter-label{ font-size:12px; letter-spacing:2px; color:var(--dim); text-transform:uppercase; margin-top:10px; font-family:'JetBrains Mono', monospace; }
+.exclusive-marquee{ overflow:hidden; border-bottom:1px solid var(--border); background:rgba(18,179,76,0.04); padding:14px 0; }
+.exclusive-marquee .em-track{ display:flex; gap:0; width:max-content; animation:emScroll 26s linear infinite; }
+.exclusive-marquee .em-track span{ font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:1.5px; color:var(--green-soft); white-space:nowrap; padding:0 22px; text-transform:uppercase; }
+.exclusive-marquee .em-track span.sep{ color:var(--green-dim); }
+@keyframes emScroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
 </style>
 </head>
 
@@ -679,6 +688,24 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <div class="orbit-node n3"><div class="dotmark"></div><div class="v">Weekly</div><div class="k mono">REPORTING</div></div>
       <div class="orbit-node n4"><div class="dotmark"></div><div class="v">~2h</div><div class="k mono">TIME NEEDED</div></div>
     </div>
+</div>
+
+<div class="exclusive-marquee">
+  <div class="em-track">
+    <span>NOW ONBOARDING · 2026</span><span class="sep">✦</span>
+    <span>BY APPLICATION ONLY</span><span class="sep">✦</span>
+    <span>DISCRETION GUARANTEED</span><span class="sep">✦</span>
+    <span>WE ONLY TAKE CREATORS WE CAN MAKE WIN</span><span class="sep">✦</span>
+    <span>NOW ONBOARDING · 2026</span><span class="sep">✦</span>
+    <span>BY APPLICATION ONLY</span><span class="sep">✦</span>
+    <span>DISCRETION GUARANTEED</span><span class="sep">✦</span>
+    <span>WE ONLY TAKE CREATORS WE CAN MAKE WIN</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<div class="counter-strip">
+  <div class="counter-num mono" id="revenueCounter">$0</div>
+  <div class="counter-label">Lifetime creator revenue generated</div>
 </div>
 
 <div class="wrap" id="services">
@@ -2490,6 +2517,40 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     }
     window.addEventListener("hashchange", route);
     document.addEventListener("DOMContentLoaded", route);
+  })();
+</script>
+
+<script>
+  (function(){
+    const el = document.getElementById('revenueCounter');
+    if (!el) return;
+    const target = 12000000;
+    let started = false;
+
+    function formatMoney(n){
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function animateCount(){
+      if (started) return;
+      started = true;
+      const duration = 2200;
+      const startTime = performance.now();
+      function tick(now){
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatMoney(target * eased) + (progress >= 1 ? '+' : '');
+        if (progress < 1){ requestAnimationFrame(tick); }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){ animateCount(); io.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(el);
   })();
 </script>
 
