@@ -77,6 +77,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   font-size:14px; font-weight:600; color:var(--text);
   border:1px solid var(--border); padding:15px 30px; border-radius:999px; text-decoration:none;
   display:inline-block; transition:transform .18s ease, border-color .18s ease;
+  background:transparent; appearance:none; -webkit-appearance:none; -moz-appearance:none; cursor:pointer;
 }
 .btn-outline:hover{ transform:translateY(-2px); border-color:var(--green-dim); }
 @media (max-width:860px){ .nav-links{ display:none; } }
@@ -468,6 +469,29 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .form-check input{ width:16px; height:16px; margin-top:2px; accent-color:var(--green); flex-shrink:0; }
 .form-submit{ width:100%; text-align:center; border:none; font-size:14px; }
 .form-note b{ color:var(--green-soft); }
+/* ================= APPLY WIZARD ================= */
+.wizard-progress{ height:3px; background:rgba(255,255,255,0.06); border-radius:999px; margin-bottom:10px; overflow:hidden; }
+.wizard-progress-bar{ height:100%; width:11.11%; background:linear-gradient(90deg, var(--green-soft), var(--green)); transition:width .35s cubic-bezier(.2,.7,.3,1); }
+.wizard-step-count{ font-size:11px; color:var(--dim); letter-spacing:1.5px; margin-bottom:32px; }
+.wizard-step{ display:none; }
+.wizard-step.active{ display:block; animation:wizardIn .4s cubic-bezier(.2,.7,.3,1); }
+@keyframes wizardIn{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+.wizard-step .form-field label{ font-size:20px; font-weight:700; color:var(--text); letter-spacing:0; text-transform:none; margin-bottom:16px; line-height:1.35; }
+.wizard-step .form-field input, .wizard-step .form-field textarea{ font-size:16px; padding:15px 16px; }
+.wizard-step .form-field .hint{ font-size:11.5px; color:var(--dim); margin-top:9px; line-height:1.5; }
+.wizard-choices{ display:flex; flex-direction:column; gap:10px; }
+.wizard-choice{ text-align:left; padding:16px 18px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.015); color:var(--text); font-size:15px; font-weight:600; cursor:pointer; transition:border-color .15s, background .15s, color .15s; font-family:'Inter', sans-serif; }
+.wizard-choice:hover{ border-color:var(--green-dim); }
+.wizard-choice.selected{ border-color:var(--green); background:rgba(18,179,76,0.1); color:var(--green-soft); }
+.wizard-nav{ display:flex; gap:12px; margin-top:8px; }
+.wizard-nav .wizard-back{ flex:0 0 auto; padding:15px 22px; background:transparent; appearance:none; -webkit-appearance:none; -moz-appearance:none; }
+.wizard-nav .wizard-back:hover{ background:rgba(255,255,255,0.03); }
+.wizard-nav .wizard-next, .wizard-nav .wizard-submit{ flex:1; }
+.wizard-back.hidden{ display:none; }
+@media (max-width:600px){ .wizard-step .form-field label{ font-size:18px; } }
+@media (prefers-reduced-motion: reduce){
+  .wizard-step.active{ animation:none !important; }
+}
 @media (prefers-reduced-motion: reduce){
   .ambient-glow, .hero-inner > *, .simple-hero > *{ animation:none !important; opacity:1 !important; transform:none !important; }
 }
@@ -1580,55 +1604,91 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 <div class="wrap">
   <div class="section" style="padding-top:50px;">
-    <form class="form-box" data-reveal id="applyForm" action="https://formspree.io/f/mkoldaeb" method="POST">
+    <form class="form-box apply-wizard" data-reveal id="applyForm" action="https://formspree.io/f/mkoldaeb" method="POST" novalidate>
       <input type="hidden" name="_subject" value="New Zion application">
-      <div class="form-field">
-        <label for="a-name">Name</label>
-        <input type="text" id="a-name" name="name" required>
+
+      <div class="wizard-progress"><div class="wizard-progress-bar" id="wizardProgressBar"></div></div>
+      <div class="wizard-step-count mono" id="wizardStepCount">Step 1 of 9</div>
+
+      <div class="wizard-step active" data-step="1">
+        <div class="form-field">
+          <label for="a-ig">What's your Instagram handle?</label>
+          <input type="text" id="a-ig" name="social" placeholder="@yourhandle" required autocomplete="off">
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-age">Age</label>
-        <input type="number" id="a-age" name="age" min="18" required>
+
+      <div class="wizard-step" data-step="2">
+        <div class="form-field">
+          <label for="a-name">What's your name?</label>
+          <input type="text" id="a-name" name="name" required autocomplete="name">
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-email">Email</label>
-        <input type="email" id="a-email" name="email" required>
+
+      <div class="wizard-step" data-step="3">
+        <div class="form-field">
+          <label for="a-age">How old are you?</label>
+          <input type="number" id="a-age" name="age" min="18" required>
+          <div class="hint">You must be 18 or older to apply.</div>
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-phone">Phone / WhatsApp</label>
-        <input type="tel" id="a-phone" name="phone" required>
+
+      <div class="wizard-step" data-step="4">
+        <div class="form-field">
+          <label for="a-email">What's your email?</label>
+          <input type="email" id="a-email" name="email" required autocomplete="email">
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-ig">Instagram or TikTok handle</label>
-        <input type="text" id="a-ig" name="social" placeholder="@yourhandle">
+
+      <div class="wizard-step" data-step="5">
+        <div class="form-field">
+          <label for="a-phone">Phone / WhatsApp number?</label>
+          <input type="tel" id="a-phone" name="phone" required autocomplete="tel">
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-of">OnlyFans link (leave blank if not started yet)</label>
-        <input type="text" id="a-of" name="onlyfans_link">
+
+      <div class="wizard-step" data-step="6">
+        <div class="form-field">
+          <label for="a-of">Got an OnlyFans link already?</label>
+          <input type="text" id="a-of" name="onlyfans_link" placeholder="Leave blank if you haven't started yet">
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-status">Current status</label>
-        <select id="a-status" name="status" required>
-          <option value="" disabled selected>Select one</option>
-          <option value="new">New, haven't started yet</option>
-          <option value="self-managed">Currently self-managed</option>
-          <option value="agency">Currently with another agency</option>
-        </select>
+
+      <div class="wizard-step wizard-choice-step" data-step="7">
+        <div class="form-field">
+          <label>What's your current status?</label>
+          <div class="wizard-choices" id="statusChoices">
+            <button type="button" class="wizard-choice" data-value="new">New, haven't started yet</button>
+            <button type="button" class="wizard-choice" data-value="self-managed">Currently self-managed</button>
+            <button type="button" class="wizard-choice" data-value="agency">Currently with another agency</button>
+          </div>
+          <input type="hidden" id="a-status" name="status" required>
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-country">Country / timezone</label>
-        <input type="text" id="a-country" name="country" required>
+
+      <div class="wizard-step" data-step="8">
+        <div class="form-field">
+          <label for="a-country">Country / timezone?</label>
+          <input type="text" id="a-country" name="country" required>
+        </div>
       </div>
-      <div class="form-field">
-        <label for="a-msg">Anything else you'd like us to know</label>
-        <textarea id="a-msg" name="message"></textarea>
+
+      <div class="wizard-step" data-step="9">
+        <div class="form-field">
+          <label for="a-msg">Anything else you'd like us to know?</label>
+          <textarea id="a-msg" name="message"></textarea>
+        </div>
+        <label class="form-check" style="margin-top:22px;">
+          <input type="checkbox" id="a-consent" required>
+          I consent to the processing of my data and confirm I am 18 or older.
+        </label>
       </div>
-      <label class="form-check">
-        <input type="checkbox" required>
-        I consent to the processing of my data and confirm I am 18 or older.
-      </label>
-      <button type="submit" class="btn-pill form-submit">Submit application</button>
-      <div class="form-note">Your information stays <b>100% confidential</b>. We usually respond within 2 hours.</div>
+
+      <div class="wizard-nav">
+        <button type="button" class="btn-outline wizard-back hidden" id="wizardBack">Back</button>
+        <button type="button" class="btn-pill wizard-next" id="wizardNext">Continue</button>
+        <button type="submit" class="btn-pill form-submit wizard-submit" id="wizardSubmit" style="display:none;">Submit application</button>
+      </div>
+      <div class="form-note">Your information stays <b>100% confidential</b>. We usually respond within 2 hours. Press Enter to move to the next question.</div>
     </form>
     <div class="form-success" id="applySuccess" data-reveal>
       <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#successGrad)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#successGrad)"/><defs><linearGradient id="successGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
@@ -2378,6 +2438,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   const applyForm = document.getElementById('applyForm');
   applyForm.addEventListener('submit', async function(e){
     e.preventDefault();
+    if (window.__applyWizardValidateAll && !window.__applyWizardValidateAll()) return;
     const submitBtn = applyForm.querySelector('.form-submit');
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
@@ -2402,6 +2463,85 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       alert('Something went wrong. Please try again or email us directly.');
     }
   });
+</script>
+<script>
+  (function(){
+    const form = document.getElementById('applyForm');
+    if (!form) return;
+    const steps = Array.from(form.querySelectorAll('.wizard-step'));
+    const total = steps.length;
+    let current = 1;
+    const progressBar = document.getElementById('wizardProgressBar');
+    const stepCount = document.getElementById('wizardStepCount');
+    const backBtn = document.getElementById('wizardBack');
+    const nextBtn = document.getElementById('wizardNext');
+    const submitBtn = document.getElementById('wizardSubmit');
+
+    function getStepEl(n){ return steps.find(s => Number(s.dataset.step) === n); }
+
+    function render(){
+      steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === current));
+      progressBar.style.width = (current / total * 100) + '%';
+      stepCount.textContent = 'Step ' + current + ' of ' + total;
+      backBtn.classList.toggle('hidden', current === 1);
+      const isLast = current === total;
+      const stepEl = getStepEl(current);
+      const isChoiceStep = stepEl.classList.contains('wizard-choice-step');
+      nextBtn.style.display = (isLast || isChoiceStep) ? 'none' : '';
+      submitBtn.style.display = isLast ? '' : 'none';
+      const firstInput = stepEl.querySelector('input:not([type=hidden]):not([type=checkbox]), textarea');
+      if (firstInput) { setTimeout(() => firstInput.focus(), 60); }
+    }
+
+    function stepIsValid(n){
+      const stepEl = getStepEl(n);
+      const fields = stepEl.querySelectorAll('input[required], textarea[required], select[required]');
+      for (const f of fields){
+        if (!f.checkValidity()){
+          if (f.offsetParent !== null) { f.reportValidity(); }
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function goNext(){
+      if (!stepIsValid(current)) return;
+      if (current < total){ current++; render(); }
+    }
+    function goBack(){
+      if (current > 1){ current--; render(); }
+    }
+
+    nextBtn.addEventListener('click', goNext);
+    backBtn.addEventListener('click', goBack);
+
+    form.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      if (e.target.tagName !== 'INPUT') return;
+      e.preventDefault();
+      if (current === total){ submitBtn.click(); } else { goNext(); }
+    });
+
+    const statusInput = document.getElementById('a-status');
+    document.querySelectorAll('#statusChoices .wizard-choice').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#statusChoices .wizard-choice').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        statusInput.value = btn.dataset.value;
+        setTimeout(goNext, 250);
+      });
+    });
+
+    window.__applyWizardValidateAll = function(){
+      for (let n = 1; n <= total; n++){
+        if (!stepIsValid(n)){ current = n; render(); return false; }
+      }
+      return true;
+    };
+
+    render();
+  })();
 </script>
 <script>
   (function(){
