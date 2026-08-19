@@ -1594,7 +1594,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 </section>
 
 <section class="page" id="page-apply" data-page="apply">
-<div class="wrap" >
+<div class="wrap" id="applyHeroWrap">
   <div class="simple-hero" data-reveal>
     <div class="eyebrow-label mono">APPLY</div>
     <h1>Become a <span class="hl">Zion creator.</span></h1>
@@ -1692,8 +1692,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     </form>
     <div class="form-success" id="applySuccess" data-reveal>
       <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#successGrad)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#successGrad)"/><defs><linearGradient id="successGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
-      <h3>Application received.</h3>
-      <p>Thanks for reaching out. We'll review your application and get back to you within 2 hours.</p>
+      <h3>Application received. Thank you so much!</h3>
+      <p>We'll review your application and get back to you within 2 hours. In the meantime, you can check out our socials.</p>
+      <a class="btn-outline" style="margin-top:22px;" href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Follow us on Instagram</a>
     </div>
   </div>
 </div>
@@ -2450,6 +2451,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       });
       if (res.ok) {
         applyForm.style.display = 'none';
+        const heroWrap = document.getElementById('applyHeroWrap');
+        if (heroWrap) { heroWrap.style.display = 'none'; }
         const success = document.getElementById('applySuccess');
         success.classList.add('show', 'in-view');
       } else {
