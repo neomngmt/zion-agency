@@ -630,7 +630,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         </div>
         <a href="#services">Our Services</a>
         <a href="#contact">Contact</a>
-        <a href="#referral">Refferal</a>
+        <a href="#referral">Referral</a>
       </div>
       <div class="nav-right">
         <a class="btn-pill" href="#apply">Apply</a>
@@ -648,7 +648,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <a href="#academy">Academy</a>
       <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
-      <a href="#referral">Refferal</a>
+      <a href="#referral">Referral</a>
       <a href="#services">Our Services</a>
       <a class="mobile-cta" href="#apply">Apply</a>
     </div>
@@ -892,7 +892,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="section no-border" style="padding-top:0;">
     <div class="split" data-reveal>
       <div>
-        <div class="badge-pill mono">REFFERAL PROGRAM</div>
+        <div class="badge-pill mono">REFERRAL PROGRAM</div>
         <h3>Know a creator? Get paid for it.</h3>
         <p>Refer a creator to Zion and earn a recurring commission on everything we grow together, for as long as they stay with us. No cap, no catch, just a thank you for the introduction.</p>
         <a class="btn-pill" href="#referral">Join the referral program</a>
@@ -1385,7 +1385,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         I consent to the processing of my data
       </label>
       <button type="submit" class="btn-pill form-submit">Submit</button>
-      <div class="form-note">This opens your email app with the message pre-filled to send to us directly.</div>
+      <div class="form-note">This opens your email app with the message pre-filled to send to us directly. No email app set up? Write to us directly at <a href="mailto:hello@starzone.eu" style="color:var(--green-soft);">hello@starzone.eu</a>.</div>
     </form>
   </div>
 </div>
@@ -1398,7 +1398,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 <div class="wrap" >
   <div class="simple-hero" data-reveal>
-    <div class="eyebrow-label mono">REFFERAL PROGRAM</div>
+    <div class="eyebrow-label mono">REFERRAL PROGRAM</div>
     <h1>Refer & <span class="hl">Earn.</span></h1>
     <p>Help creators grow and get rewarded for it. Introduce us, we'll take care of the rest.</p>
     <div style="margin-top:30px;"><a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="#refer-a-creator">Refer a creator</a></div>
@@ -2484,10 +2484,42 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 <script>
   (function(){
     const PAGES = ["home","services","marketing","chatting","photoshooting","contact","referral","refer-a-creator","apply","privacy","terms","about","success-stories","academy","blog","blog-month-one","blog-chatting-replies","blog-platform-mix","blog-pricing","blog-leaks","blog-anonymous"];
+    const DEFAULT_TITLE = "ZION — Creator Management Agency";
+    const DEFAULT_DESC = "Zion creator management agency. Marketing, chatting, and photoshooting for OnlyFans creators in the US and Czech Republic.";
+    const PAGE_META = {
+      "home": { title: DEFAULT_TITLE, desc: DEFAULT_DESC },
+      "services": { title: "Our Services — ZION", desc: "Marketing, chatting, and photoshooting under one roof. See how Zion's creator management services work." },
+      "marketing": { title: "Marketing — ZION", desc: "Zion's marketing service: niche positioning and promotion across 15+ platforms to grow your OnlyFans audience." },
+      "chatting": { title: "Chatting — ZION", desc: "A dedicated CZ/US chatting team trained on your voice, built to turn subscribers into loyal, spending fans." },
+      "photoshooting": { title: "Photoshooting & Content — ZION", desc: "Content planning, filming support, and DMCA protection so creators never have to carry content creation alone." },
+      "contact": { title: "Contact — ZION", desc: "Get in touch with Zion. We usually respond within 2 hours." },
+      "referral": { title: "Referral Program — ZION", desc: "Refer a creator to Zion and earn a recurring commission on their growth, for as long as they stay with us." },
+      "refer-a-creator": { title: "Refer a Creator — ZION", desc: "Tell us who you have in mind, and we'll take it from there." },
+      "apply": { title: "Apply — ZION", desc: "Become a Zion creator. Tell us about yourself, no pressure, no obligation." },
+      "privacy": { title: "Privacy Policy — ZION", desc: "How Zion collects, uses, and protects your information." },
+      "terms": { title: "Terms & Conditions — ZION", desc: "The rules for using this website and working with Zion." },
+      "about": { title: "About — ZION", desc: "The team behind Zion, a creator-first agency built to handle the business side of OnlyFans management." },
+      "success-stories": { title: "Success Stories — ZION", desc: "Real case studies and creator transformations from the Zion roster." },
+      "academy": { title: "Academy — ZION", desc: "Guides and resources on growth, safety, and monetization for OnlyFans creators." },
+      "blog": { title: "Blog — ZION", desc: "Notes on growth, chatting, marketing, and safety from the Zion team." },
+      "blog-month-one": { title: "What Actually Moves the Needle in Month One — ZION Blog", desc: "The handful of decisions that shape how fast a new OnlyFans page finds its footing." },
+      "blog-chatting-replies": { title: "Why Generic Replies Cost You Renewals — ZION Blog", desc: "The difference between a chatter who replies and one who builds a relationship that keeps paying off." },
+      "blog-platform-mix": { title: "Picking the Right Platform Mix for Your Niche — ZION Blog", desc: "How to decide where a creator's marketing effort actually pays off." },
+      "blog-pricing": { title: "The Pricing Mistake That Quietly Caps Your Income — ZION Blog", desc: "How bundling and tiered pricing change the math on OnlyFans." },
+      "blog-leaks": { title: "What to Do the Day Your Content Gets Leaked — ZION Blog", desc: "The steps that actually help when your content leaks, in the order that matters most." },
+      "blog-anonymous": { title: "Starting Anonymously, Without Losing Momentum — ZION Blog", desc: "How creators build a page and an audience without ever showing their face." }
+    };
+    const metaDescEl = document.querySelector('meta[name="description"]');
+    function setMeta(key){
+      const meta = PAGE_META[key] || PAGE_META["home"];
+      document.title = meta.title;
+      if (metaDescEl) { metaDescEl.setAttribute("content", meta.desc); }
+    }
     function showPage(key){
       document.querySelectorAll(".page").forEach(sec => sec.classList.remove("active"));
       const target = document.getElementById("page-" + key);
       if(target){ target.classList.add("active"); }
+      setMeta(key);
       // trigger reveal for anything already in view within the newly shown section
       if (window.__revealObserver && target){
         target.querySelectorAll("[data-reveal]").forEach(el => {
