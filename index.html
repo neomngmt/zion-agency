@@ -259,6 +259,14 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .infloww-month{ font-size:10.5px; letter-spacing:2px; color:var(--dim); text-transform:uppercase; flex-shrink:0; }
 .infloww-rank{ font-size:12.5px; font-weight:700; color:var(--green-soft); text-align:right; }
 .infloww-rank .dim{ color:var(--dim); font-weight:500; }
+.infloww-feature{ margin-bottom:26px; border:1px solid var(--border); border-radius:20px; padding:14px; background:linear-gradient(160deg, rgba(18,179,76,0.08), rgba(255,255,255,0.015) 60%); }
+.infloww-feature-shot{ border-radius:13px; overflow:hidden; background:#000; box-shadow:0 14px 34px rgba(0,0,0,0.45); }
+.infloww-feature-shot img{ width:100%; display:block; }
+.infloww-feature-caption{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px; margin-top:16px; padding:0 6px; }
+.infloww-feature-stat{ font-size:19px; font-weight:800; color:var(--text); }
+.infloww-feature-stat .dim{ font-size:11.5px; font-weight:500; color:var(--dim); margin-left:8px; }
+.infloww-feature-growth{ font-size:13px; font-weight:700; color:var(--green-soft); }
+@media (max-width:600px){ .infloww-feature-stat{ font-size:16px; } .infloww-feature-stat .dim{ display:block; margin-left:0; margin-top:4px; } }
 @media (max-width:860px){ .infloww-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:520px){ .infloww-grid{ grid-template-columns:1fr; } .infloww-shot{ aspect-ratio:16/10; } }
 .trust-track{ display:flex; align-items:center; gap:80px; width:max-content; animation:trustScroll 20s linear infinite; }
@@ -549,12 +557,16 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .prose{ max-width:720px; margin:0 auto; }
 .prose p{ font-size:15px; color:var(--dim); line-height:1.8; margin-bottom:16px; }
 /* ================= SUCCESS STORIES ================= */
-.case-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
-.case-card{ border:1px solid var(--border); border-radius:16px; padding:28px; background:linear-gradient(160deg, rgba(18,179,76,0.04), transparent 60%); display:flex; flex-direction:column; gap:16px; min-height:220px; }
+.case-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+.case-card{ border:1px solid var(--border); border-radius:16px; padding:22px; background:linear-gradient(160deg, rgba(18,179,76,0.06), transparent 60%); display:flex; flex-direction:column; gap:14px; transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
+.case-card:hover{ border-color:var(--green-dim); transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.35); }
 .case-card .case-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1.5px; color:var(--green-soft); text-transform:uppercase; }
 .case-card h4{ font-size:17px; font-weight:800; }
-.case-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; flex-grow:1; }
+.case-card p{ font-size:13.5px; color:var(--dim); line-height:1.6; }
 .case-card .case-stub{ border:1px dashed var(--border); border-radius:10px; padding:14px; font-size:12px; color:var(--dim); text-align:center; font-family:'JetBrains Mono', monospace; }
+.case-shot{ border-radius:12px; overflow:hidden; background:#000; box-shadow:0 10px 24px rgba(0,0,0,0.4); margin-top:auto; }
+.case-shot img{ width:100%; display:block; }
+.case-shot-stack{ display:flex; flex-direction:column; background:#fff; }
 @media (max-width:860px){ .case-grid{ grid-template-columns:1fr; } }
 /* ================= GROWTH PILLARS ================= */
 .pillar-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
@@ -1077,6 +1089,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <div class="eyebrow-label mono">VERIFIED RESULTS</div>
       <h2>#1 agency in the Czech Republic on Infloww, six months running.</h2>
       <p class="section-sub">Real monthly leaderboard results, straight from Infloww, February through July.</p>
+    </div>
+    <div class="infloww-feature" data-reveal>
+      <div class="infloww-feature-shot"><img src="assets/infloww-earnings.webp" alt="Infloww earnings dashboard showing $1,602,343.50 tracked over the past 12 months, up 166.10%" loading="lazy"></div>
+      <div class="infloww-feature-caption">
+        <span class="infloww-feature-stat mono">$1,602,343.50<span class="dim"> earnings tracked, past 12 months</span></span>
+        <span class="infloww-feature-growth mono">↗ 166.10% YoY</span>
+      </div>
     </div>
     <div class="infloww-grid" data-reveal>
       <div class="infloww-card">
@@ -2047,7 +2066,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="simple-hero" data-reveal>
     <div class="eyebrow-label mono">SUCCESS STORIES</div>
     <h1>Creator <span class="hl">transformations.</span></h1>
-    <p>Real case studies from the Zion roster, coming soon as our creators hit their next milestones.</p>
+    <p>Real analytics and results from the Zion roster, more added as our creators hit their next milestones.</p>
   </div>
 </div>
 
@@ -2055,22 +2074,28 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="section" style="padding-top:20px;">
     <div class="case-grid" data-reveal>
       <div class="case-card">
-        <div class="case-tag">Case study 01</div>
-        <h4>Coming soon</h4>
-        <p>We're putting together the numbers behind one of our creators' growth over their first few months with Zion.</p>
-        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+        <div class="case-tag">Marketing takeover</div>
+        <h4>Page traffic jumped the week we took over.</h4>
+        <p>Real analytics from a creator's page, before and after her marketing shifted to our team.</p>
+        <div class="case-shot"><img src="assets/case-traffic.jpg" alt="Traffic chart showing a jump after Zion took over a creator's page marketing" loading="lazy"></div>
       </div>
       <div class="case-card">
-        <div class="case-tag">Case study 02</div>
-        <h4>Coming soon</h4>
-        <p>A closer look at how a creator went from self-managed to a full team behind her page.</p>
-        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+        <div class="case-tag">Chatting result</div>
+        <h4>One session, months of typical revenue.</h4>
+        <p>A single high-performing chat session from our team outpaced what the page had been earning per month.</p>
+        <div class="case-shot"><img src="assets/case-chat-session.jpg" alt="Earnings spike chart after Zion's chat team took over a creator's page" loading="lazy"></div>
       </div>
       <div class="case-card">
-        <div class="case-tag">Case study 03</div>
-        <h4>Coming soon</h4>
-        <p>The story of a creator who scaled with a marketing-first strategy across multiple platforms.</p>
-        <div class="case-stub">FULL WRITE-UP IN PROGRESS</div>
+        <div class="case-tag">Subscriber growth</div>
+        <h4>New subscribers climbed within 30 days.</h4>
+        <p>Subscriber growth accelerated shortly after onboarding, tracked directly from the platform's own analytics.</p>
+        <div class="case-shot case-shot-stack"><img src="assets/case-subs-header.png" alt="Analytics header showing a 30-day subscriber growth view" loading="lazy"><img src="assets/case-subs-chart.png" alt="Chart showing new subscribers climbing over 30 days" loading="lazy"></div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Revenue trend</div>
+        <h4>Daily earnings trending up over four months.</h4>
+        <p>Consistent upward momentum in daily earnings, tracked from May through August.</p>
+        <div class="case-shot"><img src="assets/case-earnings-trend.png" alt="Daily earnings chart trending upward from May to August" loading="lazy"></div>
       </div>
     </div>
   </div>
