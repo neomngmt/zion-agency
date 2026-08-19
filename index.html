@@ -22,7 +22,7 @@
   --border: rgba(18,179,76,0.16);
 }
 *{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; overflow-x:hidden; width:100%; }
+html{ scroll-behavior:smooth; overflow-x:hidden; width:100%; height:100%; }
 body{
   background: var(--bg);
   color: var(--text);
@@ -30,7 +30,13 @@ body{
   overflow-x:hidden;
   width:100%;
   position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
+main#app{ flex:1 0 auto; display:flex; flex-direction:column; }
+main#app .page.active{ flex:1 0 auto; }
+.site-footer{ margin-top:auto; }
 .mono{ font-family:'JetBrains Mono', monospace; }
 .wrap{ max-width:1160px; margin:0 auto; padding:0 28px; }
 a{ color:inherit; }
@@ -487,6 +493,10 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .wizard-country-item{ text-align:left; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:rgba(255,255,255,0.015); color:var(--text); font-size:14px; font-weight:600; cursor:pointer; transition:border-color .15s, background .15s; font-family:'Inter', sans-serif; }
 .wizard-country-item:hover{ border-color:var(--green-dim); background:rgba(18,179,76,0.08); }
 .wizard-country-empty{ font-size:12.5px; color:var(--dim); margin-top:12px; }
+.wizard-phone-row{ display:flex; gap:10px; }
+.wizard-phone-code{ flex:0 0 128px; width:128px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:15px 10px; color:var(--text); font-family:'Inter', sans-serif; font-size:14px; }
+.wizard-phone-row input{ flex:1; min-width:0; }
+@media (max-width:480px){ .wizard-phone-code{ flex:0 0 116px; width:116px; padding:15px 6px; font-size:13px; } }
 .wizard-nav{ display:flex; gap:12px; margin-top:8px; }
 .wizard-nav .wizard-back{ flex:0 0 auto; padding:15px 22px; background:transparent; appearance:none; -webkit-appearance:none; -moz-appearance:none; }
 .wizard-nav .wizard-back:hover{ background:rgba(255,255,255,0.03); }
@@ -1413,7 +1423,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         I consent to the processing of my data
       </label>
       <button type="submit" class="btn-pill form-submit">Submit</button>
-      <div class="form-note">This opens your email app with the message pre-filled to send to us directly. No email app set up? Write to us directly at <a href="mailto:hello@starzone.eu" style="color:var(--green-soft);">hello@starzone.eu</a>.</div>
+      <div class="form-note">This opens your email app with the message pre-filled to send to us directly. No email app set up? Write to us directly at <a href="mailto:neo@zion-management.eu" style="color:var(--green-soft);">neo@zion-management.eu</a>.</div>
     </form>
   </div>
 </div>
@@ -1645,8 +1655,48 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
       <div class="wizard-step" data-step="5">
         <div class="form-field">
-          <label for="a-phone">Phone / WhatsApp number?</label>
-          <input type="tel" id="a-phone" name="phone" required autocomplete="tel">
+          <label for="a-phone-number">Phone / WhatsApp number?</label>
+          <div class="wizard-phone-row">
+            <select id="a-phone-code" class="wizard-phone-code" aria-label="Country code">
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+420" selected>🇨🇿 +420</option>
+              <option value="+421">🇸🇰 +421</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+46">🇸🇪 +46</option>
+              <option value="+47">🇳🇴 +47</option>
+              <option value="+45">🇩🇰 +45</option>
+              <option value="+353">🇮🇪 +353</option>
+              <option value="+351">🇵🇹 +351</option>
+              <option value="+30">🇬🇷 +30</option>
+              <option value="+36">🇭🇺 +36</option>
+              <option value="+40">🇷🇴 +40</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+64">🇳🇿 +64</option>
+              <option value="+1">🇨🇦 +1</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+65">🇸🇬 +65</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+27">🇿🇦 +27</option>
+            </select>
+            <input type="tel" id="a-phone-number" required autocomplete="tel" placeholder="700 123 456">
+          </div>
+          <input type="hidden" id="a-phone" name="phone" required>
         </div>
       </div>
 
@@ -2402,7 +2452,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     const email = document.getElementById('c-email').value;
     const msg = document.getElementById('c-msg').value;
     const body = `Name: ${name}%0APhone: ${phone}%0AInstagram: ${ig}%0AEmail: ${email}%0A%0A${msg}`;
-    window.location.href = `mailto:hello@starzone.eu?subject=New%20contact%20from%20Zion%20site&body=${body}`;
+    window.location.href = `mailto:neo@zion-management.eu?subject=New%20contact%20from%20Zion%20site&body=${body}`;
   });
 </script>
 <script>
@@ -2479,6 +2529,15 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     const nextBtn = document.getElementById('wizardNext');
     const submitBtn = document.getElementById('wizardSubmit');
 
+    const phoneCode = document.getElementById('a-phone-code');
+    const phoneNumber = document.getElementById('a-phone-number');
+    const phoneHidden = document.getElementById('a-phone');
+    if (phoneCode && phoneNumber && phoneHidden){
+      const syncPhone = () => { phoneHidden.value = phoneNumber.value.trim() ? (phoneCode.value + ' ' + phoneNumber.value.trim()) : ''; };
+      phoneCode.addEventListener('change', syncPhone);
+      phoneNumber.addEventListener('input', syncPhone);
+    }
+
     function getStepEl(n){ return steps.find(s => Number(s.dataset.step) === n); }
 
     function render(){
@@ -2530,11 +2589,35 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       setTimeout(goNext, 200);
     }
 
+    const COUNTRY_ALIASES = {
+      "us": "United States", "usa": "United States", "america": "United States", "united states of america": "United States",
+      "uk": "United Kingdom", "britain": "United Kingdom", "great britain": "United Kingdom", "england": "United Kingdom",
+      "uae": "United Arab Emirates", "emirates": "United Arab Emirates",
+      "cz": "Czech Republic", "czechia": "Czech Republic",
+      "drc": "Democratic Republic of the Congo",
+      "skorea": "South Korea", "south korea": "South Korea", "korea": "South Korea",
+      "nkorea": "North Korea",
+      "uk.": "United Kingdom"
+    };
+
     function renderCountryList(query){
       countryList.innerHTML = '';
       if (!query){ return; }
-      const q = query.toLowerCase();
-      const matches = COUNTRIES.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
+      const q = query.trim().toLowerCase();
+      if (!q){ return; }
+      const alias = COUNTRY_ALIASES[q];
+      const starts = [];
+      const contains = [];
+      COUNTRIES.forEach(c => {
+        if (c === alias) return;
+        const lc = c.toLowerCase();
+        if (lc.startsWith(q)) { starts.push(c); }
+        else if (lc.includes(q)) { contains.push(c); }
+      });
+      starts.sort();
+      contains.sort();
+      let matches = alias ? [alias, ...starts, ...contains] : [...starts, ...contains];
+      matches = matches.slice(0, 8);
       if (!matches.length){
         const empty = document.createElement('div');
         empty.className = 'wizard-country-empty';
