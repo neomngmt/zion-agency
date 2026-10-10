@@ -1008,10 +1008,10 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
           </g>
         </g>
       </svg>
-      <div class="hm-stat t"><div class="tx"><b>2023</b><span>Founded</span></div></div>
-      <div class="hm-stat r"><div class="tx"><b>12M+</b><span>Generated</span></div></div>
-      <div class="hm-stat b"><div class="tx"><b>Leaks</b><span>Taken down</span></div></div>
-      <div class="hm-stat l"><div class="tx"><b>Quality</b><span>Over quantity</span></div></div>
+      <div class="hm-stat t" data-depth="1"><div class="tx"><b>2023</b><span>Founded</span></div></div>
+      <div class="hm-stat r" data-depth="1"><div class="tx"><b>12M+</b><span>Generated</span></div></div>
+      <div class="hm-stat b" data-depth="1"><div class="tx"><b>Leaks</b><span>Taken down</span></div></div>
+      <div class="hm-stat l" data-depth="1"><div class="tx"><b>Quality</b><span>Over quantity</span></div></div>
     </div>
   </div>
 
@@ -3534,7 +3534,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       raf = requestAnimationFrame(() => {
         layers.forEach(l => {
           const d = parseFloat(l.dataset.depth) || 0;
-          l.style.transform = 'translate(' + (mx * d * -26).toFixed(1) + 'px,' + (my * d * -20).toFixed(1) + 'px)';
+          const k = l.classList.contains('hm-stat') ? (hero.querySelector('.hero2-mark svg').clientWidth / 800) : 1;
+          l.style.transform = 'translate(' + (mx * d * -26 * k).toFixed(1) + 'px,' + (my * d * -20 * k).toFixed(1) + 'px)';
         });
         raf = null;
       });
