@@ -18,7 +18,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z' fill='%2339e673'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg: #07090a;
@@ -642,6 +642,179 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .exclusive-marquee .em-track span{ font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:1.5px; color:var(--green-soft); white-space:nowrap; padding:0 22px; text-transform:uppercase; }
 .exclusive-marquee .em-track span.sep{ color:var(--green-dim); }
 @keyframes emScroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+/* ================= REDESIGN: NAV + HERO ================= */
+:root{ --nav-h:88px; }
+.wrap-wide{ max-width:1480px; padding:0 clamp(20px,3.2vw,52px); }
+.nav{ height:var(--nav-h); padding:0; }
+.brand{ display:block; line-height:0; }
+.brand-mark{ height:30px; width:auto; display:block; }
+.nav .brand .by-neo-tag{ left:1px; right:auto; top:calc(100% + 6px); margin-top:0; font-size:10px; text-align:left; }
+.nav-links{ gap:clamp(26px,3.6vw,54px); font-family:'Inter', sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; color:#e9ece9; }
+.nav-links > a, .nav-links .dropdown-trigger{ position:relative; padding:6px 0; color:inherit; }
+.nav-links > a:hover, .nav-links .dropdown:hover .dropdown-trigger{ color:var(--green-soft); }
+.nav-links > a.is-active, .nav-links .dropdown.is-active .dropdown-trigger{ color:var(--green-soft); }
+.nav-links > a.is-active::after, .nav-links .dropdown.is-active .dropdown-trigger::after{ content:""; position:absolute; left:0; right:0; bottom:-8px; height:1px; background:var(--green-soft); }
+.dropdown-menu a{ text-transform:none; letter-spacing:0; font-weight:500; }
+.dropdown-menu a span{ text-transform:none; letter-spacing:0; }
+.nav-cta{ display:inline-flex; align-items:center; gap:14px; padding:15px 28px; border:1px solid var(--green-soft); border-radius:999px; color:#fff; text-decoration:none; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; background:rgba(57,230,115,.04); transition:background .2s ease, box-shadow .2s ease; white-space:nowrap; }
+.nav-cta svg{ width:15px; height:15px; stroke:var(--green-soft); transition:transform .2s ease; }
+.nav-cta:hover{ background:rgba(57,230,115,.14); box-shadow:0 0 24px rgba(57,230,115,.28); }
+.nav-cta:hover svg{ transform:translateX(3px); }
+@media (max-width:860px){ .nav-right .nav-cta{ display:none; } .brand-mark{ height:26px; } }
+
+.hero2{ position:relative; min-height:100vh; margin-top:calc(var(--nav-h) * -1); padding-top:var(--nav-h); display:flex; align-items:center; overflow:hidden; isolation:isolate; }
+.hero2-bg{ position:absolute; inset:0; z-index:-1; pointer-events:none; -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent); mask-image:linear-gradient(180deg,#000 80%,transparent); }
+.hero2-glow{ position:absolute; right:0; top:50%; width:min(104vh,74vw); aspect-ratio:1; transform:translateY(-46%); background:radial-gradient(closest-side, rgba(57,230,115,.34), rgba(18,179,76,.14) 44%, transparent 72%); }
+.hero2-mark{ position:absolute; right:6.5vw; top:50%; height:min(76vh,52vw); aspect-ratio:1; transform:translateY(-46%); }
+.hero2-mark svg{ width:100%; height:100%; overflow:visible; }
+.hm-ring, .hm-breathe{ transform-box:fill-box; transform-origin:center; }
+.hm-ring-a{ animation:hmSpin 150s linear infinite; }
+.hm-ring-b{ animation:hmSpin 95s linear infinite reverse; }
+.hm-breathe{ animation:hmBreathe 8s ease-in-out infinite; }
+.hm-scan{ animation:hmScan 6.5s linear infinite; }
+@keyframes hmSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+@keyframes hmBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.014); } }
+@keyframes hmScan{ 0%{ transform:translateY(-130px); } 100%{ transform:translateY(830px); } }
+
+.hero2-grid{ position:relative; width:100%; }
+.hero2-copy{ max-width:min(660px,50vw); padding:clamp(40px,9vh,110px) 0 clamp(80px,13vh,140px); }
+.hero2-eyebrow{ display:flex; align-items:center; gap:18px; font-size:11px; font-weight:500; letter-spacing:.3em; color:var(--green-soft); text-transform:uppercase; margin-bottom:clamp(26px,4.5vh,44px); }
+.hero2-eyebrow .line{ width:40px; height:1px; background:var(--green-soft); flex-shrink:0; }
+.hero2 h1{ font-size:clamp(40px,5.1vw,78px); font-weight:300; line-height:1.07; letter-spacing:-.02em; margin:0 0 clamp(22px,3.4vh,34px); background:linear-gradient(180deg,#b6bab6 0%,#ffffff 64%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero2 h1 .hl{ background:linear-gradient(100deg,#5cf08f,#2fd066); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:300; }
+.hero2 p{ font-size:clamp(14px,1.05vw,16px); font-weight:300; line-height:1.7; color:#a3a8a4; max-width:480px; margin:0 0 clamp(30px,5vh,46px); }
+.hero2-cta{ display:flex; align-items:center; gap:26px; }
+.hero2-circle{ width:54px; height:54px; border-radius:50%; border:1px solid var(--green-soft); display:grid; place-items:center; transition:background .2s ease, box-shadow .2s ease; }
+.hero2-circle svg{ width:18px; height:18px; stroke:var(--green-soft); transition:transform .2s ease; }
+.hero2-circle:hover{ background:rgba(57,230,115,.16); box-shadow:0 0 26px rgba(57,230,115,.3); }
+.hero2-circle:hover svg{ transform:translateX(3px); }
+.hero2-cta-label{ font-size:10.5px; font-weight:600; letter-spacing:.28em; color:#fff; text-decoration:none; text-transform:uppercase; }
+
+.hero2-side{ position:absolute; right:clamp(26px,4.6vw,76px); top:33%; display:flex; flex-direction:column; align-items:center; gap:18px; font-size:9.5px; letter-spacing:.26em; color:#c3c8c4; text-transform:uppercase; }
+.hero2-side .vline{ width:1px; height:68px; margin-bottom:12px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.55)); }
+.hero2-foot{ position:absolute; left:clamp(20px,3.2vw,52px); bottom:clamp(26px,5vh,48px); display:flex; align-items:center; gap:18px; font-size:9.5px; letter-spacing:.22em; line-height:1.9; color:#9ea39f; text-transform:uppercase; }
+.hero2-foot .line{ width:34px; height:1px; background:var(--green-soft); flex-shrink:0; }
+.hero2-scroll{ position:absolute; right:clamp(26px,5.5vw,96px); bottom:clamp(22px,4.4vh,44px); display:flex; align-items:center; gap:16px; font-size:9.5px; letter-spacing:.26em; line-height:1.7; color:#c3c8c4; text-decoration:none; text-transform:uppercase; }
+.hero2-scroll .mouse{ width:24px; height:40px; border:1px solid rgba(255,255,255,.85); border-radius:14px; position:relative; flex-shrink:0; }
+.hero2-scroll .mouse::after{ content:""; position:absolute; left:50%; top:8px; width:2px; height:7px; margin-left:-1px; background:#fff; border-radius:2px; animation:hmWheel 1.8s ease-in-out infinite; }
+@keyframes hmWheel{ 0%{ opacity:0; transform:translateY(0); } 30%{ opacity:1; } 100%{ opacity:0; transform:translateY(12px); } }
+.hero-stats{ padding-top:24px; }
+
+@media (max-width:860px){
+  .hero2{ min-height:92vh; align-items:flex-end; }
+  .hero2-copy{ max-width:100%; padding:0 0 110px; }
+  .hero2-mark{ right:-36vw; height:100vw; top:30%; opacity:.5; }
+  .hero2-glow{ right:-34vw; width:140vw; top:30%; }
+  .hero2-side, .hero2-scroll{ display:none; }
+  .hero2-foot{ bottom:22px; font-size:8.5px; }
+  .hero2-foot .line{ display:none; }
+  .hero2-eyebrow{ letter-spacing:.18em; font-size:10px; gap:12px; }
+  .hero2-eyebrow .line{ width:26px; }
+}
+
+/* ================= BEHIND THE SCENES ================= */
+.shoot-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; padding-bottom:26px; }
+.shoot-tile{ position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--border); background:#000; aspect-ratio:9/16; box-shadow:0 14px 30px rgba(0,0,0,.4); }
+.shoot-tile::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 62%, rgba(0,0,0,.5)); pointer-events:none; }
+.shoot-tile video{ width:100%; height:100%; object-fit:cover; display:block; }
+@media (min-width:1101px){ .shoot-tile:nth-child(even){ transform:translateY(26px); } }
+@media (max-width:1100px){ .shoot-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:600px){
+  .shoot-grid{ display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 10px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .shoot-grid::-webkit-scrollbar{ display:none; }
+  .shoot-tile{ flex:0 0 64%; scroll-snap-align:center; }
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+@media (hover:none){ .page-glow{ display:none; } }
+@media (max-width:860px){
+  .wrap{ padding:0 20px; }
+  .section{ padding:56px 0; }
+  .section-head{ margin-bottom:32px; }
+  .closing{ padding:56px 0 44px; }
+  .simple-hero{ padding:44px 0 12px; }
+  .counter-strip{ padding:30px 0; }
+  .calc-box{ padding:18px; }
+  .calc-field{ padding:16px; }
+  .form-box{ padding:26px 20px; }
+  .testi-box{ padding:22px; }
+  .quote-box{ padding:34px 20px; }
+  .compare-col{ padding:24px 20px; }
+  .referral-box{ padding:26px 20px; }
+  .footer-mobile .footer-links a{ font-size:12px; padding:6px 4px; }
+  .nav-right .nav-cta{ display:inline-flex; padding:11px 16px; font-size:9.5px; letter-spacing:.16em; }
+  .nav-right .nav-cta svg{ display:none; }
+}
+@media (max-width:640px){
+  .hero-stats{ padding-top:8px; }
+  .hero-stats .orbit-wrap{ max-width:none; height:auto; aspect-ratio:auto; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .hero-stats .orbit-ring, .hero-stats .orbit-core{ display:none; }
+  .hero-stats .orbit-node{ position:static; transform:none !important; animation:none !important; width:auto; padding:18px 8px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.02); }
+  .hero-stats .orbit-node .dotmark{ margin-bottom:10px; }
+}
+@media (max-width:600px){
+  .ig-clip-grid, .infloww-grid{ display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .ig-clip-grid::-webkit-scrollbar, .infloww-grid::-webkit-scrollbar{ display:none; }
+  .ig-clip-card{ flex:0 0 62%; scroll-snap-align:center; }
+  .infloww-card{ flex:0 0 80%; scroll-snap-align:center; }
+}
+
+/* ================= HERO PHOTO MODE (test) ================= */
+.hero2--photo .hero2-mark{ display:none; }
+.hero2--photo .hero2-bg{ -webkit-mask-image:linear-gradient(180deg,#000 90%,transparent); mask-image:linear-gradient(180deg,#000 90%,transparent); }
+.hero2--photo .hero2-glow{ right:0; width:min(100vh,64vw); }
+.hero2-photo{ position:absolute; right:6vw; bottom:0; height:min(80vh,60vw); width:auto; max-width:none; filter:brightness(.88) contrast(1.05) saturate(.95) drop-shadow(0 0 1px rgba(170,255,200,.55)) drop-shadow(0 0 12px rgba(57,230,115,.5)) drop-shadow(0 0 42px rgba(18,179,76,.42)); }
+.hero2--photo .hero2-side{ display:none; }
+.hero2--photo .hero2-scroll{ right:auto; left:50%; transform:translateX(-50%); }
+@media (max-width:860px){
+  .hero2--photo{ min-height:0; align-items:flex-start; }
+  .hero2--photo .hero2-copy{ padding:35.5vh 0 100px; }
+  .hero2-photo{ right:50%; transform:translateX(50%); top:88px; bottom:auto; height:37vh; }
+  .hero2--photo .hero2-glow{ right:-30vw; width:130vw; top:22%; }
+  .hero2--photo .hero2-scroll{ display:none; }
+}
+
+/* ================= INFLOWW MOBILE MARQUEE ================= */
+@media (max-width:600px){
+  .infloww-grid.is-marquee{ display:block; overflow:hidden; margin:0 -20px; padding:8px 0 12px; scroll-snap-type:none; }
+  .infloww-track{ display:flex; gap:12px; width:max-content; padding-right:12px; animation:infMarquee 46s linear infinite; }
+  .infloww-track:active{ animation-play-state:paused; }
+  .infloww-grid.is-marquee .infloww-card{ flex:0 0 74vw; width:74vw; scroll-snap-align:none; }
+}
+@keyframes infMarquee{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
+@media (max-width:600px) and (prefers-reduced-motion: reduce){ .infloww-grid.is-marquee{ overflow-x:auto; } }
+
+/* ================= MOBILE HERO v2 ================= */
+@media (max-width:860px){
+  .page-glow{ display:none; }
+  .hero2--photo{ min-height:0; align-items:flex-start; }
+  .hero2--photo .hero2-bg{ -webkit-mask-image:none; mask-image:none; }
+  .hero2--photo .hero2-copy{ padding:calc(min(84vw,40vh) * .87) 0 84px; max-width:100%; }
+  .hero2--photo .hero2-copy::before{ content:""; position:absolute; z-index:-1; left:-24px; right:-24px; top:calc(min(84vw,40vh) * .87 - 60px); height:110px; background:linear-gradient(180deg, rgba(7,9,10,0), rgba(7,9,10,.88) 62%, rgba(7,9,10,.88)); pointer-events:none; }
+  .hero2-photo{ right:50%; transform:translateX(50%); top:84px; bottom:auto; height:min(84vw,40vh);
+    filter:brightness(.92) contrast(1.05) saturate(.96) drop-shadow(0 0 1px rgba(170,255,200,.5)) drop-shadow(0 0 9px rgba(57,230,115,.4)) drop-shadow(0 0 26px rgba(18,179,76,.3)); }
+  .hero2--photo .hero2-glow{ right:-18vw; top:calc(84px + min(84vw,40vh) * .42); width:min(120vw,520px); opacity:.5; transform:translateY(-50%); }
+}
+
+/* ================= MOBILE HERO v3: title, then text + small photo side by side ================= */
+.hero2-photo-inline{ display:none; }
+@media (max-width:860px){
+  .hero2--photo .hero2-bg .hero2-photo{ display:none; }
+  .hero2--photo .hero2-copy{ padding:30px 0 96px; }
+  .hero2--photo .hero2-copy::before{ display:none; }
+  .hero2-row{ display:flex; align-items:flex-start; gap:14px; margin:-4px 0 30px; }
+  .hero2-row p{ flex:1 1 0; min-width:0; margin:34px 0 0; font-size:14.5px; line-height:1.65; }
+  .hero2-photo-inline{ display:block; flex:0 0 40%; max-width:170px; height:auto; filter:brightness(.92) contrast(1.04) drop-shadow(0 0 1px rgba(170,255,200,.55)) drop-shadow(0 0 8px rgba(57,230,115,.45)) drop-shadow(0 0 22px rgba(18,179,76,.35)); }
+  .hero2--photo .hero2-glow{ top:430px; right:-14vw; width:90vw; opacity:.45; }
+}
+
+/* ================= HERO PHOTO v4: glow baked into the image (no CSS filter, no clipping) ================= */
+.hero2-photo{ --ph:min(80vh,60vw); height:calc(var(--ph) * 1.1867); bottom:calc(var(--ph) * -.0933); right:calc(6vw - var(--ph) * .0933); filter:none !important; }
+.hero2-photo-inline{ filter:none !important; }
+@media (max-width:860px){
+  .hero2-photo-inline{ flex:0 0 52%; max-width:215px; margin:-18px -24px -22px -22px; }
+  .hero2-row p{ margin-top:38px; }
+}
 </style>
 </head>
 
@@ -700,30 +873,49 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <span class="shoot" style="top:10%; left:-8%; --ang:36deg; --dx:950px; --dy:680px; animation-duration:10s; animation-delay:1s;"></span>
 </div>
 <div class="nav-bar">
-  <div class="wrap">
+  <div class="wrap wrap-wide">
     <div class="nav">
-      <a href="#home" class="brand" style="text-decoration:none; color:inherit;">
-        <svg class="star" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#logoGradNav)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#logoGradNav)"/><defs><linearGradient id="logoGradNav" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
-        ZION
+      <a href="#home" class="brand" aria-label="ZION" style="text-decoration:none; color:inherit;">
+        <svg class="brand-mark" viewBox="-6 0 788 180" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="butt" stroke-linejoin="miter" role="img" aria-label="ZION">
+          <path d="M0 6H160"/>
+          <path d="M160 6L92.8 76.6"/>
+          <path d="M76.8 93.4L0 174"/>
+          <path d="M0 174H160"/>
+          <path d="M252 6V174"/>
+          <path d="M344 90V128Q344 174 390 174H458Q504 174 504 128V52Q504 6 458 6H390Q344 6 344 52"/>
+          <path d="M596 6V174"/>
+          <path d="M596 6L660.8 66.5"/>
+          <path d="M678.8 83.3L776 174"/>
+          <path d="M776 6V174"/>
+        </svg>
         <span class="by-neo-tag">by neomngmt</span>
       </a>
       <div class="nav-links">
-        <a href="#home">Home</a>
-        <div class="dropdown">
-          <span class="dropdown-trigger mono">ABOUT <svg viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.4"/></svg></span>
+        <a href="#home" data-nav="home">Home</a>
+        <div class="dropdown" data-nav="about">
+          <span class="dropdown-trigger">About</span>
           <div class="dropdown-menu">
             <a href="#about"><strong>The Agency</strong><span>Our story and how we work</span></a>
             <a href="#success-stories"><strong>Success Stories</strong><span>Real results from our roster</span></a>
             <a href="#academy"><strong>Academy</strong><span>Guides on growth and safety</span></a>
             <a href="#blog"><strong>Blog</strong><span>Longer reads on what works</span></a>
+            <a href="#referral"><strong>Referral</strong><span>Introduce a creator, get paid</span></a>
           </div>
         </div>
-        <a href="#services">Our Services</a>
-        <a href="#contact">Contact</a>
-        <a href="#referral">Referral</a>
+        <div class="dropdown" data-nav="services">
+          <a class="dropdown-trigger" href="#services">Services</a>
+          <div class="dropdown-menu">
+            <a href="#services"><strong>All services</strong><span>Everything under one roof</span></a>
+            <a href="#marketing"><strong>Marketing</strong><span>Traffic across 15+ platforms</span></a>
+            <a href="#chatting"><strong>Chatting</strong><span>A team that knows your voice</span></a>
+            <a href="#photoshooting"><strong>Photoshooting</strong><span>Content and behind the scenes</span></a>
+          </div>
+        </div>
+        <a href="#success-stories" data-nav="results">Results</a>
+        <a href="#contact" data-nav="contact">Contact</a>
       </div>
       <div class="nav-right">
-        <a class="btn-pill" href="#apply">Apply</a>
+        <a class="nav-cta" href="#apply">Work with us <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
           <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -740,6 +932,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <a href="#contact">Contact</a>
       <a href="#referral">Referral</a>
       <a href="#services">Our Services</a>
+      <a href="#marketing">Marketing</a>
+      <a href="#chatting">Chatting</a>
+      <a href="#photoshooting">Photoshooting</a>
       <a class="mobile-cta" href="#apply">Apply</a>
     </div>
   </div>
@@ -749,39 +944,84 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 <main id="app">
 <section class="page active" id="page-home" data-page="home">
-  
-</div>
 
-<div class="wrap" id="home">
-  <div class="hero">
-    
-    <div class="hero-inner">
-      <div class="eyebrow-chip mono"><span class="dot"></span>CREATOR MANAGEMENT · SINCE 2023</div>
+<section class="hero2" id="home">
+  <div class="hero2-bg" aria-hidden="true">
+    <div class="hero2-glow"></div>
+    <div class="hero2-mark">
+      <svg viewBox="0 0 800 800" fill="none">
+        <defs>
+          <filter id="hmGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="hmCore" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#d9ffe6"/><stop offset=".38" stop-color="#39e673"/><stop offset="1" stop-color="#0a5c2c" stop-opacity="0"/></radialGradient>
+          <linearGradient id="hmEdge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8dffb3"/><stop offset="1" stop-color="#12b34c"/></linearGradient>
+          <linearGradient id="hmScan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39e673" stop-opacity="0"/><stop offset=".5" stop-color="#39e673" stop-opacity=".32"/><stop offset="1" stop-color="#39e673" stop-opacity="0"/></linearGradient>
+          <clipPath id="hmClip"><path d="M400 40L760 400L400 760L40 400Z"/></clipPath>
+        </defs>
+        <g data-depth="0.5">
+          <g class="hm-ring hm-ring-a">
+            <circle cx="400" cy="400" r="352" stroke="rgba(57,230,115,.30)" stroke-width="1" stroke-dasharray="1 9"/>
+            <circle cx="400" cy="400" r="318" stroke="rgba(255,255,255,.09)" stroke-width="1"/>
+            <circle cx="752" cy="400" r="4.5" fill="#39e673" filter="url(#hmGlow)"/>
+            <circle cx="151" cy="151" r="3" fill="#bfffd3"/>
+            <circle cx="400" cy="48" r="2.5" fill="#39e673"/>
+          </g>
+        </g>
+        <g data-depth="1">
+          <g class="hm-breathe">
+            <path d="M400 40L760 400L400 760L40 400Z" stroke="url(#hmEdge)" stroke-width="1.4" filter="url(#hmGlow)"/>
+            <path d="M400 134L666 400L400 666L134 400Z" stroke="rgba(57,230,115,.55)" stroke-width="1"/>
+            <path d="M400 227L573 400L400 573L227 400Z" stroke="rgba(57,230,115,.34)" stroke-width="1"/>
+            <path d="M400 40V760M40 400H760" stroke="rgba(57,230,115,.13)" stroke-width="1"/>
+            <rect class="hm-scan" x="0" y="0" width="800" height="110" fill="url(#hmScan)" clip-path="url(#hmClip)"/>
+          </g>
+        </g>
+        <g data-depth="1.7">
+          <circle cx="400" cy="400" r="150" fill="url(#hmCore)" opacity=".55"/>
+          <path d="M400 318L482 400L400 482L318 400Z" fill="url(#hmEdge)" filter="url(#hmGlow)"/>
+          <path d="M400 318L482 400L400 482L318 400Z" stroke="#d6ffe2" stroke-width="1" opacity=".7"/>
+        </g>
+        <g data-depth="0.9">
+          <g class="hm-ring hm-ring-b">
+            <circle cx="400" cy="400" r="236" stroke="rgba(255,255,255,.16)" stroke-width="1" stroke-dasharray="2 7"/>
+            <circle cx="636" cy="400" r="3.5" fill="#ffffff" opacity=".85"/>
+            <circle cx="233" cy="567" r="2.5" fill="#39e673"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="wrap wrap-wide hero2-grid">
+    <div class="hero-inner hero2-copy">
+      <div class="hero2-eyebrow"><span class="line"></span>Creator management. Since 2023.</div>
       <h1>A collaboration that delivers <span class="hl">real results</span></h1>
       <p>We help creators in the US and Czech Republic build strong profiles, scale revenue, and reach the top 1% on OnlyFans. Full management, content, messaging, and growth strategy, so you can focus on creating.</p>
-      <div class="hero-ctas">
-        <a class="btn-outline" style="background:linear-gradient(135deg, var(--green-soft), var(--green)); color:#04140c; border:none; box-shadow:0 0 26px var(--glow); font-weight:700;" href="#apply">Work with us</a>
-        <a class="btn-outline" href="#services">See what we do</a>
+      <div class="hero2-cta">
+        <a class="hero2-circle" href="#apply" aria-label="Let's talk"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="hero2-cta-label" href="#apply">Let's talk</a>
       </div>
-      <div class="hero-note mono"><b>DISCRETION GUARANTEED.</b> YOUR NAME NEVER SEEN UNLESS YOU CHOOSE.</div>
     </div>
+  </div>
 
-    <div class="orbit-wrap" data-reveal>
-      <div class="orbit-ring"></div>
-      <div class="orbit-ring r2"></div>
-      <div class="orbit-core">
-        <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#39e673"/></svg>
-        <span class="mono">ZION</span>
-      </div>
-      <div class="orbit-node n1"><div class="dotmark"></div><div class="v">2023</div><div class="k mono">FIRST BRICK LAID</div></div>
-      <div class="orbit-node n2"><div class="dotmark"></div><div class="v">100%</div><div class="k mono">DISCRETION</div></div>
-      <div class="orbit-node n3"><div class="dotmark"></div><div class="v">Weekly</div><div class="k mono">REPORTING</div></div>
-      <div class="orbit-node n4"><div class="dotmark"></div><div class="v">~2h</div><div class="k mono">TIME NEEDED</div></div>
-    </div>
-</div>
-</div>
+  <div class="hero2-side" aria-hidden="true">
+    <span class="vline"></span>
+    <span>Marketing</span>
+    <span>Chatting</span>
+    <span>Content</span>
+  </div>
 
-<div class="exclusive-marquee">
+  <div class="hero2-foot">
+    <span class="line"></span>
+    <span>Discretion guaranteed.<br>Your name never seen unless you choose.</span>
+  </div>
+
+  <a class="hero2-scroll" href="#stats">
+    <span class="mouse"></span>
+    <span>Scroll<br>down</span>
+  </a>
+</section>
+
+<div class="exclusive-marquee" id="stats">
   <div class="em-track">
     <span>NOW ONBOARDING · 2026</span><span class="sep">✦</span>
     <span>BY APPLICATION ONLY</span><span class="sep">✦</span>
@@ -846,6 +1086,59 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <a class="btn-pill" href="#apply">Apply now</a>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section no-border" style="padding-top:0;">
+    <div class="section-head center" data-reveal style="margin-bottom:30px;">
+      <div class="eyebrow-label mono">VERIFIED RESULTS</div>
+      <h2>#1 agency in the Czech Republic on Infloww, six months running.</h2>
+      <p class="section-sub">Real monthly leaderboard results, straight from Infloww, February through July.</p>
+    </div>
+    <div class="infloww-feature" data-reveal>
+      <div class="infloww-feature-shot"><img src="assets/infloww-earnings.webp" alt="Infloww earnings dashboard showing $1,602,343.50 tracked over the past 12 months, up 166.10%" loading="lazy"></div>
+      <div class="infloww-feature-caption">
+        <span class="infloww-feature-stat mono">$1,602,343.50<span class="dim"> earnings tracked, past 12 months</span></span>
+        <span class="infloww-feature-growth mono">↗ 166.10% YoY</span>
+      </div>
+    </div>
+    <div class="infloww-grid" data-reveal>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-feb.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, February" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">FEBRUARY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #309 global</span></span></div>
+      </div>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-mar.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, March" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">MARCH</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #327 global</span></span></div>
+      </div>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-apr.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, April" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">APRIL</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #326 global</span></span></div>
+      </div>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-may.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, May" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">MAY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #309 global</span></span></div>
+      </div>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-jun.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, June" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">JUNE</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #314 global</span></span></div>
+      </div>
+      <div class="infloww-card">
+        <div class="infloww-shot"><img src="assets/infloww-jul.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, July" loading="lazy"></div>
+        <div class="infloww-caption"><span class="infloww-month mono">JULY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #282 global</span></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section" style="text-align:center;">
+    <div class="section-head center" data-reveal style="margin-bottom:34px;">
+      <div class="eyebrow-label mono">FOLLOW ALONG</div>
+      <h2>Interested in seeing more of our results?</h2>
+    </div>
+    <a class="btn-outline" href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Instagram</a>
   </div>
 </div>
 
@@ -1061,59 +1354,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 <div class="wrap">
   <div class="section no-border" style="padding-top:0;">
     <div class="section-head center" data-reveal style="margin-bottom:30px;">
-      <div class="eyebrow-label mono">VERIFIED RESULTS</div>
-      <h2>#1 agency in the Czech Republic on Infloww, six months running.</h2>
-      <p class="section-sub">Real monthly leaderboard results, straight from Infloww, February through July.</p>
-    </div>
-    <div class="infloww-feature" data-reveal>
-      <div class="infloww-feature-shot"><img src="assets/infloww-earnings.webp" alt="Infloww earnings dashboard showing $1,602,343.50 tracked over the past 12 months, up 166.10%" loading="lazy"></div>
-      <div class="infloww-feature-caption">
-        <span class="infloww-feature-stat mono">$1,602,343.50<span class="dim"> earnings tracked, past 12 months</span></span>
-        <span class="infloww-feature-growth mono">↗ 166.10% YoY</span>
-      </div>
-    </div>
-    <div class="infloww-grid" data-reveal>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-feb.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, February" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">FEBRUARY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #309 global</span></span></div>
-      </div>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-mar.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, March" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">MARCH</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #327 global</span></span></div>
-      </div>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-apr.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, April" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">APRIL</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #326 global</span></span></div>
-      </div>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-may.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, May" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">MAY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #309 global</span></span></div>
-      </div>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-jun.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, June" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">JUNE</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #314 global</span></span></div>
-      </div>
-      <div class="infloww-card">
-        <div class="infloww-shot"><img src="assets/infloww-jul.png" alt="Infloww leaderboard: ranked #1 in Czech Republic, July" loading="lazy"></div>
-        <div class="infloww-caption"><span class="infloww-month mono">JULY</span><span class="infloww-rank mono">🇨🇿 #1 <span class="dim">· #282 global</span></span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="wrap">
-  <div class="section" style="text-align:center;">
-    <div class="section-head center" data-reveal style="margin-bottom:34px;">
-      <div class="eyebrow-label mono">FOLLOW ALONG</div>
-      <h2>Interested in seeing more of our results?</h2>
-    </div>
-    <a class="btn-outline" href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Instagram</a>
-  </div>
-</div>
-
-<div class="wrap">
-  <div class="section no-border" style="padding-top:0;">
-    <div class="section-head center" data-reveal style="margin-bottom:30px;">
       <div class="eyebrow-label mono">TRUSTED BY</div>
       <h2 style="font-size:20px;">Our partners</h2>
     </div>
@@ -1194,17 +1434,17 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <h4>Protection & Safety</h4>
         <p>Content theft, leaks, and chargebacks handled fast, before they cost you money or momentum.</p>
       </div>
-      <div class="service-icon-card">
+      <div class="service-icon-card" role="link" tabindex="0" style="cursor:pointer" onclick="location.hash='photoshooting'" onkeydown="if(event.key==='Enter')location.hash='photoshooting'">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#39e673" stroke-width="1.8"><rect x="3" y="7" width="14" height="12" rx="2"/><path d="M17 10l4-2.5v9L17 14"/></svg></div>
         <h4>Photoshooting & Content</h4>
         <p>Ideas, planning, and filming support so you never have to carry content creation alone.</p>
       </div>
-      <div class="service-icon-card">
+      <div class="service-icon-card" role="link" tabindex="0" style="cursor:pointer" onclick="location.hash='marketing'" onkeydown="if(event.key==='Enter')location.hash='marketing'">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#39e673" stroke-width="1.8"><path d="M3 11l18-7-7 18-3-8-8-3z"/></svg></div>
         <h4>Marketing</h4>
         <p>Reddit, Twitter, TikTok, and paid ads working together to keep new eyes on your profile.</p>
       </div>
-      <div class="service-icon-card">
+      <div class="service-icon-card" role="link" tabindex="0" style="cursor:pointer" onclick="location.hash='chatting'" onkeydown="if(event.key==='Enter')location.hash='chatting'">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#39e673" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
         <h4>Chatting</h4>
         <p>A team that knows your voice, turning conversations into renewals instead of one-off sales.</p>
@@ -1407,6 +1647,18 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="eyebrow-label mono">ONLYFANS · CONTENT PRODUCTION</div>
     <h1>Protecting your <span class="hl">content.</span></h1>
     <p>Creating content today is challenging, especially alone. The fear of leaks, flags, or a blocked account is real. That's why we're here.</p>
+  </div>
+</div>
+
+<div class="wrap wrap-wide">
+  <div class="section no-border" style="padding-top:34px;">
+    <div class="shoot-grid" data-reveal>
+      <div class="shoot-tile"><video muted loop playsinline preload="none" poster="assets/shoot-1.jpg" aria-label="Behind the scenes clip 1"><source src="assets/shoot-1.mp4" type="video/mp4"></video></div>
+      <div class="shoot-tile"><video muted loop playsinline preload="none" poster="assets/shoot-3.jpg" aria-label="Behind the scenes clip 3"><source src="assets/shoot-3.mp4" type="video/mp4"></video></div>
+      <div class="shoot-tile"><video muted loop playsinline preload="none" poster="assets/shoot-4.jpg" aria-label="Behind the scenes clip 4"><source src="assets/shoot-4.mp4" type="video/mp4"></video></div>
+      <div class="shoot-tile"><video muted loop playsinline preload="none" poster="assets/shoot-5.jpg" aria-label="Behind the scenes clip 5"><source src="assets/shoot-5.mp4" type="video/mp4"></video></div>
+      <div class="shoot-tile"><video muted loop playsinline preload="none" poster="assets/shoot-6.jpg" aria-label="Behind the scenes clip 6"><source src="assets/shoot-6.mp4" type="video/mp4"></video></div>
+    </div>
   </div>
 </div>
 
@@ -2035,7 +2287,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="section" style="padding-top:20px;">
     <div class="prose" data-reveal>
       <p>Zion started in 2023 with a simple idea: creators shouldn't have to choose between growing their income and protecting their privacy. Most agencies treat those as separate problems. We built Zion to solve both at once.</p>
-      <p>We're run by <strong>NeoMngmt</strong>, a small, hands-on team spread across multiple time zones. That spread isn't an accident, it means someone's always awake, watching your numbers, answering your messages, and reacting to what's working before the day is over.</p>
+      <p>We're run by <strong>NEO</strong>, a small, hands-on team spread across multiple time zones. That spread isn't an accident, it means someone's always awake, watching your numbers, answering your messages, and reacting to what's working before the day is over.</p>
       <p>What hasn't changed since day one: every creator we work with gets a real team behind them, not a single overworked manager juggling twenty accounts. Marketing, chatting, content strategy, and reporting are handled by people who specialize in exactly that.</p>
     </div>
   </div>
@@ -3029,7 +3281,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
     function animateCalcTotal(target){
       if (reduceMotion){
-        totalOut.textContent = target.toLocaleString();
+        totalOut.textContent = target.toLocaleString('en-US');
         calcDisplayedTotal = target;
         return;
       }
@@ -3041,7 +3293,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         const val = Math.round(start + (target - start) * eased);
-        totalOut.textContent = val.toLocaleString();
+        totalOut.textContent = val.toLocaleString('en-US');
         if (progress < 1){
           calcAnimFrame = requestAnimationFrame(tick);
         } else {
@@ -3058,7 +3310,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       const grade = parseFloat(gradeEl.value);
       const chat = parseFloat(chatEl.value);
       const location = parseFloat(locationEl.value);
-      subsOut.textContent = subs.toLocaleString();
+      subsOut.textContent = subs.toLocaleString('en-US');
       priceOut.textContent = '$' + price;
       const base = subs * price * location;
       const ppv = subs * price * 0.9 * grade * chat * location;
@@ -3161,6 +3413,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       const target = document.getElementById("page-" + key);
       if(target){ target.classList.add("active"); }
       setMeta(key);
+      if (window.__setActiveNav) { window.__setActiveNav(key); }
       // trigger reveal for anything already in view within the newly shown section
       if (window.__revealObserver && target){
         target.querySelectorAll("[data-reveal]").forEach(el => {
@@ -3227,5 +3480,92 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   })();
 </script>
 
+<script>
+  (function(){
+    function navKeyFor(key){
+      if (key === 'home') return 'home';
+      if (key === 'success-stories') return 'results';
+      if (key === 'services' || key === 'marketing' || key === 'chatting' || key === 'photoshooting') return 'services';
+      if (key === 'contact') return 'contact';
+      if (key === 'about' || key === 'academy' || key === 'blog' || key === 'referral' || key.indexOf('blog-') === 0) return 'about';
+      return '';
+    }
+    window.__setActiveNav = function(key){
+      const nk = navKeyFor(key || 'home');
+      document.querySelectorAll('.nav-links [data-nav]').forEach(el => {
+        el.classList.toggle('is-active', el.dataset.nav === nk);
+      });
+    };
+    window.__setActiveNav('home');
+
+    const hero = document.querySelector('.hero2');
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const layers = Array.from(hero.querySelectorAll('[data-depth]'));
+    let raf = null, mx = 0, my = 0;
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width - 0.5;
+      my = (e.clientY - r.top) / r.height - 0.5;
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        layers.forEach(l => {
+          const d = parseFloat(l.dataset.depth) || 0;
+          l.style.transform = 'translate(' + (mx * d * -26).toFixed(1) + 'px,' + (my * d * -20).toFixed(1) + 'px)';
+        });
+        raf = null;
+      });
+    }, { passive: true });
+  })();
+</script>
+<script>
+  (function(){
+    const vids = document.querySelectorAll('.shoot-tile video');
+    if (!vids.length || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.35 });
+    vids.forEach(v => io.observe(v));
+  })();
+</script>
+<script>
+  (function(){
+    const grid = document.querySelector('.infloww-grid');
+    if (!grid) return;
+    const mq = window.matchMedia('(max-width:600px)');
+    let built = false;
+    function build(){
+      if (built) return;
+      const track = document.createElement('div');
+      track.className = 'infloww-track';
+      Array.from(grid.children).forEach(c => track.appendChild(c));
+      Array.from(track.children).forEach(c => {
+        const k = c.cloneNode(true);
+        k.setAttribute('aria-hidden', 'true');
+        k.querySelectorAll('img').forEach(i => i.setAttribute('alt', ''));
+        track.appendChild(k);
+      });
+      grid.appendChild(track);
+      grid.classList.add('is-marquee');
+      built = true;
+    }
+    function destroy(){
+      if (!built) return;
+      const track = grid.querySelector('.infloww-track');
+      const kids = Array.from(track.children);
+      kids.slice(kids.length / 2).forEach(k => k.remove());
+      Array.from(track.children).forEach(c => grid.appendChild(c));
+      track.remove();
+      grid.classList.remove('is-marquee');
+      built = false;
+    }
+    function sync(){ mq.matches ? build() : destroy(); }
+    sync();
+    if (mq.addEventListener) { mq.addEventListener('change', sync); } else { mq.addListener(sync); }
+  })();
+</script>
 </body>
 </html>
