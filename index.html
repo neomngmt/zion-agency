@@ -666,7 +666,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .hero2{ position:relative; min-height:100vh; margin-top:calc(var(--nav-h) * -1); padding-top:var(--nav-h); display:flex; align-items:center; overflow:hidden; isolation:isolate; }
 .hero2-bg{ position:absolute; inset:0; z-index:-1; pointer-events:none; -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent); mask-image:linear-gradient(180deg,#000 80%,transparent); }
 .hero2-glow{ position:absolute; right:0; top:50%; width:min(104vh,74vw); aspect-ratio:1; transform:translateY(-46%); background:radial-gradient(closest-side, rgba(57,230,115,.34), rgba(18,179,76,.14) 44%, transparent 72%); }
-.hero2-mark{ position:absolute; right:12vw; top:calc(50% - 6px); height:min(47vh,28vw); aspect-ratio:1; transform:translateY(-50%); }
+.hero2-mark{ position:absolute; right:14.5vw; top:calc(50% - 34px); height:min(46vh,27vw); aspect-ratio:1; transform:translateY(-50%); }
 .hero2-mark svg{ width:100%; height:100%; overflow:visible; }
 .hm-ring, .hm-breathe{ transform-box:fill-box; transform-origin:center; }
 .hm-ring-a{ animation:hmSpin 150s linear infinite; }
@@ -3523,6 +3523,21 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     window.__setActiveNav('home');
 
     const hero = document.querySelector('.hero2');
+    if (hero) {
+      // keep the diamond's centre line level with the "real results" line
+      const alignMark = () => {
+        const mark = hero.querySelector('.hero2-mark'), hl = hero.querySelector('h1 .hl');
+        if (!mark || !hl || window.innerWidth <= 860) { if (mark) mark.style.top = ''; return; }
+        const hr = hero.getBoundingClientRect(), lr = hl.getBoundingClientRect();
+        if (!hr.height || !lr.height) return;
+        mark.style.top = (lr.top - hr.top + lr.height / 2).toFixed(0) + 'px';
+      };
+      alignMark();
+      window.addEventListener('resize', alignMark);
+      window.addEventListener('load', alignMark);
+      window.addEventListener('hashchange', () => setTimeout(alignMark, 50));
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignMark);
+    }
     if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const layers = Array.from(hero.querySelectorAll('[data-depth]'));
     let raf = null, mx = 0, my = 0;
