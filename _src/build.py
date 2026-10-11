@@ -190,6 +190,12 @@ def build_page(key, lang, head_pre, shell_top, page_html, shell_bottom):
     section = f'\n<section class="page active" id="page-{key}" data-page="{key}">{body_html}</section>\n'
     doc = head_pre + head_block(key, lang, meta, body_html) + top + '<main id="app">' + section + "</main>" + bottom
     doc = ROUTER_RE.sub(lambda _m: router_script(key), doc)
+    if key in CZ_PAGES:
+        other = url_for(key, "en" if lang == "cz" else "cz")
+        label, hl = ("English", "en") if lang == "cz" else ("Čeština", "cs")
+        link = f'<span class="sep">·</span><a href="{other}" hreflang="{hl}" lang="{hl}">{label}</a>'
+        for cls in ("footer-policy-links", "footer-links"):
+            doc = re.sub(r'(<div class="%s">.*?)(</div>)' % cls, lambda m: m.group(1) + link + m.group(2), doc, count=1, flags=re.S)
     doc = rewrite_links(doc, key, lang)
     if lang == "cz":
         doc = doc.replace('<html lang="en">', '<html lang="cs">', 1)
