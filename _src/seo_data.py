@@ -112,7 +112,7 @@ META = {
     },
     "apply": {
         "title": "Apply to ZION | Join an OnlyFans Management Agency",
-        "desc": "Become a ZION creator. Tell us a bit about yourself, no pressure and no obligation. We reply within 2 hours.",
+        "desc": "Become a ZION creator. No upfront fees and a free first consultation. Tell us a bit about yourself, no pressure and no obligation. We reply within 2 hours.",
         "h1": "Apply",
     },
     "contact": {

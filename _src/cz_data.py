@@ -26,7 +26,7 @@ CZ_META = {
               "desc": "Poznejte tým za agenturou ZION. Agentura postavená pro tvůrkyně, která zvládne byznysovou stránku OnlyFans, abyste se mohly soustředit na obsah.",
               "h1": "O nás"},
     "apply": {"title": "Přihláška do OnlyFans agentury ZION",
-              "desc": "Dvouminutová přihláška do OnlyFans agentury ZION. Bez závazků, diskrétně. Ozveme se vám obvykle do 2 hodin.",
+              "desc": "Přihláška do OnlyFans agentury ZION. Bez poplatků předem, první konzultace zdarma, bez závazků a diskrétně. Ozveme se vám obvykle do 2 hodin.",
               "h1": "Přihláška"},
     "success-stories": {"title": "Výsledky OnlyFans agentury | Případové studie ZION",
                         "desc": "Skutečné případové studie a proměny tvůrkyň z rosteru ZION: provoz, odběratelé a výdělky před a po, se screenshoty.",
@@ -68,7 +68,7 @@ CZ_META = {
 
 CZ_ATTRS = {
     "Menu": "Menu",
-    "Let's talk": "Pojďme si promluvit",
+    "Let's talk": "Bezplatná konzultace",
     "Behind the scenes clip 1": "Záběry z natáčení 1",
     "Behind the scenes clip 3": "Záběry z natáčení 2",
     "Behind the scenes clip 4": "Záběry z natáčení 3",
