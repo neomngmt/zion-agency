@@ -86,42 +86,122 @@
   </url>
   <url>
     <loc>https://zion-management.eu/academy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/academy/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/academy/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/academy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/academy/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/academy/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/month-one/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/month-one/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/month-one/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/month-one/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/month-one/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/month-one/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/chatting-replies/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/chatting-replies/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/chatting-replies/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/chatting-replies/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/chatting-replies/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/chatting-replies/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/platform-mix/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/platform-mix/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/platform-mix/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/platform-mix/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/platform-mix/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/platform-mix/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/pricing-mistake/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/pricing-mistake/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/pricing-mistake/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/pricing-mistake/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/pricing-mistake/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/pricing-mistake/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/content-leaked/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/content-leaked/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/content-leaked/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/content-leaked/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/content-leaked/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/content-leaked/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/blog/start-anonymously/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/start-anonymously/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/start-anonymously/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/blog/start-anonymously/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/blog/start-anonymously/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/blog/start-anonymously/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/referral/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/referral/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/referral/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/referral/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/referral/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/referral/"/>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zion-management.eu/refer-a-creator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/refer-a-creator/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/refer-a-creator/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zion-management.eu/cz/refer-a-creator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zion-management.eu/refer-a-creator/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://zion-management.eu/cz/refer-a-creator/"/>
     <priority>0.6</priority>
   </url>
   <url>

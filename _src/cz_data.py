@@ -2,7 +2,9 @@
 import json, re
 from pathlib import Path
 
-CZ_PAGES = ["home", "services", "marketing", "chatting", "photoshooting", "about", "contact", "apply", "success-stories"]
+CZ_PAGES = ["home", "services", "marketing", "chatting", "photoshooting", "about", "contact", "apply", "success-stories",
+            "blog", "academy", "referral", "refer-a-creator",
+            "blog-month-one", "blog-chatting-replies", "blog-platform-mix", "blog-pricing", "blog-leaks", "blog-anonymous"]
 
 CZ_META = {
     "home": {"title": "OnlyFans agentura v Česku a USA | ZION",
@@ -29,6 +31,36 @@ CZ_META = {
     "success-stories": {"title": "Výsledky OnlyFans agentury | Případové studie ZION",
                         "desc": "Skutečné případové studie a proměny tvůrkyň z rosteru ZION: provoz, odběratelé a výdělky před a po, se screenshoty.",
                         "h1": "Příběhy úspěchu"},
+    "blog": {"title": "Blog o OnlyFans pro tvůrkyně: růst a bezpečí | ZION",
+             "desc": "Postřehy o růstu, chattingu, marketingu a bezpečí od týmu ZION. Krátké praktické články pro tvůrkyně na OnlyFans.",
+             "h1": "Blog"},
+    "academy": {"title": "Akademie OnlyFans: návody na růst a bezpečí | ZION",
+                "desc": "Praktické návody o růstu, bezpečí a monetizaci pro tvůrkyně na OnlyFans od týmu ZION.",
+                "h1": "Akademie"},
+    "referral": {"title": "Program doporučení OnlyFans: opakovaná provize | ZION",
+                 "desc": "Doporučte tvůrkyni agentuře ZION a získejte opakovanou provizi z jejího růstu po celou dobu, co s námi zůstane.",
+                 "h1": "Program doporučení"},
+    "refer-a-creator": {"title": "Doporučte tvůrkyni agentuře ZION | provize",
+                        "desc": "Řekněte nám, koho máte na mysli, a my se o to postaráme. Doporučte tvůrkyni a získejte zaplaceno.",
+                        "h1": "Doporučit tvůrkyni"},
+    "blog-month-one": {"title": "Co opravdu hýbe výsledky v prvním měsíci na OnlyFans | ZION",
+                       "desc": "Hrstka rozhodnutí, která určují, jak rychle nový profil na OnlyFans najde svou půdu pod nohama v prvním měsíci.",
+                       "h1": "Co opravdu hýbe výsledky v prvním měsíci"},
+    "blog-chatting-replies": {"title": "Proč vás generické odpovědi stojí prodloužení | ZION",
+                              "desc": "Rozdíl mezi chatterem, který odpovídá, a tím, který buduje vztah, který se na OnlyFans dlouhodobě vyplácí.",
+                              "h1": "Proč vás generické odpovědi stojí prodloužení"},
+    "blog-platform-mix": {"title": "Jak vybrat správný mix platforem pro vaši niku | ZION",
+                          "desc": "Jak rozhodnout, kam se marketingové úsilí tvůrkyně na OnlyFans skutečně vyplatí a které platformy vynechat.",
+                          "h1": "Jak vybrat správný mix platforem pro vaši niku"},
+    "blog-pricing": {"title": "Cenová chyba na OnlyFans, která brzdí váš příjem | ZION",
+                     "desc": "Jak balíčky a odstupňované ceny mění výpočet na OnlyFans a jaká cenová chyba tiše omezuje příjem.",
+                     "h1": "Cenová chyba, která tiše brzdí váš příjem"},
+    "blog-leaks": {"title": "Co dělat v den, kdy vám unikne obsah z OnlyFans | ZION",
+                   "desc": "Kroky, které opravdu pomáhají, když vám unikne obsah z OnlyFans, v pořadí, na kterém záleží nejvíc.",
+                   "h1": "Co dělat v den, kdy váš obsah unikne"},
+    "blog-anonymous": {"title": "Začít na OnlyFans anonymně, bez ztráty tempa | ZION",
+                       "desc": "Jak tvůrkyně budují profil i publikum na OnlyFans, aniž by kdy ukázaly obličej.",
+                       "h1": "Začít anonymně, bez ztráty tempa"},
     "contact": {"title": "Kontakt | ZION, agentura pro OnlyFans",
                 "desc": "Napište nám ohledně správy profilu, marketingu nebo chattingu. Obvykle odpovídáme do 2 hodin.",
                 "h1": "Kontakt"},
@@ -69,6 +101,7 @@ _CZ = json.loads((Path(__file__).parent / "cz_strings_cs.json").read_text())
 assert len(_EN) == len(_CZ), (len(_EN), len(_CZ))
 CZ_STRINGS = dict(zip(_EN, _CZ))
 CZ_STRINGS.update(json.loads((Path(__file__).parent / "cz_strings_extra.json").read_text()))
+CZ_STRINGS.update(json.loads((Path(__file__).parent / "cz_strings_blog.json").read_text()))
 
 CZ_JS = {
     "'Step ' + current + ' of ' + total": "'Krok ' + current + ' z ' + total",

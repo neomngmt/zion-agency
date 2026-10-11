@@ -93,6 +93,8 @@ def jsonld(key, lang, meta, page_html):
         items = [{"@type": "ListItem", "position": 1, "name": "ZION", "item": BASE + url_for("home", lang)}]
         trail = [c for c in crumbs if c[0] != "home"]
         for n, (ck, label) in enumerate(trail, start=2):
+            if lang == "cz":
+                label = {"Services": "Služby", "Referral": "Doporučení"}.get(label, label)
             items.append({"@type": "ListItem", "position": n, "name": label or meta["h1"],
                           "item": BASE + url_for(ck, lang)})
         items.append({"@type": "ListItem", "position": len(items) + 1, "name": meta["h1"], "item": url})
