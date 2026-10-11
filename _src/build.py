@@ -190,6 +190,13 @@ def build_page(key, lang, head_pre, shell_top, page_html, shell_bottom):
     section = f'\n<section class="page active" id="page-{key}" data-page="{key}">{body_html}</section>\n'
     doc = head_pre + head_block(key, lang, meta, body_html) + top + '<main id="app">' + section + "</main>" + bottom
     doc = ROUTER_RE.sub(lambda _m: router_script(key), doc)
+    en_href = url_for(key, "en")
+    cz_href = url_for(key, "cz") if key in CZ_PAGES else "/cz/"
+    sw = ('<div class="lang-switch" role="group" aria-label="Language">'
+          f'<a href="{en_href}" hreflang="en" lang="en"{" class=\"is-on\"" if lang == "en" else ""}>EN</a>'
+          '<span class="sl">/</span>'
+          f'<a href="{cz_href}" hreflang="cs" lang="cs"{" class=\"is-on\"" if lang == "cz" else ""}>CZ</a></div>')
+    doc = doc.replace('<div class="nav-right">', '<div class="nav-right">' + sw, 1)
     if key in CZ_PAGES:
         other = url_for(key, "en" if lang == "cz" else "cz")
         label, hl = ("English", "en") if lang == "cz" else ("Čeština", "cs")

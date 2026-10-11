@@ -668,6 +668,19 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .nav-cta svg{ width:15px; height:15px; stroke:var(--green-soft); transition:transform .2s ease; }
 .nav-cta:hover{ background:rgba(57,230,115,.14); box-shadow:0 0 24px rgba(57,230,115,.28); }
 .nav-cta:hover svg{ transform:translateX(3px); }
+.lang-switch{ display:inline-flex; align-items:center; gap:7px; margin-right:22px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:.16em; }
+.lang-switch a{ color:#8f9892; text-decoration:none; transition:color .15s ease; }
+.lang-switch a:hover{ color:#fff; }
+.lang-switch a.is-on{ color:var(--green-soft); }
+.lang-switch .sl{ color:rgba(255,255,255,.22); }
+@media (max-width:860px){ .lang-switch{ margin-right:14px; font-size:10.5px; } }
+@media (max-width:480px){
+  .lang-switch{ margin-right:10px; font-size:10px; gap:5px; letter-spacing:.1em; }
+  .nav-cta{ padding:9px 13px; font-size:9.5px; letter-spacing:.12em; gap:0; }
+  .nav-cta svg{ display:none; }
+}
+@media (max-width:480px){ .nav-right .nav-cta{ display:none; } }
+@media (max-width:560px){ html[lang="cs"] .nav-right .nav-cta{ display:none; } }
 @media (max-width:860px){ .nav-right .nav-cta{ display:none; } .brand-mark{ height:26px; } }
 
 .hero2{ position:relative; min-height:100vh; margin-top:calc(var(--nav-h) * -1); padding-top:var(--nav-h); display:flex; align-items:center; overflow:hidden; isolation:isolate; }
@@ -941,7 +954,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         <a href="/success-stories/" data-nav="results">Results</a>
         <a href="/contact/" data-nav="contact">Contact</a>
       </div>
-      <div class="nav-right">
+      <div class="nav-right"><div class="lang-switch" role="group" aria-label="Language"><a href="/about/" hreflang="en" lang="en" class="is-on">EN</a><span class="sl">/</span><a href="/cz/about/" hreflang="cs" lang="cs">CZ</a></div>
         <a class="nav-cta" href="/apply/">Work with us <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
