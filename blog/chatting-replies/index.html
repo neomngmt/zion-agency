@@ -1106,7 +1106,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     "drc": "Democratic Republic of the Congo",
     "skorea": "South Korea", "south korea": "South Korea", "korea": "South Korea",
     "nkorea": "North Korea",
-    "uk.": "United Kingdom"
+    "uk.": "United Kingdom",
+    "česko": "Czech Republic", "cesko": "Czech Republic", "česká republika": "Czech Republic", "ceska republika": "Czech Republic",
+    "slovensko": "Slovakia", "německo": "Germany", "nemecko": "Germany", "rakousko": "Austria", "polsko": "Poland",
+    "spojené státy": "United States", "spojene staty": "United States", "velká británie": "United Kingdom", "velka britanie": "United Kingdom",
+    "maďarsko": "Hungary", "madarsko": "Hungary", "španělsko": "Spain", "spanelsko": "Spain", "itálie": "Italy", "italie": "Italy",
+    "francie": "France", "švýcarsko": "Switzerland", "svycarsko": "Switzerland", "nizozemsko": "Netherlands", "irsko": "Ireland",
+    "kanada": "Canada", "austrálie": "Australia", "australie": "Australia", "ukrajina": "Ukraine", "rumunsko": "Romania"
   };
   window.setupCountryPicker = function(searchEl, listEl, hiddenEl, onSelect){
     function selectCountry(name){
@@ -1120,7 +1126,11 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       if (!query){ return; }
       const q = query.trim().toLowerCase();
       if (!q){ return; }
-      const alias = window.WIZARD_COUNTRY_ALIASES[q];
+      let alias = window.WIZARD_COUNTRY_ALIASES[q];
+      if (!alias && q.length >= 2) {
+        const k = Object.keys(window.WIZARD_COUNTRY_ALIASES).find(function(k){ return k.startsWith(q); });
+        if (k) { alias = window.WIZARD_COUNTRY_ALIASES[k]; }
+      }
       const starts = [];
       const contains = [];
       window.WIZARD_COUNTRIES.forEach(c => {

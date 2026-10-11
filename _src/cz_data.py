@@ -2,16 +2,16 @@
 import json, re
 from pathlib import Path
 
-CZ_PAGES = ["home", "services", "marketing", "chatting", "photoshooting", "about", "contact"]
+CZ_PAGES = ["home", "services", "marketing", "chatting", "photoshooting", "about", "contact", "apply", "success-stories"]
 
 CZ_META = {
-    "home": {"title": "ZION | Agentura pro správu OnlyFans (Česko a USA)",
-             "desc": "ZION je agentura pro správu OnlyFans profilů pro tvůrkyně z Česka a USA. Marketing, chatting a tvorba obsahu s plnou diskrétností a měřitelnými výsledky.",
+    "home": {"title": "OnlyFans agentura v Česku a USA | ZION",
+             "desc": "ZION je OnlyFans agentura pro tvůrkyně z Česka a USA. Marketing, chatting a tvorba obsahu, plná diskrétnost, týdenní reporting a výsledky ověřené v Infloww.",
              "h1": "ZION"},
-    "services": {"title": "Služby OnlyFans agentury | ZION",
+    "services": {"title": "OnlyFans agentura: marketing, chatting, obsah | ZION",
                  "desc": "Marketing, chatting a tvorba obsahu pod jednou střechou. Podívejte se, jak fungují služby agentury ZION pro správu OnlyFans a co je v nich zahrnuto.",
                  "h1": "Služby"},
-    "marketing": {"title": "Marketing a propagace OnlyFans | ZION",
+    "marketing": {"title": "OnlyFans marketing a propagace pro tvůrkyně | ZION",
                   "desc": "Hledání niky a propagace na více než 15 platformách, které přivedou na váš OnlyFans správné publikum. Podívejte se, jak funguje marketing agentury ZION.",
                   "h1": "Marketing"},
     "chatting": {"title": "Chatting pro OnlyFans: tým chatterů | ZION",
@@ -23,6 +23,12 @@ CZ_META = {
     "about": {"title": "O agentuře ZION | OnlyFans agentura pro tvůrkyně",
               "desc": "Poznejte tým za agenturou ZION. Agentura postavená pro tvůrkyně, která zvládne byznysovou stránku OnlyFans, abyste se mohly soustředit na obsah.",
               "h1": "O nás"},
+    "apply": {"title": "Přihláška do OnlyFans agentury ZION",
+              "desc": "Dvouminutová přihláška do OnlyFans agentury ZION. Bez závazků, diskrétně. Ozveme se vám obvykle do 2 hodin.",
+              "h1": "Přihláška"},
+    "success-stories": {"title": "Výsledky OnlyFans agentury | Případové studie ZION",
+                        "desc": "Skutečné případové studie a proměny tvůrkyň z rosteru ZION: provoz, odběratelé a výdělky před a po, se screenshoty.",
+                        "h1": "Příběhy úspěchu"},
     "contact": {"title": "Kontakt | ZION, agentura pro OnlyFans",
                 "desc": "Napište nám ohledně správy profilu, marketingu nebo chattingu. Obvykle odpovídáme do 2 hodin.",
                 "h1": "Kontakt"},
@@ -48,6 +54,11 @@ CZ_ATTRS = {
     "Partner brand logo 2": "Logo partnera 2",
     "Partner brand logo 3": "Logo partnera 3",
     "Partner brand logo 4": "Logo partnera 4",
+    "Analytics header showing a 30-day subscriber growth view": "Analytika růstu odběratelů za 30 dnů",
+    "Chart showing new subscribers climbing over 30 days": "Graf nárůstu nových odběratelů za 30 dnů",
+    "Daily earnings chart trending upward from May to August": "Graf denních výdělků rostoucí od května do srpna",
+    "Earnings spike chart after Zion's chat team took over a creator's page": "Graf skoku výdělků poté, co profil tvůrkyně převzal chatterský tým ZION",
+    "Traffic chart showing a jump after Zion took over a creator's page marketing": "Graf provozu se skokem poté, co marketing profilu převzal ZION",
     "Zion chat team messaging with fans": "Chatterský tým ZION komunikuje s fanoušky",
     "Content planning and photoshoot session": "Plánování obsahu a focení",
     "DMCA content protection illustration": "Ilustrace ochrany obsahu pomocí DMCA",
@@ -57,6 +68,16 @@ _EN = json.loads((Path(__file__).parent / "cz_strings_en.json").read_text())
 _CZ = json.loads((Path(__file__).parent / "cz_strings_cs.json").read_text())
 assert len(_EN) == len(_CZ), (len(_EN), len(_CZ))
 CZ_STRINGS = dict(zip(_EN, _CZ))
+CZ_STRINGS.update(json.loads((Path(__file__).parent / "cz_strings_extra.json").read_text()))
+
+CZ_JS = {
+    "'Step ' + current + ' of ' + total": "'Krok ' + current + ' z ' + total",
+    "'Sending...'": "'Odesílám...'",
+    "'Submit application'": "'Odeslat přihlášku'",
+    "'Submit'": "'Odeslat'",
+    "'Something went wrong. Please try again or email us directly.'": "'Něco se pokazilo. Zkuste to prosím znovu nebo nám napište přímo e-mailem.'",
+    "'No matching country found.'": "'Žádná shoda nenalezena.'",
+}
 CZ_SHELL = {}
 
 
@@ -75,4 +96,7 @@ def translate(h):
         parts[i] = re.sub(r">([^<>]+)<", node, parts[i])
         parts[i] = re.sub(r'\s(aria-label|alt)="([^"]+)"',
                           lambda m: f' {m.group(1)}="{CZ_ATTRS.get(m.group(2), m.group(2))}"', parts[i])
-    return "".join(parts)
+    out = "".join(parts)
+    for a, b in CZ_JS.items():
+        out = out.replace(a, b)
+    return out

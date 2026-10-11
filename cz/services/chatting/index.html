@@ -936,7 +936,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
           <span class="dropdown-trigger">O nás</span>
           <div class="dropdown-menu">
             <a href="/cz/about/"><strong>Agentura</strong><span>Náš příběh a jak pracujeme</span></a>
-            <a href="/success-stories/"><strong>Příběhy úspěchu</strong><span>Skutečné výsledky z našeho rosteru</span></a>
+            <a href="/cz/success-stories/"><strong>Příběhy úspěchu</strong><span>Skutečné výsledky z našeho rosteru</span></a>
             <a href="/academy/"><strong>Akademie</strong><span>Návody na růst a bezpečnost</span></a>
             <a href="/blog/"><strong>Blog</strong><span>Delší čtení o tom, co funguje</span></a>
             <a href="/referral/"><strong>Doporučení</strong><span>Doporučte tvůrkyni a dostaňte zaplaceno</span></a>
@@ -951,11 +951,11 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
             <a href="/cz/services/photoshooting/"><strong>Focení</strong><span>Obsah a záběry z natáčení</span></a>
           </div>
         </div>
-        <a href="/success-stories/" data-nav="results">Výsledky</a>
+        <a href="/cz/success-stories/" data-nav="results">Výsledky</a>
         <a href="/cz/contact/" data-nav="contact">Kontakt</a>
       </div>
       <div class="nav-right"><div class="lang-switch" role="group" aria-label="Language"><a href="/services/chatting/" hreflang="en" lang="en">EN</a><span class="sl">/</span><a href="/cz/services/chatting/" hreflang="cs" lang="cs" class="is-on">CZ</a></div>
-        <a class="nav-cta" href="/apply/">Spolupracujte s námi <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="nav-cta" href="/cz/apply/">Přihláška zdarma <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
           <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -966,7 +966,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="mobile-menu-inner">
       <a href="/cz/">Domů</a>
       <a href="/cz/about/">O nás</a>
-      <a href="/success-stories/">Příběhy úspěchu</a>
+      <a href="/cz/success-stories/">Příběhy úspěchu</a>
       <a href="/academy/">Akademie</a>
       <a href="/blog/">Blog</a>
       <a href="/cz/contact/">Kontakt</a>
@@ -975,7 +975,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       <a href="/cz/services/marketing/">Marketing</a>
       <a href="/cz/services/chatting/">Chatting</a>
       <a href="/cz/services/photoshooting/">Focení</a>
-      <a class="mobile-cta" href="/apply/">Přihlásit se</a>
+      <a class="mobile-cta" href="/cz/apply/">Přihlásit se</a>
     </div>
   </div>
 
@@ -1071,7 +1071,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
   <div class="closing" data-reveal>
     <h2>Začněte svou cestu</h2>
     <p>Dvouminutová přihláška. Zbytek už zařídíme my.</p>
-    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="/apply/">Přihlásit se</a>
+    <a class="btn-pill" style="padding:16px 34px; font-size:15px;" href="/cz/apply/">Přihlásit se</a>
   </div>
 </div>
 </section>
@@ -1172,7 +1172,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     "drc": "Democratic Republic of the Congo",
     "skorea": "South Korea", "south korea": "South Korea", "korea": "South Korea",
     "nkorea": "North Korea",
-    "uk.": "United Kingdom"
+    "uk.": "United Kingdom",
+    "česko": "Czech Republic", "cesko": "Czech Republic", "česká republika": "Czech Republic", "ceska republika": "Czech Republic",
+    "slovensko": "Slovakia", "německo": "Germany", "nemecko": "Germany", "rakousko": "Austria", "polsko": "Poland",
+    "spojené státy": "United States", "spojene staty": "United States", "velká británie": "United Kingdom", "velka britanie": "United Kingdom",
+    "maďarsko": "Hungary", "madarsko": "Hungary", "španělsko": "Spain", "spanelsko": "Spain", "itálie": "Italy", "italie": "Italy",
+    "francie": "France", "švýcarsko": "Switzerland", "svycarsko": "Switzerland", "nizozemsko": "Netherlands", "irsko": "Ireland",
+    "kanada": "Canada", "austrálie": "Australia", "australie": "Australia", "ukrajina": "Ukraine", "rumunsko": "Romania"
   };
   window.setupCountryPicker = function(searchEl, listEl, hiddenEl, onSelect){
     function selectCountry(name){
@@ -1186,7 +1192,11 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       if (!query){ return; }
       const q = query.trim().toLowerCase();
       if (!q){ return; }
-      const alias = window.WIZARD_COUNTRY_ALIASES[q];
+      let alias = window.WIZARD_COUNTRY_ALIASES[q];
+      if (!alias && q.length >= 2) {
+        const k = Object.keys(window.WIZARD_COUNTRY_ALIASES).find(function(k){ return k.startsWith(q); });
+        if (k) { alias = window.WIZARD_COUNTRY_ALIASES[k]; }
+      }
       const starts = [];
       const contains = [];
       window.WIZARD_COUNTRIES.forEach(c => {
@@ -1202,7 +1212,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
       if (!matches.length){
         const empty = document.createElement('div');
         empty.className = 'wizard-country-empty';
-        empty.textContent = 'No matching country found.';
+        empty.textContent = 'Žádná shoda nenalezena.';
         listEl.appendChild(empty);
         return;
       }
@@ -1235,7 +1245,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     e.preventDefault();
     if (window.__referWizardValidateAll && !window.__referWizardValidateAll()) return;
     const submitBtn = referForm.querySelector('.form-submit');
-    submitBtn.textContent = 'Sending...';
+    submitBtn.textContent = 'Odesílám...';
     submitBtn.disabled = true;
     try {
       const res = await fetch(referForm.action, {
@@ -1250,14 +1260,14 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         const success = document.getElementById('referSuccess');
         success.classList.add('show', 'in-view');
       } else {
-        submitBtn.textContent = 'Submit';
+        submitBtn.textContent = 'Odeslat';
         submitBtn.disabled = false;
-        alert('Something went wrong. Please try again or email us directly.');
+        alert('Něco se pokazilo. Zkuste to prosím znovu nebo nám napište přímo e-mailem.');
       }
     } catch (err) {
-      submitBtn.textContent = 'Submit';
+      submitBtn.textContent = 'Odeslat';
       submitBtn.disabled = false;
-      alert('Something went wrong. Please try again or email us directly.');
+      alert('Něco se pokazilo. Zkuste to prosím znovu nebo nám napište přímo e-mailem.');
     }
   });
 </script>
@@ -1279,7 +1289,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     function render(){
       steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === current));
       progressBar.style.width = (current / total * 100) + '%';
-      stepCount.textContent = 'Step ' + current + ' of ' + total;
+      stepCount.textContent = 'Krok ' + current + ' z ' + total;
       backBtn.classList.toggle('hidden', current === 1);
       const isLast = current === total;
       const stepEl = getStepEl(current);
@@ -1347,7 +1357,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     e.preventDefault();
     if (window.__applyWizardValidateAll && !window.__applyWizardValidateAll()) return;
     const submitBtn = applyForm.querySelector('.form-submit');
-    submitBtn.textContent = 'Sending...';
+    submitBtn.textContent = 'Odesílám...';
     submitBtn.disabled = true;
     try {
       const res = await fetch(applyForm.action, {
@@ -1362,14 +1372,14 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         const success = document.getElementById('applySuccess');
         success.classList.add('show', 'in-view');
       } else {
-        submitBtn.textContent = 'Submit application';
+        submitBtn.textContent = 'Odeslat přihlášku';
         submitBtn.disabled = false;
-        alert('Something went wrong. Please try again or email us directly.');
+        alert('Něco se pokazilo. Zkuste to prosím znovu nebo nám napište přímo e-mailem.');
       }
     } catch (err) {
-      submitBtn.textContent = 'Submit application';
+      submitBtn.textContent = 'Odeslat přihlášku';
       submitBtn.disabled = false;
-      alert('Something went wrong. Please try again or email us directly.');
+      alert('Něco se pokazilo. Zkuste to prosím znovu nebo nám napište přímo e-mailem.');
     }
   });
 </script>
@@ -1400,7 +1410,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     function render(){
       steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === current));
       progressBar.style.width = (current / total * 100) + '%';
-      stepCount.textContent = 'Step ' + current + ' of ' + total;
+      stepCount.textContent = 'Krok ' + current + ' z ' + total;
       backBtn.classList.toggle('hidden', current === 1);
       const isLast = current === total;
       const stepEl = getStepEl(current);
