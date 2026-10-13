@@ -19,6 +19,9 @@ INSTAGRAM = "https://www.instagram.com/neomngmt"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from seo_data import PATHS, META, CRUMBS, SERVICE_SCHEMA  # noqa: E402
 
+from cz_articles import ARTICLES, DATE as ART_DATE  # noqa: E402
+ART_BY_KEY = {"blog-cz-" + a["slug"]: a for a in ARTICLES}
+
 try:
     from cz_data import CZ_PAGES, CZ_META, CZ_STRINGS, CZ_SHELL  # noqa: E402
 except ImportError:
@@ -34,6 +37,8 @@ def esc(s):
 
 
 def url_for(key, lang="en"):
+    if key in ART_BY_KEY:
+        return "/cz/blog/%s/" % ART_BY_KEY[key]["slug"]
     p = PATHS[key]
     if lang == "cz":
         return "/cz" + (p if p != "/" else "/")
@@ -90,6 +95,8 @@ def jsonld(key, lang, meta, page_html):
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
     else:
         crumbs = CRUMBS.get(key, [("home", None)])
+        if key in ART_BY_KEY:
+            crumbs = [("home", None), ("blog", "Blog")]
         items = [{"@type": "ListItem", "position": 1, "name": "ZION", "item": BASE + url_for("home", lang)}]
         trail = [c for c in crumbs if c[0] != "home"]
         for n, (ck, label) in enumerate(trail, start=2):
@@ -180,10 +187,35 @@ def router_script(key):
             'if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth"});},250);}});</script>')
 
 
+def article_section(art):
+    return (
+        '\n<div class="wrap">\n  <div class="simple-hero" data-reveal>\n'
+        f'    <div class="eyebrow-label mono">{esc(art["tag"]).upper()}</div>\n'
+        f'    <h1>{esc(art["h1a"])} <span class="hl">{esc(art["h1b"])}</span></h1>\n'
+        f'    <p>{esc(art["lead"])}</p>\n  </div>\n</div>\n\n'
+        '<div class="wrap">\n  <div class="section" style="padding-top:20px;">\n    <div class="prose" data-reveal>\n'
+        '      <a class="blog-back" href="/cz/blog/">← Zpět na blog</a>\n'
+        + art["body"] +
+        '      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--border); text-align:center;">\n'
+        '        <a class="btn-pill" href="/cz/apply/">Přihlaste se</a>\n      </div>\n    </div>\n  </div>\n</div>\n')
+
+
 def build_page(key, lang, head_pre, shell_top, page_html, shell_bottom):
-    meta = (CZ_META if lang == "cz" else META)[key]
+    if key in ART_BY_KEY:
+        art = ART_BY_KEY[key]
+        meta = {"title": art["title"], "desc": art["desc"], "h1": art["h1a"] + " " + art["h1b"]}
+        page_html = article_section(art)
+    else:
+        meta = (CZ_META if lang == "cz" else META)[key]
     body_html = page_html
     top, bottom = shell_top, shell_bottom
+    if key == "blog" and lang == "cz":
+        cards = "".join(
+            '<a class="blog-card" href="/cz/blog/%s/"><div class="blog-tag">%s</div><h4>%s</h4><p>%s</p>'
+            '<div class="blog-meta"><span>%s</span><span class="read-more">Číst dál →</span></div></a>\n'
+            % (a["slug"], a["tag"], esc(a["h1a"] + " " + a["h1b"]), esc(a["blurb"]), ART_DATE) for a in ARTICLES)
+        page_html = page_html.replace('<div class="blog-grid" data-reveal>', '<div class="blog-grid" data-reveal>\n' + cards, 1)
+        body_html = page_html
     if lang == "cz":
         from cz_data import translate  # noqa
         body_html = translate(body_html)
@@ -192,8 +224,11 @@ def build_page(key, lang, head_pre, shell_top, page_html, shell_bottom):
     section = f'\n<section class="page active" id="page-{key}" data-page="{key}">{body_html}</section>\n'
     doc = head_pre + head_block(key, lang, meta, body_html) + top + '<main id="app">' + section + "</main>" + bottom
     doc = ROUTER_RE.sub(lambda _m: router_script(key), doc)
-    en_href = url_for(key, "en")
-    cz_href = url_for(key, "cz") if key in CZ_PAGES else "/cz/"
+    if key in ART_BY_KEY:
+        en_href, cz_href = "/blog/", url_for(key)
+    else:
+        en_href = url_for(key, "en")
+        cz_href = url_for(key, "cz") if key in CZ_PAGES else "/cz/"
     sw = ('<div class="lang-switch" role="group" aria-label="Language">'
           f'<a href="{en_href}" hreflang="en" lang="en"{" class=\"is-on\"" if lang == "en" else ""}>EN</a>'
           '<span class="sl">/</span>'
@@ -230,6 +265,12 @@ def main():
             op.parent.mkdir(parents=True, exist_ok=True)
             op.write_text(doc)
             urls.append((BASE + url_for(key, lang), key, lang))
+    for key in ART_BY_KEY:
+        doc = build_page(key, "cz", head_pre, shell_top, "", shell_bottom)
+        op = out_path(key, "cz")
+        op.parent.mkdir(parents=True, exist_ok=True)
+        op.write_text(doc)
+        urls.append((BASE + url_for(key), key, "cz"))
     # sitemap
     prio = {"home": "1.0", "services": "0.9", "apply": "0.9", "about": "0.8", "success-stories": "0.8"}
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
