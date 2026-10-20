@@ -279,6 +279,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 @media (max-width:520px){ .infloww-grid{ grid-template-columns:1fr; } .infloww-shot{ aspect-ratio:16/10; } }
 .trust-track{ display:flex; align-items:center; gap:80px; width:max-content; animation:trustScroll 20s linear infinite; }
 .trust-track img{ height:54px; opacity:0.95; flex-shrink:0; }
+.trust-track a.trust-badge{ display:block; flex-shrink:0; line-height:0; }
+.trust-track a.trust-badge img{ height:54px; width:auto; opacity:1; }
 @keyframes trustScroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
 /* ================= FAQ ================= */
 .faq-list{ max-width:720px; margin:0 auto; }
@@ -303,8 +305,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .closing p{ color:var(--dim); font-size:16px; max-width:480px; margin:0 auto 34px; }
 /* ================= FOOTER ================= */
 .site-footer{ padding:22px 0 22px; border-top:none; }
-.footer-badge{ display:flex; justify-content:center; margin-bottom:18px; }
-.footer-badge img{ display:block; width:220px; max-width:100%; height:auto; }
 .footer-simple{ display:flex; justify-content:space-between; align-items:flex-start; gap:48px; margin-bottom:34px; flex-wrap:wrap; }
 .footer-brand-block{ max-width:340px; }
 .footer-cols{ display:flex; gap:56px; flex-wrap:wrap; }
@@ -1032,7 +1032,6 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 
 <footer class="site-footer mono">
   <div class="wrap">
-    <div class="footer-badge"><a href="https://topagencies.com/agency/zion-management" title="zion management on TopAgencies" rel="noopener"><img src="https://topagencies.com/badge/agency/zion-management.svg?theme=dark" alt="zion management on TopAgencies" width="220" height="56" loading="lazy"></a></div>
     <div class="footer-desktop">
     <div class="footer-bottom">
       <div>ZION · CREATOR MANAGEMENT AGENCY<span class="by-neo-tag">by neomngmt</span></div>
