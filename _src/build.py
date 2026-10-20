@@ -81,13 +81,13 @@ def jsonld(key, lang, meta, page_html):
     graph = []
     if key == "home":
         graph.append({
-            "@type": "Organization", "@id": BASE + "/#org", "name": "ZION",
+            "@type": "Organization", "@id": BASE + "/#org", "name": "ZION Management", "alternateName": ["ZION", "ZION Management Agency", "zion-management.eu"],
             "url": BASE + "/", "logo": OG_IMAGE, "email": EMAIL,
             "sameAs": [INSTAGRAM],
             "areaServed": ["US", "CZ"],
             "description": META["home"]["desc"],
         })
-        graph.append({"@type": "WebSite", "@id": BASE + "/#site", "url": BASE + "/", "name": "ZION",
+        graph.append({"@type": "WebSite", "@id": BASE + "/#site", "url": BASE + "/", "name": "ZION Management", "alternateName": "ZION",
                       "publisher": {"@id": BASE + "/#org"}, "inLanguage": "cs" if lang == "cz" else "en"})
         faqs = faq_items(page_html)
         if faqs:

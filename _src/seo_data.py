@@ -26,7 +26,7 @@ PATHS = {
 
 META = {
     "home": {
-        "title": "ZION | OnlyFans Management Agency for US & Czech Creators",
+        "title": "ZION Management | OnlyFans Agency for US & Czech Creators",
         "desc": "ZION is an OnlyFans management agency for creators in the US and Czech Republic. Marketing, chatting and content production, with full discretion and tracked results.",
         "h1": "ZION",
     },

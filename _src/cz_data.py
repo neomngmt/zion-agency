@@ -7,7 +7,7 @@ CZ_PAGES = ["home", "services", "marketing", "chatting", "photoshooting", "about
             "blog-month-one", "blog-chatting-replies", "blog-platform-mix", "blog-pricing", "blog-leaks", "blog-anonymous"]
 
 CZ_META = {
-    "home": {"title": "OnlyFans agentura v Česku a USA | ZION",
+    "home": {"title": "OnlyFans agentura v Česku a USA | ZION Management",
              "desc": "ZION je OnlyFans agentura pro tvůrkyně z Česka a USA. Marketing, chatting a tvorba obsahu, plná diskrétnost, týdenní reporting a výsledky ověřené v Infloww.",
              "h1": "ZION"},
     "services": {"title": "OnlyFans agentura: marketing, chatting, obsah | ZION",
