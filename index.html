@@ -492,6 +492,8 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .form-success p{ color:var(--dim); font-size:14.5px; max-width:400px; margin:0 auto; line-height:1.6; }
 .calendly-box{ margin:28px auto 0; max-width:760px; min-height:0; border-radius:16px; overflow:hidden; border:1px solid var(--border); background:var(--panel); display:none; }
 .calendly-box.loaded{ display:block; }
+.calendly-head{ display:none; margin:30px 0 0; font-size:18px; font-weight:600; letter-spacing:-.01em; }
+.calendly-head.on{ display:block; }
 .calendly-box iframe{ display:block; width:100%; border:0; }
 .form-success p.calendly-alt{ max-width:none; margin-top:18px; font-size:13px; }
 .form-success p.calendly-alt a{ color:var(--green-soft); text-decoration:underline; }
@@ -1775,6 +1777,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
           const mount = () => {
             if (!window.Calendly || !box) return;
             box.classList.add('loaded');
+            const head = document.getElementById('calendlyHead'); if (head) { head.classList.add('on'); }
             window.Calendly.initInlineWidget({
               url: 'https://calendly.com/neomngmt/30min?hide_gdpr_banner=1&background_color=0e1310&text_color=f2f5f0&primary_color=39e673',
               parentElement: box,
