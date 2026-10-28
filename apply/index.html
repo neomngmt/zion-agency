@@ -489,6 +489,11 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
 .form-success .star-mark{ width:48px; height:48px; margin:0 auto 22px; }
 .form-success h3{ font-size:24px; font-weight:800; margin-bottom:12px; }
 .form-success p{ color:var(--dim); font-size:14.5px; max-width:400px; margin:0 auto; line-height:1.6; }
+.calendly-box{ margin:28px auto 0; max-width:760px; min-height:0; border-radius:16px; overflow:hidden; border:1px solid var(--border); background:var(--panel); display:none; }
+.calendly-box.loaded{ display:block; }
+.calendly-box iframe{ display:block; width:100%; border:0; }
+.form-success p.calendly-alt{ max-width:none; margin-top:18px; font-size:13px; }
+.form-success p.calendly-alt a{ color:var(--green-soft); text-decoration:underline; }
 /* ================= SERVICE ICON GRID ================= */
 .service-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 .service-icon-card{ border:1px solid var(--border); border-radius:16px; padding:28px; background:rgba(255,255,255,0.015); transition:border-color .2s, transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease; }
@@ -1122,7 +1127,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
     <div class="form-success" id="applySuccess" data-reveal>
       <svg class="star-mark" viewBox="0 0 24 24" fill="none"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#successGrad)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#successGrad)"/><defs><linearGradient id="successGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg>
       <h3>Application received. Thank you so much!</h3>
-      <p>We'll review your application and get back to you within 2 hours. In the meantime, you can check out our socials.</p>
+      <p>We'll review your application and get back to you within 2 hours. Want to talk sooner? Pick a time for a quick call below.</p>
+      <div class="calendly-box" id="calendlyBox" aria-label="Book a call"></div>
+      <p class="calendly-alt"><a href="https://t.me/starzoneeu">Rather not talk yet? Message us on Telegram instead.</a></p>
       <a class="btn-outline" style="margin-top:22px;" href="https://www.instagram.com/neomngmt?igsh=YW1pb3ZpYnNmd2dx&utm_source=qr">Follow us on Instagram</a>
     </div>
   </div>
@@ -1424,6 +1431,30 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--green); outline-o
         if (heroWrap) { heroWrap.style.display = 'none'; }
         const success = document.getElementById('applySuccess');
         success.classList.add('show', 'in-view');
+        // Show the booking calendar right after the form, prefilled with her name and email.
+        try {
+          const box = document.getElementById('calendlyBox');
+          const nameVal = (document.getElementById('a-name') || {}).value || '';
+          const emailVal = (document.getElementById('a-email') || {}).value || '';
+          const mount = () => {
+            if (!window.Calendly || !box) return;
+            box.classList.add('loaded');
+            window.Calendly.initInlineWidget({
+              url: 'https://calendly.com/neomngmt/30min?hide_gdpr_banner=1&background_color=0e1310&text_color=f2f5f0&primary_color=39e673',
+              parentElement: box,
+              prefill: { name: nameVal, email: emailVal }
+            });
+            box.style.height = '740px';
+          };
+          if (window.Calendly) { mount(); }
+          else {
+            const sc = document.createElement('script');
+            sc.src = 'https://assets.calendly.com/assets/external/widget.js';
+            sc.async = true;
+            sc.onload = mount;
+            document.head.appendChild(sc);
+          }
+        } catch (e) { /* the form is already sent, the calendar is only a bonus */ }
       } else {
         submitBtn.textContent = 'Submit application';
         submitBtn.disabled = false;
